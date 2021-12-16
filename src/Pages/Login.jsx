@@ -7,20 +7,22 @@ import { useFormik } from "formik";
 import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
 import { useHistory } from 'react-router-dom';
 import { Button } from 'semantic-ui-react';
-import { medium } from '../responsive';
-import { useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux';
+import { medium,small } from '../responsive';
 import { useState } from 'react';
 import Loader from "react-loader-spinner";
-import { login } from '../login_actions';
-
+import { login } from '../Actions/login_actions';
+import cartlit from '../Assets/cart-lightening.png';
 //styled-components
 const Container = styled.div`
 background-image: linear-gradient(to right top, #12100e, #251a18, #37222a, #3d2e46, #2b4162);
 background-size:cover;
 display:flex;
 justify-content:center;
+flex-wrap:wrap;
 align-items:center;
 min-height:100vh;
+
 `
 const CenterContainer = styled.div`
 width:65rem;
@@ -98,10 +100,20 @@ const ErrorMsg = styled.p`
 font-size:1rem;
 color:red;
 `
+
+const CartLit = styled.div`
+background:url(${cartlit});
+width:10rem;
+display:inline-flex;
+height:10rem;
+background-size:cover;
+${small({ display: "none" })};
+${medium({display:"none"})};
+`
+
 //Login Component
 function Login() {
   //const user = useSelector(state => state.user);
-
   const dispatch = useDispatch();
   const [err, setErr] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -158,7 +170,7 @@ function Login() {
             New here? Sign up <KeyboardDoubleArrowDownIcon />
           </Para>
           <Button style={{
-            margin: "2rem 0", color: "#4f2f5e", width: "80%", fontSize: "1rem", fontWeight: "bold"
+            margin: "2rem 0", color: "#4f2f5e", width: "80%", fontSize: "1rem", fontFamily: "Rubik, sans-serif"
             , borderRadius: "1rem"
           }} onClick={() => { history.push("/register") }} color='yellow'>SIGN UP</Button>
 
@@ -189,10 +201,10 @@ function Login() {
             />
             <p onClick={() => { history.push("/forgotPassword") }} style={{ color: "#4f2f5e", fontWeight: "bold", cursor: "pointer" }}>Forgot Password?</p>
             <FormActions>
-              <Button type="submit" style={{ marginTop: "1rem", width: "80%", color: "#4f2f5e", fontSize: "1rem", fontWeight: "bold", borderRadius: "1rem" }} color='yellow'
+              <Button type="submit" style={{ marginTop: "1rem", width: "80%", color: "#4f2f5e", fontSize: "1rem", fontFamily: "Rubik, sans-serif", borderRadius: "1rem" }} color='yellow'
               >SIGN IN</Button>
               {loading &&  <><Loader type="Oval" color="#4f2f5e" height={50} width={30} />
-              <p style={{ color: "purple" }}>Validating..</p></>}
+              <p style={{ color: "purple" }}>Validating..</p></> }
               {err && <ErrorMsg>Invalid Credentials</ErrorMsg>}
             </FormActions>
             <hr />
@@ -212,6 +224,7 @@ function Login() {
           </Form>
         </LoginContainer>
       </CenterContainer>
+<CartLit></CartLit>
     </Container>
 
 

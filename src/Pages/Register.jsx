@@ -211,7 +211,7 @@ console.log(req)
    type ="password"
      />
     <FormActions>
-       <Button type="submit" style={{color: "#4f2f5e", marginTop: "1rem", width: "80%", fontSize: "1rem", borderRadius: "1rem" }} color='yellow'>SIGN UP</Button>
+       <Button type="submit" style={{color: "#4f2f5e", marginTop: "1rem", width: "80%", fontSize: "1rem",fontFamily: "Rubik, sans-serif", borderRadius: "1rem" }} color='yellow'>SIGN UP</Button>
             {loader ? <><Loader type="Oval" color="#4f2f5e" height={50} width={30}/>
              <p style={{ color: "purple" }}>Please wait..</p></>
     : ''}

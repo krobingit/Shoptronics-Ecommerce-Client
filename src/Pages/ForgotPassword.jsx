@@ -148,7 +148,7 @@ setInfo("The Email you entered does not exist")
      <Para style={{ color: "#4f2f5e" }}>
       New here? Sign up <KeyboardDoubleArrowDownIcon />
      </Para>
-         <Button style={{ marginTop: "3rem", width: "80%", fontSize: "1rem",color: "#4f2f5e" }} onClick={()=>{history.push("/register")}} color="yellow">SIGN UP</Button>
+         <Button style={{ marginTop: "3rem", width: "80%", fontSize: "1rem",color: "#4f2f5e",fontFamily: "Rubik, sans-serif" }} onClick={()=>{history.push("/register")}} color="yellow">SIGN UP</Button>
 
 </Info>
     <ForgetContainer>
@@ -168,7 +168,7 @@ setInfo("The Email you entered does not exist")
        type="text"
       />
       <FormActions>
-       <Button type='submit' style={{ marginTop: "1rem", width: "80%", color: "#4f2f5e", fontSize: "1rem", borderRadius: "1rem" }} color="yellow">Send Mail</Button>
+       <Button type='submit' style={{ marginTop: "1rem", width: "80%", color: "#4f2f5e", fontSize: "1rem",fontFamily: "Rubik, sans-serif", borderRadius: "1rem" }} color="yellow">Send Mail</Button>
       {loading ? <><Loader type="Oval" color="crimson" height={50} width={30} />
            <p style={{ color: "purple" }}>Please wait..</p></> : ''}
          {info ? <p style={{color: info.length>37 ? "blue" : "red",marginTop:"1rem",textAlign:"center"}}>{info}</p>: '' }

@@ -1,5 +1,5 @@
-import { commonRequest } from './axiosreq'
-
+import { commonRequest } from '../axiosreq'
+//this action is initiated in Pages>Login.jsx under OnSubmit formik function
 export const login = async (dispatch, user) => {
 dispatch({type:"loginInitiate"})
  try {

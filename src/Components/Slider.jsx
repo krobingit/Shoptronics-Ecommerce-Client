@@ -17,25 +17,25 @@ export function Slider() {
   <SliderContainer>
    <Carousel showThumbs={false} showStatus={false} autoPlay infiniteLoop>
                 <div>
-         <img height="360rem" alt="banner" style={{objectFit:"fill"}} src={banner1} />
+         <img height="330rem" alt="banner" style={{objectFit:"fill"}} src={banner1} />
                 </div>
                  <div>
-                 <img height="360rem" alt="banner" style={{objectFit:"fill"}} src={banner2} />
+                 <img height="330rem" alt="banner" style={{objectFit:"fill"}} src={banner2} />
                 </div>
                 <div>
-                <img height="360rem" alt="banner" style={{objectFit:"fill"}} src={banner3} />
+                <img height="330rem" alt="banner" style={{objectFit:"fill"}} src={banner3} />
                 </div>
                 <div>
-                <img height="360rem" alt="banner" style={{objectFit:"fill"}} src={banner4} />
+                <img height="330rem" alt="banner" style={{objectFit:"fill"}} src={banner4} />
                 </div>
  <div>
-                <img height="360rem" alt="banner" style={{objectFit:"fill"}} src={banner5} />
+                <img height="330rem" alt="banner" style={{objectFit:"fill"}} src={banner5} />
        </div>
        <div>
-                <img height="360rem" alt="banner" style={{objectFit:"fill"}} src={banner6} />
+                <img height="330rem" alt="banner" style={{objectFit:"fill"}} src={banner6} />
        </div>
            <div>
-                <img height="360rem" alt="banner" style={{objectFit:"fill"}} src={banner7} />
+                <img height="330rem" alt="banner" style={{objectFit:"fill"}} src={banner7} />
                 </div>
             </Carousel>
   </SliderContainer>

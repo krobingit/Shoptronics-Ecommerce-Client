@@ -178,7 +178,7 @@ setLoading(false)
    type ="password"
      />
     <FormActions>
-       <Button type='submit' style={{color: "#4f2f5e", marginTop: "1rem", width: "80%",fontWeight:"700", fontSize: "1rem", borderRadius: "1rem" }} color='yellow'>RESET</Button>
+       <Button type='submit' style={{color: "#4f2f5e", marginTop: "1rem", width: "80%",fontFamily: "Rubik, sans-serif", fontSize: "1rem", borderRadius: "1rem" }} color='yellow'>RESET</Button>
            {loading ? <><Loader type="Oval" color="purple" height={50} width={30} />
            <p style={{ color: "purple" }}>Please wait..</p></> : ''}
          {info ? <p style={{color:info.length>24 ? "blue" : "red",marginTop:"1rem"}}>{info}</p>: '' }
