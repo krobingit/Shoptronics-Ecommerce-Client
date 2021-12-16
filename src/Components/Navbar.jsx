@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { Link,useHistory } from 'react-router-dom';
 import { Input } from 'semantic-ui-react';
+import { useSelector,useDispatch } from 'react-redux';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Button from '@mui/material/Button';
 const NavContainer = styled.div`
@@ -31,7 +32,9 @@ color:gold;
 `
 
 function Navbar() {
- const history = useHistory();
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const { currentUser } = useSelector(state => state.user);
  return (
   <NavContainer>
 
@@ -41,14 +44,19 @@ function Navbar() {
    </Title></Link>
 <SearchInput
     icon={{ name: 'search', circular: true, link: true }}
-    placeholder='Search...' />
+       placeholder='Search...' />
+     {!currentUser && <>
    <Button style={{ color: "inherit", fontSize: "1.2rem",font:"inherit" }} type="text"
-    onClick={() => history.push("/login")}>Sign in</Button>
-   <Button style={{ color: "inherit", fontSize: "1.2rem", font: "inherit" }} type="text"
-   onClick={() => history.push("/register")}>Register</Button>
+       onClick={() => history.push("/login")}>Sign in</Button>
+        <Button style={{ color: "inherit", fontSize: "1.2rem", font: "inherit" }} type="text"
+   onClick={() => history.push("/register")}>Register</Button></>}
+
    <Button style={{ color: "inherit",fontSize:"1.2rem",font:"inherit" }}><ShoppingCartIcon style={{marginRight:"5px"}}/> Cart</Button>
    <Button style={{ color: "inherit", fontSize: "1.2rem",font:"inherit" }}><i className="fas fa-shopping-bag" style={{marginRight:"5px"}} ></i> My Orders</Button>
-
+ {currentUser && <><Button style={{ color: "gold", fontSize: "1.2rem", font: "inherit" }} type="text"
+     >USER: {currentUser.username}</Button>
+       <Button onClick={() => dispatch({ type: "logOut" })} style={{ color: "inherit", fontSize: "1.2rem", font: "inherit" }} type="text"
+     >Log Out</Button></>}
 
 
 

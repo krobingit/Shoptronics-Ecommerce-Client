@@ -179,9 +179,9 @@ setLoading(false)
      />
     <FormActions>
        <Button type='submit' style={{color: "#4f2f5e", marginTop: "1rem", width: "80%",fontWeight:"700", fontSize: "1rem", borderRadius: "1rem" }} color='yellow'>RESET</Button>
-           {loading ? <div className="LoaderDiv"><Loader type="Oval" color="purple" height={50} width={30} />
-           <p style={{ color: "purple" }}>Please wait..</p></div> : ''}
-         {info ? <p style={{color:info.length>24 ? "blue" : "red",marginTop:"1rem",textAlign:"center"}}>{info}</p>: '' }
+           {loading ? <><Loader type="Oval" color="purple" height={50} width={30} />
+           <p style={{ color: "purple" }}>Please wait..</p></> : ''}
+         {info ? <p style={{color:info.length>24 ? "blue" : "red",marginTop:"1rem"}}>{info}</p>: '' }
           </FormActions>
           <Actions>
           <p  style={{ color: "#4f2f5e",cursor:"pointer",fontWeight: "bold" }} onClick={() => { history.push("/login") }}>↩ Back to Login</p>
