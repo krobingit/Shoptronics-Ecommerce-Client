@@ -125,7 +125,10 @@ function Login() {
     onSubmit: async (values, { resetForm }) => {
       setLoading(true);
       let boolean = await login(dispatch, values);
-      !boolean && setErr(true);
+      if (!boolean)
+        setErr(true);
+      else
+        history.push("/")
       setLoading(false);
       resetForm()
     }
