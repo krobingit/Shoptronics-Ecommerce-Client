@@ -10,19 +10,21 @@ import Fade from '@mui/material/Fade';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import Badge from '@mui/material/Badge';
+import { small } from '../responsive';
 import * as React from 'react';
+
 
 //styled-components
 const NavContainer = styled.div`
 background:#141e30;
 color:white;
 display:flex;
-gap:1rem;
+gap:0.5rem;
 align-items:center;
 justify-content:space-evenly;
 font-family: 'Patua One', cursive;
 flex-wrap:wrap;
-padding: 8px 0;
+padding: 5px 0;
 position:sticky;
 top:0;
 `
@@ -36,9 +38,16 @@ flex:1;
 `
 const SearchInput = styled(Input)`
 border-radius:1rem;
+${small({width:"10.8rem"})}
 `
 const Initial = styled.span`
 color:gold;
+`
+const NavActions = styled.div`
+display:flex;
+flex-wrap:wrap;
+gap:1.1rem;
+justify-content:space-evenly;
 `
 
 function Navbar() {
@@ -53,7 +62,9 @@ function Navbar() {
   const history = useHistory();
   const dispatch = useDispatch();
   const { currentUser } = useSelector(state => state.user);
-  const btnStyles = { color: "inherit", fontSize: "1rem",letterSpacing:"0.8px", fontFamily: "Rubik, sans-serif" };
+  const btnStyles = { color: "inherit", fontSize: "1rem", letterSpacing: "0.8px", fontFamily: "Rubik, sans-serif" };
+  const quantity = 1;
+  const quantitywish = 1;
   return (
     <NavContainer>
 
@@ -65,7 +76,9 @@ function Navbar() {
       <SearchInput
         icon={{ name: 'search', circular: true, link: true }}
         placeholder='Search...' />
-
+      <NavActions>
+        <Button  sx={{ "&:hover": { backgroundColor: "#AA771C" }} } style={{ color: "gold", fontSize: "1rem",letterSpacing:"0.8px", fontFamily: "Rubik, sans-serif" }} type="text"> <i className="fas fa-bolt" style={{ color: "gold", marginRight: "0.3rem" }}>
+          </i>Products</Button>
       {!currentUser && <>
         <Button  sx={{ "&:hover": { backgroundColor: "#AA771C" }} } style={btnStyles} type="text"
           onClick={() => history.push("/login")}> <i className="fas fa-bolt" style={{ color: "gold", marginRight: "0.3rem" }}>
@@ -74,11 +87,20 @@ function Navbar() {
           onClick={() => history.push("/register")}> <i className="fas fa-bolt" style={{ color: "gold", marginRight: "0.3rem" }}>
           </i>Register</Button></>}
 
-      <Button sx={{ "&:hover": { backgroundColor: "#AA771C" } }} style={btnStyles}><Badge style={{marginRight:"0.7rem"}} color="secondary" badgeContent={99} >
-        <ShoppingCartIcon /></Badge>Cart</Button>
+        <Button sx={{ "&:hover": { backgroundColor: "#AA771C" },    "& .MuiBadge-badge": {
+      color: "purple",
+      backgroundColor: "#FFFF99"
+    } }} style={btnStyles}><Badge style={{  marginRight: quantity>0 && "0.6rem"}} color="secondary"  badgeContent={quantity} >
+        <ShoppingCartIcon sx={{ color: quantity>0 && "gold" }} /></Badge>Cart</Button>
       <Button sx={{ "&:hover": { backgroundColor: "#AA771C" } }} style={btnStyles}>
         <i className="fas fa-shopping-bag" style={{ marginRight: "5px" }} ></i>Orders</Button>
-<Button sx={{ "&:hover": { backgroundColor: "#AA771C" }} } style={btnStyles}><FavoriteIcon style={{ marginRight: "5px" }} /> Wishlist</Button>
+        <Button sx={{ "&:hover": { backgroundColor: "#AA771C" } }} style={btnStyles}><Badge
+ sx={{
+    "& .MuiBadge-badge": {
+      color: "purple",
+      backgroundColor: "#FFFF99"
+    }
+  }}          style={{ marginRight: quantitywish>0 && "0.6rem" }} color="secondary" badgeContent={quantitywish} ><FavoriteIcon sx={{ color: quantitywish > 0 && "red" }}  /></Badge> Wishlist</Button>
 
       {currentUser && <> <Button
         id="fade-button"
@@ -86,7 +108,7 @@ function Navbar() {
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
-        style={{ color: "gold", textTransform: "none", fontSize: "1.25rem", marginTop: "0.4rem", fontFamily: "Rubik, sans-serif" }} type="text"
+        style={{ color: "gold", textTransform: "none", fontSize: "1.25rem", fontFamily: "Rubik, sans-serif" }} type="text"
       >
       <i className="fas fa-user-circle" style={{ marginRight: "5px" }} ></i>{currentUser.username}<ArrowDropDownIcon />
       </Button>
@@ -100,11 +122,14 @@ function Navbar() {
         onClose={handleClose}
         TransitionComponent={Fade}
       >
-          <MenuItem sx={{ "&:hover": { backgroundColor: "gold" },borderRadius:"0.5rem"} } style={btnStyles} onClick={() => dispatch({ type: "logOut" })}>Logout</MenuItem>
+          <MenuItem sx={{
+            "&:hover": { backgroundColor: "gold" },
+              borderRadius: "0.5rem"
+          }} style={btnStyles} onClick={() => dispatch({ type: "logOut" })}>Logout</MenuItem>
            <MenuItem  style={btnStyles}>Email: {currentUser.email}</MenuItem>
       </Menu>
 </>}
-
+</NavActions>
 
 
 

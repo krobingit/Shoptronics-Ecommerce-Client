@@ -46,10 +46,7 @@ display:flex;
 flex-direction:column;
 align-items:center;
 padding:1rem;
-margin-top:2rem;
-:hover{
-
-}
+margin-top:4rem;
 `
 const LoginContainer = styled.div`
 width:60%;
