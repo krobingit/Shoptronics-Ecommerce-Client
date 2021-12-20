@@ -27,6 +27,7 @@ flex-wrap:wrap;
 padding: 5px 0;
 position:sticky;
 top:0;
+z-index:1000;
 `
 const Title = styled.h1`
 letter-spacing:2px;
@@ -34,7 +35,9 @@ margin:0rem;
 font-family: 'Patua One', cursive;
 font-weight:700;
 flex:1;
+font-size:2.1rem;
 &:active{color: gold }
+${small({fontSize:"1.8rem"})}
 `
 const SearchInput = styled(Input)`
 border-radius:1rem;
@@ -46,8 +49,10 @@ color:gold;
 const NavActions = styled.div`
 display:flex;
 flex-wrap:wrap;
-gap:1.1rem;
+column-gap:1.5rem;
 justify-content:space-evenly;
+align-items:center;
+${small({rowGap:"0.4rem",columnGap:"1rem"})};
 `
 
 function Navbar() {
@@ -61,10 +66,10 @@ function Navbar() {
   };
   const history = useHistory();
   const dispatch = useDispatch();
+  const { quantity } = useSelector(state => state.cart);
   const { currentUser } = useSelector(state => state.user);
-  const btnStyles = { color: "inherit", fontSize: "1rem", letterSpacing: "0.8px", fontFamily: "Rubik, sans-serif" };
-  const quantity = 1;
-  const quantitywish = 1;
+  const btnStyles = { color: "inherit", fontSize: "0.92rem", letterSpacing: "0.8px", fontFamily: "Rubik, sans-serif" };
+  const quantitywish = 0;
   return (
     <NavContainer>
 
@@ -77,31 +82,42 @@ function Navbar() {
         icon={{ name: 'search', circular: true, link: true }}
         placeholder='Search...' />
       <NavActions>
-        <Button  sx={{ "&:hover": { backgroundColor: "#AA771C" }} } style={{ color: "gold", fontSize: "1rem",letterSpacing:"0.8px", fontFamily: "Rubik, sans-serif" }} type="text"> <i className="fas fa-bolt" style={{ color: "gold", marginRight: "0.3rem" }}>
-          </i>Products</Button>
+        <Button onClick={() => history.push("/products")} sx={{ "&:hover": { backgroundColor: "#AA771C" } }} style={{ color: "gold", fontSize: "1rem", letterSpacing: "0.8px", fontFamily: "Rubik, sans-serif" }} type="text">
+          <i className="fas fa-bolt" style={{ color: "gold", marginRight: "0.3rem",fontSize:"1.5rem" }}>
+        </i>Shop</Button>
+        {/*Conditional rendering*/ }
       {!currentUser && <>
         <Button  sx={{ "&:hover": { backgroundColor: "#AA771C" }} } style={btnStyles} type="text"
-          onClick={() => history.push("/login")}> <i className="fas fa-bolt" style={{ color: "gold", marginRight: "0.3rem" }}>
-          </i>Sign in</Button>
+          onClick={() => history.push("/login")}>Sign in</Button>
         <Button sx={{ "&:hover": { backgroundColor: "#AA771C" }} } style={btnStyles} type="text"
-          onClick={() => history.push("/register")}> <i className="fas fa-bolt" style={{ color: "gold", marginRight: "0.3rem" }}>
-          </i>Register</Button></>}
+          onClick={() => history.push("/register")}>Register</Button></>}
 
-        <Button sx={{ "&:hover": { backgroundColor: "#AA771C" },    "& .MuiBadge-badge": {
-      color: "purple",
-      backgroundColor: "#FFFF99"
-    } }} style={btnStyles}><Badge style={{  marginRight: quantity>0 && "0.6rem"}} color="secondary"  badgeContent={quantity} >
-        <ShoppingCartIcon sx={{ color: quantity>0 && "gold" }} /></Badge>Cart</Button>
-      <Button sx={{ "&:hover": { backgroundColor: "#AA771C" } }} style={btnStyles}>
-        <i className="fas fa-shopping-bag" style={{ marginRight: "5px" }} ></i>Orders</Button>
+        {/*Cart Button with Badge*/}
+        <Button onClick={()=>history.push("/cart")} sx={{ "&:hover": { backgroundColor: "#AA771C" } }} style={btnStyles}>
+          <Badge sx={{
+            "& .MuiBadge-badge": {
+              color: "black",
+              fontWeight: "bold",
+              backgroundColor: "gold",
+
+            }       }} style={{ marginRight: quantity > 0 && "0.6rem" }} color="secondary" badgeContent={quantity} >
+        <ShoppingCartIcon sx={{ color: quantity>0 && "gold",fontSize:"1.7rem" }} /></Badge>Cart</Button>
+
+        {/*Orders Button*/}
+        <Button sx={{ "&:hover": { backgroundColor: "#AA771C" } }} style={btnStyles}>
+          <i className="fas fa-shopping-bag" style={{ marginRight: "5px",fontSize:"1.6rem" }} ></i>Orders</Button>
+
+{/*Wishlist Button with Badge*/}
         <Button sx={{ "&:hover": { backgroundColor: "#AA771C" } }} style={btnStyles}><Badge
  sx={{
     "& .MuiBadge-badge": {
-      color: "purple",
-      backgroundColor: "#FFFF99"
+     color: "black",
+      fontWeight:"bold",
+      backgroundColor: "#eeeeee"
     }
-  }}          style={{ marginRight: quantitywish>0 && "0.6rem" }} color="secondary" badgeContent={quantitywish} ><FavoriteIcon sx={{ color: quantitywish > 0 && "red" }}  /></Badge> Wishlist</Button>
+  }}          style={{ marginRight: quantitywish>0 && "0.6rem" }} color="secondary" badgeContent={quantitywish} ><FavoriteIcon sx={{ color: quantitywish > 0 && "#E31B23",fontSize:"1.7rem" }}  /></Badge> Wishlist</Button>
 
+        {/*Conditional Rendering*/ }
       {currentUser && <> <Button
         id="fade-button"
         aria-controls="fade-menu"

@@ -29,7 +29,7 @@ background:white;
 border-radius:1rem;
 overflow:hidden;
 display:flex;
-padding:1rem;
+padding:0.6rem 0;
 flex-direction:row;
 margin:1.5rem;
   ${medium({ flexDirection:"column-reverse",

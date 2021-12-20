@@ -21,7 +21,7 @@ align-items:center;
 min-height:100vh;
 
 `
-const SignupContainer = styled.div`
+const ResetContainer = styled.div`
 width:50%;
 background:white;
 padding:0.8rem 0;
@@ -141,7 +141,7 @@ setLoading(false)
 
     <MainContainer>
 
-      <SignupContainer>
+      <ResetContainer>
         <Images>
           <ShippingContainer>
             <Shipping src={ship}></Shipping>
@@ -189,7 +189,7 @@ setLoading(false)
         </Actions>
  <Copy>  © 2021 Shoptronics</Copy>
    </Form>
-   </SignupContainer>
+   </ResetContainer>
    </MainContainer>
  )
 }

@@ -159,7 +159,7 @@ console.log(req)
         <Images>
           <ShippingContainer>
             <Shipping src={ship}></Shipping>
-            <ShippingText>✅Free Shipping for orders above $99!!</ShippingText>
+            <ShippingText>✅Free Shipping for orders above ₹1000!!</ShippingText>
 </ShippingContainer>
         </Images>
             <hr

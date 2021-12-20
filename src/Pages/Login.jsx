@@ -32,7 +32,7 @@ border-radius:1rem;
 overflow:hidden;
 display:flex;
 flex-direction:row;
-margin:1.5rem;
+margin:1.1rem;
   ${medium({
   flexDirection: "column-reverse",
   height: "min-content"
@@ -131,7 +131,7 @@ function Login() {
       password: ""
     },
     validationSchema: signInSchema,
-    onSubmit: async (values, { resetForm }) => {
+    onSubmit: async (values) => {
       setLoading(true);
       let boolean = await login(dispatch, values);
       if (!boolean)
@@ -139,7 +139,6 @@ function Login() {
       else
         history.push("/")
       setLoading(false);
-      resetForm()
     }
 
 

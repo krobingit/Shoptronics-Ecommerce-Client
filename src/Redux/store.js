@@ -2,8 +2,9 @@ import * as redux from 'redux';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { encryptTransform } from 'redux-persist-transform-encrypt';
-/*import {cartReducer} from '../Redux/cartReducer'
-import { searchReducer } from '../Redux/searchReducer'*/
+import { cartReducer } from '../Redux/cartReducer'
+import {wishlistReducer} from '../Redux/wishlistReducer'
+//import { searchReducer } from '../Redux/searchReducer'
 import { userReducer } from './userReducer'
 
 const enhancers = redux.compose(
@@ -25,7 +26,9 @@ transforms: [
 };
 
 const rootReducer = redux.combineReducers({
- user: userReducer
+  user: userReducer,
+  cart: cartReducer,
+  wishlist:wishlistReducer
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
