@@ -14,7 +14,7 @@ const SliderContainer = styled.div`
 `
 
 const Banner = styled.img`
-${small({ objectFit: "contain", height: "13rem" })};
+${small({ objectFit: "contain", height: "10rem" })};
 ${medium({objectFit:"cover"})};
 `
 export function Slider() {
