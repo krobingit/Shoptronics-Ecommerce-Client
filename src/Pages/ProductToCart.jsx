@@ -196,7 +196,7 @@ export const ProductToCart = () => {
 
     <MainContainer>
       <Navbar />
-      <Title>Product Details</Title>
+      <Title>Product Description</Title>
 
       {loading ? (
         <LoaderContainer>

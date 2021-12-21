@@ -31,6 +31,7 @@ background: rgba( 255, 255, 255, 0.25 );
 box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.5 );
 border-radius: 10px;
 border: 1px solid rgba( 255, 255, 255, 0.18 );
+cursor:pointer;
 `
 /*&:hover{
 transform:scale(1.1);}
@@ -77,7 +78,6 @@ export function Products() {
       const res = await commonRequest.get("/product");
       setProducts(res.data);
       setLoading(false)
-
     }
     catch (err) {
       console.log(err)
@@ -106,7 +106,7 @@ export function Products() {
          <>
          <ProductContainer>
            {products.map(({ name, price, category,manufacturer,image,_id })=>
-             <ProductCard key={_id}>
+             <ProductCard key={_id} onClick={()=>history.push(`/product/${_id}`)}>
                <ProductImage src={image} alt="product"/>
                <ProductDetails>
                  <p style={detailstyle}> {name}</p>
