@@ -84,7 +84,7 @@ function Navbar() {
       <NavActions>
         <Button onClick={() => history.push("/products")} sx={{ "&:hover": { backgroundColor: "#AA771C" } }} style={{ color: "gold", fontSize: "1rem", letterSpacing: "0.8px", fontFamily: "Rubik, sans-serif" }} type="text">
           <i className="fas fa-bolt" style={{ color: "gold", marginRight: "0.3rem",fontSize:"1.5rem" }}>
-        </i>Shop</Button>
+        </i>Products</Button>
         {/*Conditional rendering*/ }
       {!currentUser && <>
         <Button  sx={{ "&:hover": { backgroundColor: "#AA771C" }} } style={btnStyles} type="text"

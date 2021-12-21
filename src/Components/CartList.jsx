@@ -1,7 +1,7 @@
 import { IconButton } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { medium, small } from '../responsive';
+import { medium, small,large } from '../responsive';
 
 
 
@@ -12,21 +12,20 @@ padding:1rem;
 margin-bottom:1.5rem;
 display:flex;
 gap:1rem;
+justify-content:space-evenly;
 background: rgba( 255, 255, 255, 0.55 );
 box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
 border-radius: 10px;
 border: 1px solid rgba( 255, 255, 255, 0.18 );
-${small({ flexDirection: "column",width:"100%", alignItems: "center" })}
-${medium({flexDirection:"column",width:"100%",alignItems:"center"})}
+${large({ flexDirection: "column", width: "100%", alignItems: "center" })}
 `
 const CartImage = styled.img`
-width:10rem;
+width:11rem;
 height:10rem;
 `
 const DetailContainer = styled.div`
 display:flex;
-gap:0.8rem;
-margin-left:1rem;
+gap:4rem;
 ${small({ flexDirection: "column", gap: "1.2rem" })}
 ${medium({flexDirection:"column",gap:"1.2rem"})}
 `
@@ -118,7 +117,7 @@ export const CartList = () => {
        </SubTotalContainer>
      </DetailContainer>
      <Remove>
-      <IconButton  style={{color:"grey"}} onClick={() => dispatch({ type: "RemoveItem", index: products.indexOf(product), payload:product })}>
+      <IconButton  style={{color:"#2d2d2d"}} onClick={() => dispatch({ type: "RemoveItem", index: products.indexOf(product), payload:product })}>
        <i className="far fa-times-circle"></i></IconButton>
      </Remove>
 

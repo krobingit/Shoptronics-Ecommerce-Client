@@ -8,38 +8,42 @@ import banner6 from '../Assets/banners/banner-6.png';
 import banner7 from '../Assets/banners/banner-7.jpg';
 import banner8 from '../Assets/banners/banner-8.webp';
 import styled from 'styled-components';
-import { small } from '../responsive';
+import { small,medium } from '../responsive';
 
 const SliderContainer = styled.div`
-${small({display:"none"})}`
+`
 
+const Banner = styled.img`
+${small({ objectFit: "contain", height: "13rem" })};
+${medium({objectFit:"cover"})};
+`
 export function Slider() {
  return (
   <SliderContainer>
    <Carousel showThumbs={false} showStatus={false} autoPlay infiniteLoop>
                 <div>
-         <img height="310rem" alt="banner" style={{objectFit:"fill"}} src={banner1} />
+         <Banner height="310rem" alt="banner" style={{objectFit:"fill"}} src={banner1} />
                 </div>
                  <div>
-                 <img height="310rem" alt="banner" style={{objectFit:"fill"}} src={banner2} />
+                 <Banner height="310rem" alt="banner" style={{objectFit:"fill"}} src={banner2} />
                 </div>
                 <div>
-                <img height="310rem" alt="banner" style={{objectFit:"fill"}} src={banner3} />
+                <Banner height="310rem" alt="banner" style={{objectFit:"fill"}} src={banner3} />
                 </div>
                 <div>
-                <img height="310rem" alt="banner" style={{objectFit:"fill"}} src={banner4} />
+                <Banner height="310rem" alt="banner" style={{objectFit:"fill"}} src={banner4} />
                 </div>
  <div>
-                <img height="310rem" alt="banner" style={{objectFit:"fill"}} src={banner5} />
+                <Banner height="310rem" alt="banner" style={{objectFit:"fill"}} src={banner5} />
        </div>
      { <div>
-                <img height="310rem" alt="banner" style={{objectFit:"fill"}} src={banner6} />
+                <Banner height="310rem" alt="banner" style={{objectFit:"fill"}} src={banner6} />
        </div>}
            <div>
-                <img height="310rem" alt="banner" style={{objectFit:"fill"}} src={banner7} />
+                <Banner height="310rem" alt="banner" style={{objectFit:"fill"}} src={banner7} />
        </div>
         <div>
-                <img height="310rem" alt="banner" style={{objectFit:"fill"}} src={banner8} />
+                <Banner height="310rem" alt="banner" style={{objectFit:"fill"}} src={banner8} />
                 </div>
             </Carousel>
   </SliderContainer>

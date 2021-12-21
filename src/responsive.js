@@ -17,7 +17,7 @@ import {css} from "styled-components";
 }
  const large=(props)=>{
     return css`
-    @media only screen and (max-width:920px){
+    @media only screen and (max-width:930px){
         ${props}
     }
     `
