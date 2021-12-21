@@ -85,8 +85,6 @@ justify-content:center;
 
 export const WishListComp = () => {
  const { wishlistproducts } = useSelector((state) => state.wishlist);
-
- console.log({ wishlistproducts });
  const history = useHistory();
   const dispatch = useDispatch();
    const [notify, setNotify] = useState(false);

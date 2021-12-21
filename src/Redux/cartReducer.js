@@ -27,6 +27,19 @@ export const cartReducer = (state = initialState, action) => {
          products:[]
        }
      }
+      case "UpdateQuantity":
+     {
+       let copyOfProd = { ...products };
+       copyOfProd[action.index] = action.payload;
+       return {
+         ...state,
+         products: [...copyOfProd],
+         total:(total+(Math.round(action.payload.price*76)*action.payload.quantity))
+
+       }
+
+
+     }
 
    case "RemoveItem":
      {

@@ -156,7 +156,7 @@ export const ProductToCart = () => {
   const [notify, setNotify] = useState(false);
   const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(1);
-
+  //const {products}=useSelector(state=>state.cart)
   //adding and removing items
   const handleQuantity = (type) => {
     if (type === "add")

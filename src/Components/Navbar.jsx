@@ -71,7 +71,6 @@ function Navbar() {
   const {wishlistproducts}= useSelector(state => state.wishlist);
   const btnStyles = { color: "inherit", fontSize: "1.1rem",fontWeight:"550", letterSpacing: "0.8px", fontFamily: "PT Sans Narrow, sans-serif" };
   const wishlistquantity = wishlistproducts.length;
-console.log(wishlistproducts)
   return (
     <NavContainer>
 
