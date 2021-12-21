@@ -68,7 +68,7 @@ function Navbar() {
   const dispatch = useDispatch();
   const { quantity } = useSelector(state => state.cart);
   const { currentUser } = useSelector(state => state.user);
-  const btnStyles = { color: "inherit", fontSize: "0.92rem", letterSpacing: "0.8px", fontFamily: "Rubik, sans-serif" };
+  const btnStyles = { color: "inherit", fontSize: "1.1rem",fontWeight:"550", letterSpacing: "0.8px", fontFamily: "PT Sans Narrow, sans-serif" };
   const quantitywish = 0;
   return (
     <NavContainer>
@@ -82,7 +82,7 @@ function Navbar() {
         icon={{ name: 'search', circular: true, link: true }}
         placeholder='Search...' />
       <NavActions>
-        <Button onClick={() => history.push("/products")} sx={{ "&:hover": { backgroundColor: "#AA771C" } }} style={{ color: "gold", fontSize: "1rem", letterSpacing: "0.8px", fontFamily: "Rubik, sans-serif" }} type="text">
+        <Button onClick={() => history.push("/products")} sx={{ "&:hover": { backgroundColor: "#AA771C" } }} style={{ color: "gold", fontSize: "1.2rem", letterSpacing: "0.8px", fontFamily: "PT Sans Narrow, sans-serif" }} type="text">
           <i className="fas fa-bolt" style={{ color: "gold", marginRight: "0.3rem",fontSize:"1.5rem" }}>
         </i>Products</Button>
         {/*Conditional rendering*/ }
@@ -124,7 +124,8 @@ function Navbar() {
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
-        style={{ color: "gold", textTransform: "none", fontSize: "1.25rem", fontFamily: "Rubik, sans-serif" }} type="text"
+        style={{ color: "gold", textTransform: "none", fontSize: "1.25rem",fontWeight:
+"550", fontFamily: "PT Sans Narrow, sans-serif"  }} type="text"
       >
       <i className="fas fa-user-circle" style={{ marginRight: "5px" }} ></i>{currentUser.username}<ArrowDropDownIcon />
       </Button>

@@ -32,23 +32,77 @@ width:20rem;
 `
 const CartTotals = styled.div`
 margin:1rem;
-border:2px solid grey;
+padding:1rem;
+display:flex;
+flex-direction:column;
+`
+const SubTotal = styled.div`
+display:flex;
+justify-content:space-between;
+align-items:center;
+`
+const Shipping= styled.div`
+display:flex;
+justify-content:space-between;
+align-items:center;
+`
+const ShippingMinus= styled.div`
+display:flex;
+justify-content:space-between;
+align-items:center;
+`
+const Total= styled.div`
+display:flex;
+justify-content:space-between;
+align-items:center;
+`
+const CartDetails= styled.div`
+display:flex;
+flex-direction:column;
+row-gap:1rem;
+margin-bottom:1rem;
+`
+const Line = styled.div`
+border:1px solid darkgray;
+margin-bottom:0.5rem;
 `
 export const Cart = () => {
  const history = useHistory();
- const { products } = useSelector(state => state.cart);
+ const { products,total } = useSelector(state => state.cart);
  return (
   <>
    <Navbar />
-   <Title>Cart</Title>
+   <Title>CART</Title>
    <Button style={{ marginLeft: "3rem" }} color="yellow" onClick={() => history.push("/products")}>Continue to Shop</Button>
    <Container>
     {products.length > 0 ?
      <>
      <CartList />
      <CartTotals>
-       <h1 style={{textAlign:"center"}}>CART TOTALS</h1>
-<p>hello</p>
+             <h2 style={{color:"black"}}>CART TOTALS</h2>
+             <Line></Line>
+             <CartDetails>
+<SubTotal>
+                 <h3>SubTotal</h3>
+                 <h3 style={{margin:"0",color:"black"}}>₹{total}</h3>
+               </SubTotal>
+                   <Line></Line>
+             <Shipping>
+                 <h3>Estimated Shipping</h3>
+                 <h3 style={{margin:"0"}}>₹100</h3>
+               </Shipping>
+                   <Line></Line>
+             <ShippingMinus>
+                 <h3>Shipping Discount</h3>
+                 <h3 style={{margin:"0"}}>-₹100</h3>
+               </ShippingMinus>
+                   <Line></Line>
+             <Total>
+                 <h3>Total</h3>
+                 <h3 style={{margin:"0",color:"#141e30"}}>₹{total}</h3>
+               </Total>
+               </CartDetails>
+             <Button inverted color="yellow" style={{fontSize:"1.1rem",color:"black"}}>Proceed to Checkout</Button>
 
       </CartTotals>
       </>

@@ -24,9 +24,8 @@ const Title = styled.h2`
   text-shadow: 1.5px 1px #141e30;
   color: gold;
   letter-spacing: 3px;
-  background: #141e30;
+  background:black;
   font-family: "Fira Sans", sans-serif;
-padding:0.5rem;
   ${small({ fontSize: "1.5rem" })}
 `;
 const MainContainer = styled.div`

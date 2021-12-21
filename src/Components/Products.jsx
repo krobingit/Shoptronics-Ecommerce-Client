@@ -2,10 +2,11 @@ import { useEffect, useState } from 'react';
 import {useHistory} from 'react-router-dom';
 import styled from 'styled-components';
 import { commonRequest } from '../axiosreq';
-import RotateLoader from "react-spinners/RotateLoader";
+import BeatLoader from "react-spinners/BeatLoader";
 import { small } from '../responsive';
 import { CartPlus, HeartFill } from 'react-bootstrap-icons';
 import { IconButton } from '@mui/material';
+
 
 const Container = styled.div`
 padding:0 2rem;
@@ -67,6 +68,7 @@ const Values = styled.span`
 color:brown;
 `
 
+
 export function Products() {
 
   const [products, setProducts] = useState(null);
@@ -100,7 +102,7 @@ export function Products() {
      {
        loading ?
          <LoaderContainer>
-           <RotateLoader color="yellow" loading={loading} size={23} />
+              <BeatLoader color="#141e30" margin={7} loading={loading} size={25} />
          </LoaderContainer>
          :
          <>
