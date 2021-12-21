@@ -1,14 +1,14 @@
 let initialState = {
- products: [],
+ wishlistproducts: [],
 }
 
 export const wishlistReducer = (state = initialState, action) => {
- const { products} = state;
+ const { wishlistproducts} = state;
  switch (action.type)
  {
    case "WishListAddItem":
      {
-       products.push(action.payload);
+       wishlistproducts.push(action.payload);
        return {
          ...state,
        }
@@ -16,11 +16,19 @@ export const wishlistReducer = (state = initialState, action) => {
 
    case "WishListRemoveItem":
      {
-       let copyOfProd = [...products];
+       let copyOfProd = [...wishlistproducts];
        copyOfProd.splice(action.index,1)
        return {
          ...state,
-         products: [...copyOfProd],
+         wishlistproducts: [...copyOfProd],
+       }
+
+
+     }
+       case "EmptyWishList":
+     {
+       return {
+         wishlistproducts: [],
        }
 
 

@@ -2,7 +2,10 @@ import { IconButton } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { medium, small,large } from '../responsive';
-
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+import Slide from '@mui/material/Slide';
+import { useState,forwardRef } from "react";
 
 
 const Container = styled.div`
@@ -53,7 +56,6 @@ ${medium({flexDirection:"row",alignItems:"center",justifyContent: "space-around"
 const ProductPrice = styled.h4`
 font-size:1.3rem;
 margin:0;
-
 `
 const QuantityContainer = styled.div`
 display:flex;
@@ -89,8 +91,30 @@ const Remove = styled.div`
 export const CartList = () => {
  const { products, total, quantity } = useSelector((state) => state.cart);
 
- console.log({ products, total, quantity });
- const dispatch = useDispatch();
+  console.log({ products, total, quantity });
+  const dispatch = useDispatch();
+   const [notify, setNotify] = useState(false);
+   const Alert = forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
+  const [open, setOpen] = useState(false);
+  const [transition, setTransition] = useState(undefined);
+
+  const handleClick = (Transition) => {
+  setTransition(() => Transition);
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+  function TransitionLeft(props) {
+  return <Slide {...props} direction="left" />;
+}
  return (
   <Container>
    {products.map((product,idx) =>
@@ -115,9 +139,21 @@ export const CartList = () => {
        <ProductSubTotal>Sub Total</ProductSubTotal>
        <ProductSubTotal>₹{Math.round(product.price * 76)*product.quantity}</ProductSubTotal>
        </SubTotalContainer>
-     </DetailContainer>
+       </DetailContainer>
+       { notify && <>
+      <Snackbar     TransitionComponent={transition}
+        key={transition ? transition.name : ''} open={open} autoHideDuration={4000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="info" sx={{ width: '100%' }}>
+           One Item was removed from your Cart!
+        </Alert>
+      </Snackbar>
+    </>}
      <Remove>
-      <IconButton  style={{color:"#2d2d2d"}} onClick={() => dispatch({ type: "RemoveItem", index: products.indexOf(product), payload:product })}>
+         <IconButton style={{ color: "#2d2d2d" }} onClick={() => {
+           dispatch({ type: "RemoveItem", index: products.indexOf(product), payload: product })
+          setNotify(true)
+    handleClick(TransitionLeft);
+         }}>
        <i className="far fa-times-circle"></i></IconButton>
      </Remove>
 

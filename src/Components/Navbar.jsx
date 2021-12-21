@@ -68,8 +68,10 @@ function Navbar() {
   const dispatch = useDispatch();
   const { quantity } = useSelector(state => state.cart);
   const { currentUser } = useSelector(state => state.user);
+  const {wishlistproducts}= useSelector(state => state.wishlist);
   const btnStyles = { color: "inherit", fontSize: "1.1rem",fontWeight:"550", letterSpacing: "0.8px", fontFamily: "PT Sans Narrow, sans-serif" };
-  const quantitywish = 0;
+  const wishlistquantity = wishlistproducts.length;
+console.log(wishlistproducts)
   return (
     <NavContainer>
 
@@ -108,14 +110,15 @@ function Navbar() {
           <i className="fas fa-shopping-bag" style={{ marginRight: "5px",fontSize:"1.6rem" }} ></i>Orders</Button>
 
 {/*Wishlist Button with Badge*/}
-        <Button sx={{ "&:hover": { backgroundColor: "#AA771C" } }} style={btnStyles}><Badge
+        <Button onClick={() =>history.push("/wishlist")} sx={{ "&:hover": { backgroundColor: "#AA771C" } }} style={btnStyles}><Badge
  sx={{
     "& .MuiBadge-badge": {
      color: "black",
       fontWeight:"bold",
       backgroundColor: "#eeeeee"
     }
-  }}          style={{ marginRight: quantitywish>0 && "0.6rem" }} color="secondary" badgeContent={quantitywish} ><FavoriteIcon sx={{ color: quantitywish > 0 && "#E31B23",fontSize:"1.7rem" }}  /></Badge> Wishlist</Button>
+          }} style={{ marginRight: wishlistquantity > 0 && "0.6rem" }} color="secondary" badgeContent={wishlistquantity} >
+          <FavoriteIcon sx={{ color: wishlistquantity > 0 && "#E31B23", fontSize: "1.7rem" }} /></Badge> Wishlist</Button>
 
         {/*Conditional Rendering*/ }
       {currentUser && <> <Button

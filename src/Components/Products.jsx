@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState,forwardRef } from 'react';
 import {useHistory} from 'react-router-dom';
 import styled from 'styled-components';
 import { commonRequest } from '../axiosreq';
@@ -6,7 +6,10 @@ import BeatLoader from "react-spinners/BeatLoader";
 import { small } from '../responsive';
 import { CartPlus, HeartFill } from 'react-bootstrap-icons';
 import { IconButton } from '@mui/material';
-
+import { useDispatch, useSelector } from 'react-redux';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+import Slide from '@mui/material/Slide';
 
 const Container = styled.div`
 padding:0 2rem;
@@ -71,10 +74,37 @@ color:brown;
 
 export function Products() {
 
+  const Alert = forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
+  const [open, setOpen] = useState(false);
+  const [transition, setTransition] = useState(undefined);
+
+  const handleClick = (Transition) => {
+  setTransition(() => Transition);
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+  function TransitionLeft(props) {
+  return <Slide {...props} direction="left" />;
+}
+
+
+
   const [products, setProducts] = useState(null);
   const [loading, setLoading] = useState(true);
   const history = useHistory();
-
+  const dispatch = useDispatch();
+   const { currentUser } = useSelector(state => state.user);
+   const { wishlistproducts } = useSelector(state => state.wishlist);
+  const [notify, setNotify] = useState(false);
   const getProducts = async () => {
     try {
       const res = await commonRequest.get("/product");
@@ -106,10 +136,19 @@ export function Products() {
          </LoaderContainer>
          :
          <>
-         <ProductContainer>
+              <ProductContainer>
+                        { notify && <>
+      <Snackbar     TransitionComponent={transition}
+        key={transition ? transition.name : ''} open={open} autoHideDuration={4000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+            This item is already on your wishlist!!
+        </Alert>
+      </Snackbar>
+    </>}
+
            {products.map(({ name, price, category,manufacturer,image,_id })=>
-             <ProductCard key={_id} onClick={()=>history.push(`/product/${_id}`)}>
-               <ProductImage src={image} alt="product"/>
+             <ProductCard key={_id} >
+               <ProductImage src={image} onClick={() => history.push(`/product/${_id}`)} alt="product"/>
                <ProductDetails>
                  <p style={detailstyle}> {name}</p>
                  <p style={detailstyle}>Price: <Values style={{fontSize:"1.5rem"}}>₹{Math.round(price * 76)}</Values></p>
@@ -119,7 +158,24 @@ export function Products() {
                <ProductActions>
                  <IconButton style={{ color: "#141e30" }} onClick={()=>history.push(`/product/${_id}`)}>
                    <CartPlus style={{ fontSize: "1.9rem" }} /></IconButton>
-                 <IconButton style={{color:"#A9A9A9"}}><HeartFill style={{fontSize:"1.9rem"}}/></IconButton>
+                 <IconButton style={{ color: "#A9A9A9" }} onClick={() => {
+
+                   if (!currentUser) {
+                     history.push("/register")
+                     return;
+                   }
+                   if (currentUser) {
+                     if (wishlistproducts.map((product) => product.name).every((pname) => pname !== name)) {
+                       dispatch({ type: "WishListAddItem", payload: { name, price, image, _id } })
+                     }
+                     else {
+                       handleClick(TransitionLeft);
+                       setNotify(true);
+                     }
+                   }
+                 }
+                 }><HeartFill style={{ fontSize: "1.9rem", color: "#E31B23" }} /></IconButton>
+
                </ProductActions>
              </ProductCard>
            )}

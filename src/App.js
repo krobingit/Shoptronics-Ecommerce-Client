@@ -8,6 +8,7 @@ import { ResetPassword } from './Pages/ResetPassword';
 import { ProductList } from './Pages/ProductList';
 import { ProductToCart } from './Pages/ProductToCart';
 import { Cart } from './Pages/Cart';
+import { WishList } from './Pages/WishList';
 function App() {
   return (
     <div className="App">
@@ -18,6 +19,9 @@ function App() {
         </Route>
             <Route path="/cart">
           <Cart />
+        </Route>
+            <Route path="/wishlist">
+          <WishList />
         </Route>
         <Route path="/forgotPassword">
           <ForgotPassword />

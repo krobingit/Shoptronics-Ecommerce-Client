@@ -1,5 +1,5 @@
 import { Carousel } from 'react-responsive-carousel';
-import banner1 from '../Assets/banners/banner-1.jpg';
+import banner1 from '../Assets/banners/banner-1.png';
 import banner2 from '../Assets/banners/banner-2.jpg';
 import banner3 from '../Assets/banners/banner-3.jpg';
 import banner4 from '../Assets/banners/banner-4.jpg';
