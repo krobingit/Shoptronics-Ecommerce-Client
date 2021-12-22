@@ -38,7 +38,7 @@ return
   "amount": res.data.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
   "currency": res.data.currency,
   "name": "Shoptronics Order",
-  "description": `More Power to you!!`,
+  "description": `More Power to you ⚡`,
   "image": logo,
   "order_id": res.data.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
   "handler": function (response) {
@@ -48,7 +48,7 @@ return
   },
   "prefill": {
    "name": username
-  }
+   }
  };
   var paymentObject = new window.Razorpay(options);
 

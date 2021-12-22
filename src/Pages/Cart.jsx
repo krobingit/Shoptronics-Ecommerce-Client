@@ -118,10 +118,10 @@ export const Cart = () => {
                </Total>
              </CartDetails>
              {!currentUser ?
-                <Button inverted color="yellow" onClick={toasterr} style={{ fontSize: "1.3rem", color: "black" }}>Proceed to Checkout</Button>
+                <Button color="yellow" onClick={toasterr} style={{ fontSize: "1.3rem", color: "black" }}>Proceed to Checkout</Button>
 
                :
-<Button inverted color="yellow" style={{ fontSize: "1.3rem", color: "black" }}
+<Button color="yellow" style={{ fontSize: "1.3rem", color: "black" }}
                  onClick={() => { return DisplayRazorPayCheckout(total, currentUser.username) }}>Proceed to Checkout</Button>
 
              }

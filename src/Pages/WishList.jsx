@@ -26,6 +26,7 @@ justify-content:center;
 const WishListEmptyImage = styled.img`
 margin-top:2rem;
 object-fit:cover;
+${small({width:"28rem"})}
 `
 export const WishList=()=>
 {
