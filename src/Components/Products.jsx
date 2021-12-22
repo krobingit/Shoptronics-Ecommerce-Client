@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { commonRequest } from '../axiosreq';
 import BeatLoader from "react-spinners/BeatLoader";
 import { small } from '../responsive';
-import { CartPlus, Heart } from 'react-bootstrap-icons';
+import { CartPlus, HeartFill } from 'react-bootstrap-icons';
 import { IconButton } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import Snackbar from '@mui/material/Snackbar';
@@ -74,7 +74,6 @@ color:brown;
 
 export function Products() {
 
-
   const Alert = forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
   });
@@ -101,7 +100,8 @@ export function Products() {
   const [loading, setLoading] = useState(true);
   const history = useHistory();
   const dispatch = useDispatch();
-   const { currentUser } = useSelector(state => state.user);
+  const { currentUser } = useSelector(state => state.user);
+
    const { wishlistproducts } = useSelector(state => state.wishlist);
   const [notify, setNotify] = useState(false);
   const getProducts = async () => {
@@ -139,7 +139,7 @@ export function Products() {
                         { notify && <>
       <Snackbar     TransitionComponent={transition}
         key={transition ? transition.name : ''} open={open} autoHideDuration={4000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="info" sx={{ width: '100%' }}>
+        <Alert onClose={handleClose} severity="warning" sx={{ width: '100%' }}>
             This item is already on your wishlist!!
         </Alert>
       </Snackbar>
@@ -150,14 +150,14 @@ export function Products() {
                <ProductImage src={image} onClick={() => history.push(`/product/${_id}`)} alt="product"/>
                <ProductDetails>
                  <p style={detailstyle}> {name}</p>
-                 <p style={detailstyle}>Price: <Values style={{fontSize:"1.5rem"}}>₹{Math.round(price * 76)}</Values></p>
+                 <p style={detailstyle}>Price: <Values style={{fontSize:"1.5rem"}}>₹{Math.round(price * 76).toLocaleString()}</Values></p>
                  <p style={detailstyle}>Category: <Values>{category[1].name}</Values></p>
                  <p style={detailstyle}>Brand: <Values>{manufacturer}</Values></p>
                </ProductDetails>
                <ProductActions>
                  <IconButton style={{ color: "#141e30" }} onClick={()=>history.push(`/product/${_id}`)}>
                    <CartPlus style={{ fontSize: "1.9rem" }} /></IconButton>
-                 <IconButton  style={{ color: "#A9A9A9","&:active":{backgroundColor:"red"}}} onClick={() => {
+                 <IconButton  style={{ color: "#A9A9A9"}} onClick={() => {
 
                    if (!currentUser) {
                      history.push("/login")
@@ -174,8 +174,8 @@ export function Products() {
                      }
                    }
                  }
-                 }><Heart
-                     style={{ fontSize: "1.9rem", color: "#E31B23" }} /></IconButton>
+                 }><HeartFill
+                     style={{ fontSize: "1.9rem", color: "grey" }} /></IconButton>
 
                </ProductActions>
              </ProductCard>

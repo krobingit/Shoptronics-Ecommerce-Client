@@ -7,7 +7,10 @@ import { Button } from 'semantic-ui-react';
 import { useHistory } from 'react-router-dom';
 import wishlistEmpty from '../Assets/wishlistEmpty.png'
 
+const Wish = styled.div`
+min-height:100vh;
 
+`
 const Title=styled.h2`
 font-size:1.8rem;
 text-align:center;
@@ -26,7 +29,8 @@ justify-content:center;
 const WishListEmptyImage = styled.img`
 margin-top:2rem;
 object-fit:cover;
-${small({width:"28rem"})}
+mix-blend-mode:multiply;
+${small({ width: "28rem" })}
 `
 export const WishList=()=>
 {
@@ -34,9 +38,9 @@ export const WishList=()=>
  const { wishlistproducts } = useSelector(state => state.wishlist);
  const history=useHistory();
  return (
-  <>
+    <Wish>
   <Navbar />
-   <Title>WishList</Title>
+   <Title>WISHLIST{wishlistproducts.length>0 && `(${wishlistproducts.length})`}</Title>
     <Button style={{ marginLeft: "3rem" }} color="yellow" onClick={() => history.push("/products")}>Continue to Shop</Button>
 {!currentUser && history.push("/login")}
    {currentUser && wishlistproducts.length > 0
@@ -47,7 +51,7 @@ export const WishList=()=>
      <WishListEmptyImage src={wishlistEmpty} />
 </WishListEmptyContainer>}
 
-   </>
+   </Wish>
 
 )
 

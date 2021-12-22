@@ -59,6 +59,7 @@ align-items:center;
 const Total= styled.div`
 display:flex;
 justify-content:space-between;
+gap:1.3rem;
 align-items:center;
 `
 const CartDetails= styled.div`
@@ -68,13 +69,13 @@ row-gap:1rem;
 margin-bottom:1rem;
 `
 const Line = styled.div`
-border:1px solid darkgray;
+border:1px dashed darkgray;
 margin-bottom:0.5rem;
 `
 const toasterr = () => {
 return(toast.error('Please Log in to Complete the Checkout', {
 position: "bottom-right",
-autoClose: 4000,
+autoClose: 3500,
 hideProgressBar: false,
 closeOnClick: true,
 theme: "colored"
@@ -82,12 +83,12 @@ theme: "colored"
 }
 export const Cart = () => {
  const history = useHistory();
-  const { products, total } = useSelector(state => state.cart);
+  const { products, total,quantity } = useSelector(state => state.cart);
   const { currentUser } = useSelector(state => state.user);
  return (
   <>
    <Navbar />
-   <Title>CART</Title>
+     <Title>CART{quantity>0 && `(${quantity})`}</Title>
    <Button style={{ marginLeft: "3rem" }} color="yellow" onClick={() => history.push("/products")}>Continue to Shop</Button>
    <Container>
     {products.length > 0 ?
@@ -98,24 +99,25 @@ export const Cart = () => {
              <Line></Line>
              <CartDetails>
 <SubTotal>
-                 <h3>SubTotal</h3>
-                 <h3 style={{margin:"0",color:"black"}}>₹{total}</h3>
+                 <h3>SubTotal{quantity>0 && `(${quantity} items)`}</h3>
+                 <h3 style={{margin:"0",color:"black"}}>₹{total.toLocaleString()}</h3>
                </SubTotal>
-                   <Line></Line>
+
              <Shipping>
                  <h3>Estimated Shipping</h3>
                  <h3 style={{margin:"0"}}>₹100</h3>
                </Shipping>
-                   <Line></Line>
+
              <ShippingMinus>
                  <h3>Shipping Discount</h3>
-                 <h3 style={{margin:"0"}}>-₹100</h3>
+                 <h3 style={{margin:"0",color:"green"}}>-₹100</h3>
                </ShippingMinus>
                    <Line></Line>
              <Total>
                  <h3>Total Amount to be Paid</h3>
-                 <h3 style={{margin:"0",fontSize:"1.3rem",color:"#141e30"}}>₹{total}</h3>
+                 <h3 style={{margin:"0",fontSize:"1.3rem",color:"black",textShadow:"2px 2px yellow"}}>₹{total.toLocaleString()}</h3>
                </Total>
+                  <Line></Line>
              </CartDetails>
              {!currentUser ?
                 <Button color="yellow" onClick={toasterr} style={{ fontSize: "1.3rem", color: "black" }}>Proceed to Checkout</Button>
@@ -135,7 +137,7 @@ export const Cart = () => {
          </CartEmptyContainer>}
        <ToastContainer
 position="bottom-right"
-autoClose={4000}
+autoClose={3500}
 hideProgressBar={false}
 newestOnTop={false}
 closeOnClick

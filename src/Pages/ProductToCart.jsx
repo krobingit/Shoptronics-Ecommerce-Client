@@ -8,13 +8,16 @@ import SkewLoader from "react-spinners/SkewLoader";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { IconButton } from "@mui/material";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import InfoIcon from '@mui/icons-material/Info';
 import { Button } from "semantic-ui-react";
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import Slide from '@mui/material/Slide';
 import { useHistory } from 'react-router-dom';
+import { HeartFill } from 'react-bootstrap-icons';
+import { ToastContainer,toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const Title = styled.h2`
@@ -29,7 +32,6 @@ const Title = styled.h2`
   ${small({ fontSize: "1.5rem" })}
 `;
 const MainContainer = styled.div`
-
 `;
 
 const ItemContainer = styled.div`
@@ -38,7 +40,7 @@ const ItemContainer = styled.div`
 align-items:center;
   margin: 2rem 6rem;
   gap: 2rem;
-padding:0rem 1.5rem;
+padding:0rem 2.5rem;
 ${medium({ flexWrap: "wrap", margin: "auto" })}
 ${small({margin:"auto"})}
 `
@@ -124,7 +126,21 @@ const Line = styled.p`
 margin-top:1rem;
 border:0.6px solid darkgray;
 `
-
+const Options = styled.div`
+display:flex;
+`
+const toastwish = () => {
+return(toast.warn('Item already on Wishlist!', {
+position: "top-right",
+autoClose: 3000,
+hideProgressBar: false,
+closeOnClick: true,
+pauseOnHover: true,
+draggable: true,
+  progress: undefined,
+  theme: "colored"
+}));
+}
 export const ProductToCart = () => {
  let history = useHistory();
 
@@ -154,6 +170,9 @@ export const ProductToCart = () => {
   const [loading, setLoading] = useState(true);
   const [product, setProduct] = useState(null);
   const [notify, setNotify] = useState(false);
+  const { currentUser } = useSelector(state => state.user);
+
+   const { wishlistproducts } = useSelector(state => state.wishlist);
   const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(1);
   //const {products}=useSelector(state=>state.cart)
@@ -237,7 +256,27 @@ export const ProductToCart = () => {
               </ProductActions>
               <Line></Line>
               <p style={{ fontSize: "1.1rem" }}>Categories: <Value>{product.category[0].name},{product.category[1].name}</Value></p>
-             <Button color="yellow" style={{margin:"0 0 0 1.5rem",width:"min-content"}} onClick={()=>history.goBack()}>Previous</Button>
+                      <Options>
+              <Button color="yellow" style={{ margin: "0 0 0 1.5rem",height:"3.5rem",padding:"0 1rem",fontSize:"1.1rem", width: "min-content" }} onClick={() => history.goBack()}>Previous</Button>
+                <Button  style={{ margin: "0 0 0 1.5rem",height:"3.5rem",padding:"0 1rem",fontSize:"1.1rem" }} onClick={() => {
+
+                   if (!currentUser) {
+                     history.push("/login")
+                     return;
+                   }
+                   if (currentUser) {
+                     if (wishlistproducts.map((product) => product.name).every((pname) => pname !== product.name)) {
+                       dispatch({ type: "WishListAddItem", payload: { name:product.name, price:product.price, image:product.image, _id:product._id } })
+
+                     }
+                     else {
+                       return toastwish();
+                     }
+                   }
+                 }
+                 } color="yellow"><HeartFill
+                    style={{color: "red" }} /> Add to Wishlist</Button>
+                </Options>
             </DetailContainer>
         </ItemContainer>
       )}
@@ -248,7 +287,18 @@ export const ProductToCart = () => {
             Yayy!! {product.name} has been added to your Cart!
         </Alert>
       </Snackbar>
-    </>}
+      </>}
+      <ToastContainer
+position="top-right"
+autoClose={3000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+/>
       </MainContainer>
   );
 };

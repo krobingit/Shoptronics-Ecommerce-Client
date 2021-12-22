@@ -1,11 +1,12 @@
 import { IconButton } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { medium, small,large } from '../responsive';
+import { medium,large } from '../responsive';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import Slide from '@mui/material/Slide';
-import { useState,forwardRef } from "react";
+import { useState, forwardRef } from "react";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 
 const Container = styled.div`
@@ -29,16 +30,14 @@ height:10rem;
 const DetailContainer = styled.div`
 display:flex;
 gap:4rem;
-${small({ flexDirection: "column", gap: "1.2rem" })}
-${medium({flexDirection:"column",gap:"1.2rem"})}
+${medium({flexDirection:"column",gap:"1.2rem",alignItems:"center"})}
 `
 const NameContainer = styled.div`
 display:flex;
 flex-direction:column;
-width:11rem;
+width:13rem;
 margin-right:0.6rem;
-${small({ flexDirection: "column", alignItems: "center", width: "100%" })}
-${medium({flexDirection:"column",alignItems:"center",justifyContent: "space-around",width:"100%"})}
+${medium({flexDirection:"column",justifyContent: "space-around",width:"100%"})}
 `
 const ProductName = styled.h4`
 margin:0;
@@ -50,8 +49,7 @@ display:flex;
 gap:1rem;
 flex-direction:column;
 width:7rem;
-${small({ flexDirection: "row", alignItems: "center", justifyContent: "space-around", width: "100%" })}
-${medium({flexDirection:"row",alignItems:"center",justifyContent: "space-around",width:"100%"})}
+${medium({flexDirection:"row",justifyContent: "space-around",width:"100%"})}
 `
 const ProductPrice = styled.h4`
 font-size:1.3rem;
@@ -62,8 +60,7 @@ display:flex;
 gap:1rem;
 flex-direction:column;
 width:7rem;
-${small({ flexDirection: "row", alignItems: "center", justifyContent: "space-around", width: "100%" })}
-${medium({flexDirection:"row",alignItems:"center",justifyContent: "space-around",width:"100%"})}
+${medium({flexDirection:"row",justifyContent: "space-around",width:"100%"})}
 `
 
 const ProductQuantity = styled.h4`
@@ -75,14 +72,14 @@ const SubTotalContainer = styled.div`
 display:flex;
 gap:1rem;
 flex-direction:column;
-width:8rem;
-${small({ flexDirection: "row", alignItems: "center", justifyContent: "space-around", width: "100%" })}
-${medium({flexDirection:"row",alignItems:"center", justifyContent: "space-around",width:"100%"})}
+width:7rem;
+${medium({flexDirection:"row", justifyContent: "space-around",width:"100%"})}
 `
 const ProductSubTotal = styled.h4`
 font-size:1.3rem;
 margin:0;
-color:brown;
+color:black;
+text-shadow:2px 1px yellow;
 `
 const Remove = styled.div`
 
@@ -93,6 +90,7 @@ export const CartList = () => {
 
   console.log({ products, total, quantity });
   const dispatch = useDispatch();
+  //For SNACKBAR ALERT
    const [notify, setNotify] = useState(false);
    const Alert = forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -127,7 +125,7 @@ export const CartList = () => {
 
       <PriceContainer>
        <ProductPrice>Price</ProductPrice>
-       <ProductPrice>₹{Math.round(product.price * 76)}</ProductPrice>
+       <ProductPrice>₹{Math.round(product.price * 76).toLocaleString()}</ProductPrice>
       </PriceContainer>
 
        <QuantityContainer>
@@ -137,13 +135,13 @@ export const CartList = () => {
 
         <SubTotalContainer>
        <ProductSubTotal>Sub Total</ProductSubTotal>
-       <ProductSubTotal>₹{Math.round(product.price * 76)*product.quantity}</ProductSubTotal>
+       <ProductSubTotal>₹{(Math.round(product.price * 76)*product.quantity).toLocaleString()}</ProductSubTotal>
        </SubTotalContainer>
        </DetailContainer>
        { notify && <>
       <Snackbar     TransitionComponent={transition}
         key={transition ? transition.name : ''} open={open} autoHideDuration={4000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="info" sx={{ width: '100%' }}>
+        <Alert onClose={handleClose} severity="warning" sx={{ width: '100%' }}>
            One Item was removed from your Cart!
         </Alert>
       </Snackbar>
@@ -154,7 +152,7 @@ export const CartList = () => {
           setNotify(true)
     handleClick(TransitionLeft);
          }}>
-       <i className="far fa-times-circle"></i></IconButton>
+             <DeleteIcon style={{fontSize:"2rem",color:"crimson"}}/></IconButton>
      </Remove>
 
 

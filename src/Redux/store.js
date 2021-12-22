@@ -28,7 +28,7 @@ transforms: [
 const rootReducer = redux.combineReducers({
   user: userReducer,
   cart: cartReducer,
-  wishlist:wishlistReducer
+  wishlist: wishlistReducer
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

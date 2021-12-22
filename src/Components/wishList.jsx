@@ -8,11 +8,13 @@ import Slide from '@mui/material/Slide';
 import { useState,forwardRef } from "react";
 import { useHistory } from 'react-router-dom';
 import { Button } from 'semantic-ui-react';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const Container = styled.div`
 padding:2rem;
 `
 const WishListContainer = styled.div`
+
 padding:1rem;
 margin-bottom:1.5rem;
 display:flex;
@@ -31,6 +33,7 @@ height:10rem;
 const DetailContainer = styled.div`
 display:flex;
 gap:4rem;
+
 ${small({ flexDirection: "column", gap: "1.2rem" })}
 ${medium({flexDirection:"column",gap:"1.2rem"})}
 `
@@ -71,7 +74,7 @@ ${medium({flexDirection:"row",alignItems:"center",justifyContent: "space-around"
 `
 
 const ProductStock = styled.h4`
-font-size:1.3rem;
+font-size:1.2rem;
 margin:0;
 text-align:center;
 color:black;
@@ -89,7 +92,8 @@ export const WishListComp = () => {
  const { wishlistproducts } = useSelector((state) => state.wishlist);
  const history = useHistory();
   const dispatch = useDispatch();
-   const [notify, setNotify] = useState(false);
+  const [notify, setNotify] = useState(false);
+  //For SNACKBAR ALERT
    const Alert = forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
   });
@@ -123,12 +127,12 @@ export const WishListComp = () => {
 
       <PriceContainer>
        <ProductPrice>Price</ProductPrice>
-       <ProductPrice>₹{Math.round(product.price * 76)}</ProductPrice>
+       <ProductPrice>₹{Math.round(product.price * 76).toLocaleString()}</ProductPrice>
       </PriceContainer>
 
        <StockContainer>
             <ProductStock>Stock Status</ProductStock>
-       <ProductStock style={{ padding: "0.4rem",color:"green" }}>In Stock</ProductStock>
+       <ProductStock style={{ padding: "0.4rem",color:"green",fontSize:"1.1rem" }}>IN STOCK</ProductStock>
         </StockContainer>
 
       <CartContainer>
@@ -138,18 +142,18 @@ export const WishListComp = () => {
        { notify && <>
       <Snackbar     TransitionComponent={transition}
         key={transition ? transition.name : ''} open={open} autoHideDuration={4000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="info" sx={{ width: '100%' }}>
+        <Alert onClose={handleClose} severity="warning" sx={{ width: '100%' }}>
            One Item was removed from your Wishlist!
         </Alert>
       </Snackbar>
     </>}
      <Remove>
-         <IconButton style={{ color: "#2d2d2d" }} onClick={() => {
+         <IconButton  onClick={() => {
            dispatch({ type: "WishListRemoveItem", index: wishlistproducts.indexOf(product), payload: product })
           setNotify(true)
     handleClick(TransitionLeft);
          }}>
-       <i className="far fa-times-circle"></i></IconButton>
+           <DeleteIcon style={{fontSize:"2rem",color:"crimson"}}/> </IconButton>
      </Remove>
 
 
