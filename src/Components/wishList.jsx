@@ -113,8 +113,8 @@ export const WishListComp = () => {
 }
  return (
   <Container>
-   {wishlistproducts.map((product,idx) =>
-    <WishListContainer key={idx}>
+   {wishlistproducts.map((product) =>
+    <WishListContainer key={product._id}>
      <WishListImage src={product.image} />
      <DetailContainer>
       <NameContainer>

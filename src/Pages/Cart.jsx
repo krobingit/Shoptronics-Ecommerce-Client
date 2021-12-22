@@ -7,6 +7,9 @@ import { useHistory } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import cart from '../Assets/cartEmpty.png'
 import { DisplayRazorPayCheckout } from "./Payment";
+import { ToastContainer,toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const Title = styled.h1`
 font-size:1.8rem;
 text-align:center;
@@ -14,7 +17,7 @@ margin:0 0 2rem 0;
 text-shadow:1.5px 1px #141e30;
 color:gold;
 letter-spacing:3px;
-background:black;
+background:linear-gradient(135deg, #121721 0%, #000000 100%) fixed;
 font-family: 'Fira Sans', sans-serif;
 ${small({fontSize:"1.5rem"})};
 `
@@ -68,10 +71,19 @@ const Line = styled.div`
 border:1px solid darkgray;
 margin-bottom:0.5rem;
 `
+const toasterr = () => {
+return(toast.error('Please Log in to Complete the Checkout', {
+position: "bottom-right",
+autoClose: 4000,
+hideProgressBar: false,
+closeOnClick: true,
+theme: "colored"
+}));
+}
 export const Cart = () => {
  const history = useHistory();
   const { products, total } = useSelector(state => state.cart);
-   const { currentUser } = useSelector(state => state.user);
+  const { currentUser } = useSelector(state => state.user);
  return (
   <>
    <Navbar />
@@ -104,9 +116,15 @@ export const Cart = () => {
                  <h3>Total Amount to be Paid</h3>
                  <h3 style={{margin:"0",fontSize:"1.3rem",color:"#141e30"}}>₹{total}</h3>
                </Total>
-               </CartDetails>
-             <Button inverted color="yellow" style={{ fontSize: "1.3rem", color: "black" }}
-  onClick={()=>DisplayRazorPayCheckout(total,currentUser.username)}>Proceed to Checkout</Button>
+             </CartDetails>
+             {!currentUser ?
+                <Button inverted color="yellow" onClick={toasterr} style={{ fontSize: "1.3rem", color: "black" }}>Proceed to Checkout</Button>
+
+               :
+<Button inverted color="yellow" style={{ fontSize: "1.3rem", color: "black" }}
+                 onClick={() => { return DisplayRazorPayCheckout(total, currentUser.username) }}>Proceed to Checkout</Button>
+
+             }
 
       </CartTotals>
       </>
@@ -114,7 +132,15 @@ export const Cart = () => {
      <CartEmptyContainer>
       <h3 style={{ textAlign: "center",margin:"1rem",color:"#141e30" }}>Your Shoptronics Cart is Empty.Let's add some items..</h3>
       <CartEmptyImage src={cart}/>
-</CartEmptyContainer>}
+         </CartEmptyContainer>}
+       <ToastContainer
+position="bottom-right"
+autoClose={4000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+/>
     </Container>
   </>
 

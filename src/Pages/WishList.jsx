@@ -15,7 +15,7 @@ margin:0 0 2rem 0;
 text-shadow:1.5px 1px #141e30;
 color:gold;
 letter-spacing:3px;
-background:black;
+background:linear-gradient(135deg, #121721 0%, #000000 100%) fixed;
 font-family: 'Fira Sans', sans-serif;
 ${small({fontSize:"1.5rem"})}
 `
@@ -37,7 +37,7 @@ export const WishList=()=>
   <Navbar />
    <Title>WishList</Title>
     <Button style={{ marginLeft: "3rem" }} color="yellow" onClick={() => history.push("/products")}>Continue to Shop</Button>
-{!currentUser && history.push("/register")}
+{!currentUser && history.push("/login")}
    {currentUser && wishlistproducts.length > 0
     ?
     <WishListComp />

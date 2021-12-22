@@ -23,7 +23,7 @@ border: 1px solid rgba( 255, 255, 255, 0.18 );
 ${large({ flexDirection: "column", width: "100%", alignItems: "center" })}
 `
 const CartImage = styled.img`
-width:11rem;
+width:12rem;
 height:10rem;
 `
 const DetailContainer = styled.div`

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { commonRequest } from '../axiosreq';
 import BeatLoader from "react-spinners/BeatLoader";
 import { small } from '../responsive';
-import { CartPlus, HeartFill } from 'react-bootstrap-icons';
+import { CartPlus, Heart } from 'react-bootstrap-icons';
 import { IconButton } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import Snackbar from '@mui/material/Snackbar';
@@ -52,7 +52,7 @@ margin:0 0 2rem 0;
 text-shadow:1.5px 1px #141e30;
 color:gold;
 letter-spacing:3px;
-background:black;
+background:linear-gradient(135deg, #121721 0%, #000000 100%) fixed;
 font-family: 'Fira Sans', sans-serif;
 ${small({fontSize:"1.5rem"})}
 `
@@ -73,6 +73,7 @@ color:brown;
 
 
 export function Products() {
+
 
   const Alert = forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -156,10 +157,10 @@ export function Products() {
                <ProductActions>
                  <IconButton style={{ color: "#141e30" }} onClick={()=>history.push(`/product/${_id}`)}>
                    <CartPlus style={{ fontSize: "1.9rem" }} /></IconButton>
-                 <IconButton style={{ color: "#A9A9A9" }} onClick={() => {
+                 <IconButton  style={{ color: "#A9A9A9","&:active":{backgroundColor:"red"}}} onClick={() => {
 
                    if (!currentUser) {
-                     history.push("/register")
+                     history.push("/login")
                      return;
                    }
                    if (currentUser) {
@@ -173,7 +174,8 @@ export function Products() {
                      }
                    }
                  }
-                 }><HeartFill style={{ fontSize: "1.9rem", color: "#E31B23" }} /></IconButton>
+                 }><Heart
+                     style={{ fontSize: "1.9rem", color: "#E31B23" }} /></IconButton>
 
                </ProductActions>
              </ProductCard>

@@ -9,7 +9,9 @@ import { ProductList } from './Pages/ProductList';
 import { ProductToCart } from './Pages/ProductToCart';
 import { Cart } from './Pages/Cart';
 import { WishList } from './Pages/WishList';
+
 function App() {
+
   return (
     <div className="App">
       <Switch>
@@ -41,6 +43,7 @@ function App() {
         <Route path="/register">
           <Register />
         </Route>
+
 
       </Switch>
     </div>

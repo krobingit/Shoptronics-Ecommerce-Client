@@ -1,6 +1,7 @@
 
 import logo from '../Assets/logo.jpg';
-function loadRazorPay(src)
+import axios from 'axios';
+ function loadRazorPay(src)
 {
  return new Promise((resolve) => {
   const script = document.createElement('script')
@@ -16,30 +17,30 @@ function loadRazorPay(src)
  })
 }
 
-
 async function DisplayRazorPayCheckout(total,username) {
+console.log(total)
 
- const res = await loadRazorPay("https://checkout.razorpay.com/v1/checkout.js");
- if (!res) {
+ const result = await loadRazorPay("https://checkout.razorpay.com/v1/checkout.js");
+ if (!result) {
   alert("Razorpay failed")
 return
  }
 
- const data = await fetch("http://shoptronics-ecommerce.herokuapp.com/razorpay", {
-   method: "POST",
-   body:JSON.stringify({amount:total})
- }).then(data => data.json())
 
-  console.log(data)
+ const res = await axios.post("http://shoptronics-ecommerce.herokuapp.com/razorpay",
+  {total}
+ )
+
+  console.log(res.data)
 
  var options = {
   key: 'rzp_test_2I9iqbhqh8BDIH', // Enter the Key ID generated from the Dashboard
-  "amount": data.response.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
-  "currency": data.response.currency,
+  "amount": res.data.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+  "currency": res.data.currency,
   "name": "Shoptronics Order",
-  "description": "Pay",
+  "description": `More Power to you!!`,
   "image": logo,
-  "order_id": data.response.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+  "order_id": res.data.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
   "handler": function (response) {
    alert(response.razorpay_payment_id);
    alert(response.razorpay_order_id);
@@ -49,8 +50,8 @@ return
    "name": username
   }
  };
- var paymentObject = new window.Razorpay(options);
- paymentObject.open();
+  var paymentObject = new window.Razorpay(options);
+
  paymentObject.on('payment.failed', function (response){
         alert(response.error.code);
         alert(response.error.description);
@@ -59,6 +60,8 @@ return
         alert(response.error.reason);
         alert(response.error.metadata.order_id);
         alert(response.error.metadata.payment_id);
-});
+ });
+  return(
+ paymentObject.open())
 }
 export { DisplayRazorPayCheckout };
