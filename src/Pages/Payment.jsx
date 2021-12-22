@@ -1,4 +1,5 @@
 
+import logo from '../Assets/logo.jpg';
 function loadRazorPay(src)
 {
  return new Promise((resolve) => {
@@ -16,7 +17,7 @@ function loadRazorPay(src)
 }
 
 
-async function DisplayRazorPayCheckout() {
+async function DisplayRazorPayCheckout(total,username) {
 
  const res = await loadRazorPay("https://checkout.razorpay.com/v1/checkout.js");
  if (!res) {
@@ -24,19 +25,20 @@ async function DisplayRazorPayCheckout() {
 return
  }
 
- const data = await fetch("http://localhost:9000/razorpay", {
-  method: "POST"
- }).then(d => d.json())
+ const data = await fetch("http://shoptronics-ecommerce.herokuapp.com/razorpay", {
+   method: "POST",
+   body:JSON.stringify({amount:total})
+ }).then(data => data.json())
 
+  console.log(data)
 
-console.log(data)
  var options = {
   key: 'rzp_test_2I9iqbhqh8BDIH', // Enter the Key ID generated from the Dashboard
   "amount": data.response.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
   "currency": data.response.currency,
   "name": "Shoptronics Order",
   "description": "Pay",
-  "image": "https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg",
+  "image": logo,
   "order_id": data.response.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
   "handler": function (response) {
    alert(response.razorpay_payment_id);
@@ -44,7 +46,7 @@ console.log(data)
    alert(response.razorpay_signature)
   },
   "prefill": {
-   "name": "Gaurav Kumar"
+   "name": username
   }
  };
  var paymentObject = new window.Razorpay(options);

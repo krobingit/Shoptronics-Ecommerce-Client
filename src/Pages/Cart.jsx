@@ -70,7 +70,8 @@ margin-bottom:0.5rem;
 `
 export const Cart = () => {
  const history = useHistory();
- const { products,total } = useSelector(state => state.cart);
+  const { products, total } = useSelector(state => state.cart);
+   const { currentUser } = useSelector(state => state.user);
  return (
   <>
    <Navbar />
@@ -104,7 +105,8 @@ export const Cart = () => {
                  <h3 style={{margin:"0",fontSize:"1.3rem",color:"#141e30"}}>₹{total}</h3>
                </Total>
                </CartDetails>
-             <Button inverted color="yellow" style={{fontSize:"1.3rem",color:"black"}} onClick={DisplayRazorPayCheckout}>Proceed to Checkout</Button>
+             <Button inverted color="yellow" style={{ fontSize: "1.3rem", color: "black" }}
+  onClick={()=>DisplayRazorPayCheckout(total,currentUser.username)}>Proceed to Checkout</Button>
 
       </CartTotals>
       </>
