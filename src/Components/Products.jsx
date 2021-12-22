@@ -96,8 +96,6 @@ export function Products() {
   return <Slide {...props} direction="left" />;
 }
 
-
-
   const [products, setProducts] = useState(null);
   const [loading, setLoading] = useState(true);
   const history = useHistory();
@@ -140,11 +138,11 @@ export function Products() {
                         { notify && <>
       <Snackbar     TransitionComponent={transition}
         key={transition ? transition.name : ''} open={open} autoHideDuration={4000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+        <Alert onClose={handleClose} severity="info" sx={{ width: '100%' }}>
             This item is already on your wishlist!!
         </Alert>
       </Snackbar>
-    </>}
+                </>}
 
            {products.map(({ name, price, category,manufacturer,image,_id })=>
              <ProductCard key={_id} >
@@ -167,6 +165,7 @@ export function Products() {
                    if (currentUser) {
                      if (wishlistproducts.map((product) => product.name).every((pname) => pname !== name)) {
                        dispatch({ type: "WishListAddItem", payload: { name, price, image, _id } })
+
                      }
                      else {
                        handleClick(TransitionLeft);

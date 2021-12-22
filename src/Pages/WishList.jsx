@@ -37,12 +37,13 @@ export const WishList=()=>
   <Navbar />
    <Title>WishList</Title>
     <Button style={{ marginLeft: "3rem" }} color="yellow" onClick={() => history.push("/products")}>Continue to Shop</Button>
+{!currentUser && history.push("/register")}
    {currentUser && wishlistproducts.length > 0
     ?
     <WishListComp />
     :
     <WishListEmptyContainer>
-      <WishListEmptyImage src={wishlistEmpty}/>
+     <WishListEmptyImage src={wishlistEmpty} />
 </WishListEmptyContainer>}
 
    </>

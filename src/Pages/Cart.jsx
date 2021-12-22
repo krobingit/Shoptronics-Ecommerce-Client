@@ -6,6 +6,7 @@ import { Button } from "semantic-ui-react";
 import { useHistory } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import cart from '../Assets/cartEmpty.png'
+import { DisplayRazorPayCheckout } from "./Payment";
 const Title = styled.h1`
 font-size:1.8rem;
 text-align:center;
@@ -32,6 +33,7 @@ width:20rem;
 `
 const CartTotals = styled.div`
 margin:1rem;
+width:90%;
 padding:1rem;
 display:flex;
 flex-direction:column;
@@ -98,17 +100,17 @@ export const Cart = () => {
                </ShippingMinus>
                    <Line></Line>
              <Total>
-                 <h3>Total</h3>
-                 <h3 style={{margin:"0",color:"#141e30"}}>₹{total}</h3>
+                 <h3>Total Amount to be Paid</h3>
+                 <h3 style={{margin:"0",fontSize:"1.3rem",color:"#141e30"}}>₹{total}</h3>
                </Total>
                </CartDetails>
-             <Button inverted color="yellow" style={{fontSize:"1.1rem",color:"black"}}>Proceed to Checkout</Button>
+             <Button inverted color="yellow" style={{fontSize:"1.3rem",color:"black"}} onClick={DisplayRazorPayCheckout}>Proceed to Checkout</Button>
 
       </CartTotals>
       </>
      :
      <CartEmptyContainer>
-      <h3 style={{ textAlign: "center",margin:"1rem",color:"#141e30" }}>Your Shoptronics Cart is Empty.Add items to it now</h3>
+      <h3 style={{ textAlign: "center",margin:"1rem",color:"#141e30" }}>Your Shoptronics Cart is Empty.Let's add some items..</h3>
       <CartEmptyImage src={cart}/>
 </CartEmptyContainer>}
     </Container>

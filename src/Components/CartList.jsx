@@ -43,7 +43,7 @@ ${medium({flexDirection:"column",alignItems:"center",justifyContent: "space-arou
 const ProductName = styled.h4`
 margin:0;
 color:black;
-font-size:1.3rem;
+font-size:1.2rem;
 `
 const PriceContainer = styled.div`
 display:flex;

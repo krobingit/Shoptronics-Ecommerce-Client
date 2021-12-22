@@ -45,7 +45,7 @@ ${medium({flexDirection:"column",alignItems:"center",justifyContent: "space-arou
 const ProductName = styled.h4`
 margin:0;
 color:black;
-font-size:1.3rem;
+font-size:1.2rem;
 `
 const PriceContainer = styled.div`
 display:flex;
@@ -63,6 +63,7 @@ color:black;
 const StockContainer = styled.div`
 display:flex;
 gap:1rem;
+align-items:center;
 flex-direction:column;
 width:7rem;
 ${small({ flexDirection: "row", alignItems: "center", justifyContent: "space-around", width: "100%" })}
@@ -72,6 +73,7 @@ ${medium({flexDirection:"row",alignItems:"center",justifyContent: "space-around"
 const ProductStock = styled.h4`
 font-size:1.3rem;
 margin:0;
+text-align:center;
 color:black;
 `
 
