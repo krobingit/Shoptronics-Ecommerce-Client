@@ -27,7 +27,7 @@ return
  }
 
 
- const res = await axios.post("http://shoptronics-ecommerce.herokuapp.com/razorpay",
+ const res = await axios.post("https://shoptronics-ecommerce.herokuapp.com/razorpay",
   {total}
  )
 
