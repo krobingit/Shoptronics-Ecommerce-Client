@@ -49,6 +49,7 @@ const ProductName = styled.h4`
 margin:0;
 color:black;
 font-size:1.2rem;
+text-align:center;
 `
 const PriceContainer = styled.div`
 display:flex;

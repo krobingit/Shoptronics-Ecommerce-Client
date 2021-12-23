@@ -46,6 +46,11 @@ display:flex;
 justify-content:space-between;
 align-items:center;
 `
+const Discount = styled.div`
+display:flex;
+justify-content:space-between;
+align-items:center;
+`
 const Shipping= styled.div`
 display:flex;
 justify-content:space-between;
@@ -83,7 +88,8 @@ theme: "colored"
 }
 export const Cart = () => {
  const history = useHistory();
-  const { products, total,quantity } = useSelector(state => state.cart);
+  const { products, total, quantity } = useSelector(state => state.cart);
+  let quantityDiscount = products.map((prod) => prod.quantity).reduce((total,val)=>val+total,0)
   const { currentUser } = useSelector(state => state.user);
  return (
   <>
@@ -98,10 +104,14 @@ export const Cart = () => {
              <h2 style={{color:"black"}}>CART TOTALS</h2>
              <Line></Line>
              <CartDetails>
-<SubTotal>
+              <SubTotal>
                  <h3>SubTotal{quantity>0 && `(${quantity} items)`}</h3>
-                 <h3 style={{margin:"0",color:"black"}}>₹{total.toLocaleString()}</h3>
+                 <h3 style={{ margin: "0", color: "black" }}>₹{(total+quantityDiscount*10000).toLocaleString()}</h3>
                </SubTotal>
+                   <Discount>
+                 <h3>Discount</h3>
+                 <h3 style={{ margin: "0", color: "green" }}>- ₹{(quantityDiscount*10000).toLocaleString()}</h3>
+               </Discount>
 
              <Shipping>
                  <h3>Estimated Shipping</h3>

@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { Link, useHistory } from 'react-router-dom';
 import { Input } from 'semantic-ui-react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useState } from 'react';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
@@ -56,6 +57,7 @@ ${small({rowGap:"0.4rem",columnGap:"1rem"})};
 `
 
 function Navbar() {
+   const [openModal, setOpen] = useState(false)
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -119,7 +121,7 @@ function Navbar() {
           }} style={{ marginRight: wishlistquantity > 0 && "0.6rem" }} color="secondary" badgeContent={wishlistquantity} >
           <FavoriteIcon sx={{ color: wishlistquantity > 0 && "#E31B23", fontSize: "1.7rem" }} /></Badge> Wishlist</Button>
 
-        {/*Conditional Rendering*/ }
+        {/*Conditional Rendering if user logged in or not*/ }
       {currentUser && <> <Button
         id="fade-button"
         aria-controls="fade-menu"
@@ -144,13 +146,12 @@ function Navbar() {
           <MenuItem sx={{
             "&:hover": { backgroundColor: "gold" },
               borderRadius: "0.5rem"
-          }} style={btnStyles} onClick={() => dispatch({ type: "logOut" })}>Logout</MenuItem>
+            }} style={btnStyles} onClick={() =>
+                dispatch({ type: "logOut" })}>Logout</MenuItem>
            <MenuItem  style={btnStyles}>Email: {currentUser.email}</MenuItem>
       </Menu>
 </>}
 </NavActions>
-
-
 
     </NavContainer>
 

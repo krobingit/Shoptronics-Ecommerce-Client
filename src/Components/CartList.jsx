@@ -43,13 +43,14 @@ const ProductName = styled.h4`
 margin:0;
 color:black;
 font-size:1.2rem;
+text-align:center;
 `
 const PriceContainer = styled.div`
 display:flex;
 gap:1rem;
 flex-direction:column;
 width:7rem;
-${medium({flexDirection:"row",justifyContent: "space-around",width:"100%"})}
+${medium({ flexDirection: "column", justifyContent: "center", alignItems:"center",width:"100%"})}
 `
 const ProductPrice = styled.h4`
 font-size:1.3rem;
@@ -79,7 +80,7 @@ const ProductSubTotal = styled.h4`
 font-size:1.3rem;
 margin:0;
 color:black;
-text-shadow:2px 1px yellow;
+
 `
 const Remove = styled.div`
 
@@ -125,7 +126,9 @@ export const CartList = () => {
 
       <PriceContainer>
        <ProductPrice>Price</ProductPrice>
-       <ProductPrice>₹{Math.round(product.price * 76).toLocaleString()}</ProductPrice>
+           <ProductPrice>₹{Math.round(product.price * 76).toLocaleString()}</ProductPrice>
+           <ProductPrice style={{ textDecoration: "line-through grey solid" }}>
+             ₹{((Math.round(product.price * 76) + 10000)).toLocaleString()}</ProductPrice>
       </PriceContainer>
 
        <QuantityContainer>
@@ -134,8 +137,8 @@ export const CartList = () => {
         </QuantityContainer>
 
         <SubTotalContainer>
-       <ProductSubTotal>Sub Total</ProductSubTotal>
-       <ProductSubTotal>₹{(Math.round(product.price * 76)*product.quantity).toLocaleString()}</ProductSubTotal>
+       <ProductSubTotal>Total Price</ProductSubTotal>
+       <ProductSubTotal style={{textShadow:"2px 1px yellow"}}>₹{(Math.round(product.price * 76)*product.quantity).toLocaleString()}</ProductSubTotal>
        </SubTotalContainer>
        </DetailContainer>
        { notify && <>
