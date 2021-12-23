@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import { Link, useHistory } from 'react-router-dom';
 import { Input } from 'semantic-ui-react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useState } from 'react';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
@@ -57,7 +56,7 @@ ${small({rowGap:"0.4rem",columnGap:"1rem"})};
 `
 
 function Navbar() {
-   const [openModal, setOpen] = useState(false)
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
