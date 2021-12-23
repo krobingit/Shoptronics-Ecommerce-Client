@@ -9,12 +9,14 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from './Redux/store';
 import { Provider } from 'react-redux';
-
+import { ConfirmProvider } from "material-ui-confirm";
 ReactDOM.render(
     <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
-        <Router>
+      <Router>
+         <ConfirmProvider>
           <App />
+          </ConfirmProvider>
         </Router>
       </PersistGate>
     </Provider>,

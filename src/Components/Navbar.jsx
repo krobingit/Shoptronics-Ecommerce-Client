@@ -12,7 +12,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import Badge from '@mui/material/Badge';
 import { small } from '../responsive';
 import * as React from 'react';
-
+import { useConfirm } from "material-ui-confirm";
 
 //styled-components
 const NavContainer = styled.div`
@@ -55,8 +55,15 @@ align-items:center;
 ${small({rowGap:"0.4rem",columnGap:"1rem"})};
 `
 
-function Navbar() {
 
+
+function Navbar() {
+const confirm = useConfirm();
+  const handleLogin = () => {
+    confirm({ description: `Do you want to log out?` })
+      .then(() => dispatch({ type: "logOut" }))
+      .catch((err) =>  err && console.log(err) )
+  };
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -145,8 +152,7 @@ function Navbar() {
           <MenuItem sx={{
             "&:hover": { backgroundColor: "gold" },
               borderRadius: "0.5rem"
-            }} style={btnStyles} onClick={() =>
-                dispatch({ type: "logOut" })}>Logout</MenuItem>
+            }} style={btnStyles} onClick={()=>handleLogin()}>Logout</MenuItem>
            <MenuItem  style={btnStyles}>Email: {currentUser.email}</MenuItem>
       </Menu>
 </>}

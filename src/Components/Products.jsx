@@ -149,7 +149,7 @@ export function Products() {
              <ProductCard key={_id} >
                <ProductImage src={image} onClick={() => history.push(`/product/${_id}`)} alt="product"/>
                <ProductDetails>
-                 <p style={detailstyle}> {name}</p>
+                 <p style={detailstyle} onClick={() => history.push(`/product/${_id}`)}> {name}</p>
                  <p style={detailstyle}>Price: <Values style={{fontSize:"1.5rem"}}>₹{Math.round(price * 76).toLocaleString()}</Values></p>
                  <p style={detailstyle}>Category: <Values>{category[1].name}</Values></p>
                  <p style={detailstyle}>Brand: <Values>{manufacturer}</Values></p>
