@@ -9,6 +9,7 @@ import { useState,forwardRef } from "react";
 import { useHistory } from 'react-router-dom';
 import { Button } from 'semantic-ui-react';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { useConfirm } from "material-ui-confirm";
 
 const Container = styled.div`
 padding:2rem;
@@ -27,8 +28,9 @@ border: 1px solid rgba( 255, 255, 255, 0.18 );
 ${large({ flexDirection: "column", width: "100%", alignItems: "center" })}
 `
 const WishListImage = styled.img`
-width:11rem;
+width:14rem;
 height:10rem;
+${small({width:"12rem"})}
 `
 const DetailContainer = styled.div`
 display:flex;
@@ -90,6 +92,7 @@ justify-content:center;
 `
 
 export const WishListComp = () => {
+    const confirm = useConfirm();
  const { wishlistproducts } = useSelector((state) => state.wishlist);
  const history = useHistory();
   const dispatch = useDispatch();
@@ -149,12 +152,16 @@ export const WishListComp = () => {
       </Snackbar>
     </>}
      <Remove>
-         <IconButton  onClick={() => {
+         <IconButton  onClick={async () => {
+await confirm({ description: `Do you want to remove this item from wishlist?` })
+  .then(() => {
            dispatch({ type: "WishListRemoveItem", index: wishlistproducts.indexOf(product), payload: product })
           setNotify(true)
-    handleClick(TransitionLeft);
+    handleClick(TransitionLeft)
+      })
+      .catch((err) => err && console.log(err))
          }}>
-           <DeleteIcon style={{fontSize:"2rem",color:"crimson"}}/> </IconButton>
+           <DeleteIcon style={{fontSize:"2.3rem",color:"orangered"}}/> </IconButton>
      </Remove>
 
 

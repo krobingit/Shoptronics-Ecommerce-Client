@@ -16,6 +16,7 @@ padding:0 2rem;
 `
 const LoaderContainer = styled.div`
 display:flex;
+flex-direction:column;
 align-items:center;
 justify-content:center;
 `
@@ -131,7 +132,9 @@ export function Products() {
      {
        loading ?
          <LoaderContainer>
-              <BeatLoader color="#141e30" margin={7} loading={loading} size={25} />
+              <h3 style={{ margin:"0.5rem 0",letterSpacing:"1px",fontFamily: "'Patua One', cursive", fontSize: "1.5rem" }}>
+                Getting your products..</h3>
+               <BeatLoader color="#141e30" margin={7} loading={loading} size={25} />
          </LoaderContainer>
          :
          <>

@@ -46,7 +46,6 @@ display:flex;
 flex-direction:column;
 align-items:center;
 padding:1rem;
-margin-top:4rem;
 `
 const LoginContainer = styled.div`
 width:60%;
@@ -107,7 +106,11 @@ background-size:cover;
 ${small({ display: "none" })};
 ${medium({display:"none"})};
 `
-
+const Demo = styled.div`
+font-size:1.1rem;
+color:purple;
+margin-bottom:1rem;
+`;
 //Login Component
 function Login() {
   //const user = useSelector(state => state.user);
@@ -169,7 +172,11 @@ function Login() {
             margin: "2rem 0", color: "#4f2f5e", width: "80%", fontSize: "1rem", fontFamily: "Rubik, sans-serif"
             , borderRadius: "1rem"
           }} onClick={() => { history.push("/register") }} color='yellow'>SIGN UP</Button>
-
+ <Demo>
+              <p>For Demo,Please Use below credentials</p>
+             <p><b>User</b>: dummy@gmail.com & <b>Password</b>:Demo@123</p>
+            <p><b>Admin</b>: admin@gmail.com & <b>Password</b>:Admin@123</p>
+            </Demo>
         </Info>
         <LoginContainer>
           <Heading>
@@ -217,6 +224,7 @@ function Login() {
               </button>
             </SocialMediaIcons>
             <Copy>  © 2021 Shoptronics</Copy>
+
           </Form>
         </LoginContainer>
       </CenterContainer>

@@ -10,6 +10,7 @@ import { DisplayRazorPayCheckout } from "./Payment";
 import { ToastContainer,toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+
 const Title = styled.h1`
 font-size:1.8rem;
 text-align:center;
@@ -45,26 +46,30 @@ const SubTotal = styled.div`
 display:flex;
 justify-content:space-between;
 align-items:center;
+
 `
 const Discount = styled.div`
 display:flex;
 justify-content:space-between;
 align-items:center;
+
 `
 const Shipping= styled.div`
 display:flex;
 justify-content:space-between;
 align-items:center;
+
 `
 const ShippingMinus= styled.div`
 display:flex;
 justify-content:space-between;
 align-items:center;
+
 `
 const Total= styled.div`
 display:flex;
 justify-content:space-between;
-gap:1.3rem;
+gap:1.5rem;
 align-items:center;
 `
 const CartDetails= styled.div`
@@ -77,6 +82,17 @@ const Line = styled.div`
 border:1px dashed darkgray;
 margin-bottom:0.5rem;
 `
+const Demo = styled.div`
+display:flex;
+justify-content:center;
+flex-direction:column;
+align-items:flex-start;
+color:crimson;
+font-size:1.2rem;
+margin:1.5rem 0;
+`
+
+
 const toasterr = () => {
 return(toast.error('Please Log in to Complete the Checkout', {
 position: "bottom-right",
@@ -87,7 +103,8 @@ theme: "colored"
 }));
 }
 export const Cart = () => {
- const history = useHistory();
+  const history = useHistory();
+
   const { products, total, quantity } = useSelector(state => state.cart);
   let quantityDiscount = products.map((prod) => prod.quantity).reduce((total,val)=>val+total,0)
   const { currentUser } = useSelector(state => state.user);
@@ -127,14 +144,25 @@ export const Cart = () => {
                  <h3>Total Amount to be Paid</h3>
                  <h3 style={{margin:"0",fontSize:"1.3rem",color:"black",textShadow:"2px 2px yellow"}}>₹{total.toLocaleString()}</h3>
                </Total>
-                  <Line></Line>
+               <Line></Line>
+
              </CartDetails>
              {!currentUser ?
+               <>
                 <Button color="yellow" onClick={toasterr} style={{ fontSize: "1.3rem", color: "black" }}>Proceed to Checkout</Button>
+     <Demo>
+                   <h3 style={{textDecoration:"underline"}}>NOTE:</h3>
+                            <p>Please use the below credentials for checkout and choose <b>Payment Success</b> at the final page</p>
+                            <p>Card number: <b>4111111111111111</b></p>
+                            <p>Expiry:<b> 01/22 or any future dates</b></p>
+                            <p>CVV:<b> any three digit number</b></p>
 
+
+                 </Demo>
+                 </>
                :
 <Button color="yellow" style={{ fontSize: "1.3rem", color: "black" }}
-                 onClick={() => { return DisplayRazorPayCheckout(total, currentUser.username) }}>Proceed to Checkout</Button>
+                 onClick={() => { return DisplayRazorPayCheckout(total, currentUser,products) }}>Proceed to Checkout</Button>
 
              }
 
@@ -145,6 +173,7 @@ export const Cart = () => {
       <h3 style={{ textAlign: "center",margin:"1rem",color:"#141e30" }}>Your Shoptronics Cart is Empty.Let's add some items..</h3>
       <CartEmptyImage src={cart}/>
          </CartEmptyContainer>}
+
        <ToastContainer
 position="bottom-right"
 autoClose={3500}

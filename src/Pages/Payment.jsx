@@ -17,16 +17,14 @@ import axios from 'axios';
  })
 }
 
-async function DisplayRazorPayCheckout(total,username) {
-console.log(total)
+async function DisplayRazorPayCheckout(total, currentUser,products) {
+  const products_names = products.map(prod => prod.name);
 
  const result = await loadRazorPay("https://checkout.razorpay.com/v1/checkout.js");
  if (!result) {
   alert("Razorpay failed")
 return
  }
-
-
  const res = await axios.post("https://shoptronics-ecommerce.herokuapp.com/razorpay",
   {total}
  )
@@ -40,27 +38,34 @@ return
   "name": "Shoptronics Order",
   "description": `More Power to you ⚡`,
   "image": logo,
-  "order_id": res.data.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-  "handler": function (response) {
-   alert(response.razorpay_payment_id);
-   alert(response.razorpay_order_id);
-   alert(response.razorpay_signature)
-  },
-  "prefill": {
-   "name": username
+ payment_capture: 1,
+   "order_id": res.data.id,//This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+   "handler": async function (response) {
+     console.log(response.razorpay_signature);
+   try {
+         const paymentId = response.razorpay_payment_id;
+         const url = `https://shoptronics-ecommerce.herokuapp.com/razorpay/capture/${paymentId}`;
+     const captureResponse = await axios.post(url, {
+       "amount": res.data.amount,
+       "currency":res.data.currency
+     })
+         const successObj = JSON.parse(captureResponse.data)
+         const captured = successObj.captured;
+         console.log(successObj)
+         if(captured){
+             console.log('success')
+         }
    }
+   catch (err) {
+          console.log(err);
+        }
+   },
+  "prefill": {
+    "name": currentUser.username
+   },
+   "notes":[currentUser._id,...products_names]
  };
   var paymentObject = new window.Razorpay(options);
-
- paymentObject.on('payment.failed', function (response){
-        alert(response.error.code);
-        alert(response.error.description);
-        alert(response.error.source);
-        alert(response.error.step);
-        alert(response.error.reason);
-        alert(response.error.metadata.order_id);
-        alert(response.error.metadata.payment_id);
- });
   return(
  paymentObject.open())
 }

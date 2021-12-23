@@ -1,13 +1,14 @@
 import { IconButton } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { medium,large } from '../responsive';
+import { medium,small,large } from '../responsive';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import Slide from '@mui/material/Slide';
 import { useState, forwardRef } from "react";
 import DeleteIcon from '@mui/icons-material/Delete';
-
+import { useConfirm } from "material-ui-confirm";
+import { useHistory } from 'react-router-dom';
 
 const Container = styled.div`
 `
@@ -24,8 +25,10 @@ border: 1px solid rgba( 255, 255, 255, 0.18 );
 ${large({ flexDirection: "column", width: "100%", alignItems: "center" })}
 `
 const CartImage = styled.img`
-width:12rem;
+width:14rem;
 height:10rem;
+cursor:pointer;
+${small({width:"12rem"})}
 `
 const DetailContainer = styled.div`
 display:flex;
@@ -67,7 +70,7 @@ ${medium({flexDirection:"row",justifyContent: "space-around",width:"100%"})}
 const ProductQuantity = styled.h4`
 font-size:1.3rem;
 margin:0;
-color:#141e30;
+color:black;
 `
 const SubTotalContainer = styled.div`
 display:flex;
@@ -87,7 +90,9 @@ const Remove = styled.div`
 `
 
 export const CartList = () => {
- const { products, total, quantity } = useSelector((state) => state.cart);
+  const { products, total, quantity } = useSelector((state) => state.cart);
+  const confirm = useConfirm();
+ let history = useHistory();
 
   console.log({ products, total, quantity });
   const dispatch = useDispatch();
@@ -118,7 +123,7 @@ export const CartList = () => {
   <Container>
    {products.map((product,idx) =>
     <CartListContainer key={idx}>
-     <CartImage src={product.image} />
+     <CartImage src={product.image} onClick={() => history.push(`/product/${product._id}`)}/>
      <DetailContainer>
       <NameContainer>
        <ProductName>{product.name}</ProductName>
@@ -127,7 +132,7 @@ export const CartList = () => {
       <PriceContainer>
        <ProductPrice>Price</ProductPrice>
            <ProductPrice>₹{Math.round(product.price * 76).toLocaleString()}</ProductPrice>
-           <ProductPrice style={{ textDecoration: "line-through grey solid" }}>
+           <ProductPrice style={{ color:"green",textDecoration: "line-through grey solid" }}>
              ₹{((Math.round(product.price * 76) + 10000)).toLocaleString()}</ProductPrice>
       </PriceContainer>
 
@@ -150,12 +155,17 @@ export const CartList = () => {
       </Snackbar>
     </>}
      <Remove>
-         <IconButton style={{ color: "#2d2d2d" }} onClick={() => {
-           dispatch({ type: "RemoveItem", index: products.indexOf(product), payload: product })
-          setNotify(true)
-    handleClick(TransitionLeft);
+         <IconButton style={{ color: "#2d2d2d" }} onClick={async () => {
+await confirm({ description: `Do you want to remove this item from cart?` })
+  .then(() => {
+    dispatch({ type: "RemoveItem", index: products.indexOf(product), payload: product })
+    setNotify(true)
+    handleClick(TransitionLeft)
+  })
+      .catch((err) => err && console.log(err))
+
          }}>
-             <DeleteIcon style={{fontSize:"2rem",color:"crimson"}}/></IconButton>
+             <DeleteIcon style={{fontSize:"2.3rem",color:"orangered"}}/></IconButton>
      </Remove>
 
 
