@@ -8,6 +8,7 @@ import { commonRequest } from '../axiosreq';
 import Empty  from '../Assets/orderEmpty.png';
 import { Button } from 'semantic-ui-react';
 import { useHistory } from 'react-router-dom';
+import { medium } from '../responsive';
 
 const LoaderContainer = styled.div`
 display:flex;
