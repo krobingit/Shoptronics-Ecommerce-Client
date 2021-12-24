@@ -18,19 +18,10 @@ import { useHistory } from 'react-router-dom';
 import { HeartFill } from 'react-bootstrap-icons';
 import { ToastContainer,toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Title } from "./Home";
 
 
-const Title = styled.h2`
-  font-size: 1.8rem;
-  text-align: center;
-  margin: 0 0 2rem 0;
-  text-shadow: 1.5px 1px #141e30;
-  color: gold;
-  letter-spacing: 3px;
-  background:black;
-  font-family: "Fira Sans", sans-serif;
-  ${small({ fontSize: "1.5rem" })}
-`;
+
 const MainContainer = styled.div`
 `;
 

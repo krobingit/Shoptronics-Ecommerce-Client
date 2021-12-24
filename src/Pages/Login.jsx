@@ -108,8 +108,9 @@ ${medium({display:"none"})};
 `
 const Demo = styled.div`
 font-size:1.1rem;
-color:purple;
+color:red;
 margin-bottom:1rem;
+font-weight:bold;
 `;
 //Login Component
 function Login() {

@@ -3,7 +3,7 @@ import { Slider } from '../Components/Slider';
 import styled from 'styled-components';
 import { small } from '../responsive';
 
-const HomeTitle=styled.h2`
+export const Title=styled.h2`
 font-size:1.8rem;
 text-align:center;
 margin:0 0 2rem 0;
@@ -20,8 +20,8 @@ function Home(){
   <>
    <Navbar />
        <Slider />
-         <HomeTitle>HOME
-          </HomeTitle>
+         <Title>HOME
+          </Title>
 </>
 )
 

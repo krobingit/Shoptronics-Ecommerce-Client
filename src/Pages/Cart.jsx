@@ -1,26 +1,19 @@
 import { CartList } from "../Components/CartList";
 import { Navbar } from "../Components/Navbar";
 import styled from "styled-components";
-import { small } from "../responsive";
 import { Button } from "semantic-ui-react";
 import { useHistory } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import cart from "../Assets/cartEmpty.png";
-import { DisplayRazorPayCheckout } from "./Payment";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Title } from "./Home";
+import logo from '../Assets/logo.jpg';
+import axios from 'axios';
 
-const Title = styled.h1`
-  font-size: 1.8rem;
-  text-align: center;
-  margin: 0 0 2rem 0;
-  text-shadow: 1.5px 1px #141e30;
-  color: gold;
-  letter-spacing: 3px;
-  background: linear-gradient(135deg, #121721 0%, #000000 100%) fixed;
-  font-family: "Fira Sans", sans-serif;
-  ${small({ fontSize: "1.5rem" })};
-`;
+
+
+
 const Container = styled.div`
   padding: 2rem;
 `;
@@ -85,6 +78,23 @@ const Demo = styled.div`
   font-size: 1.2rem;
   margin: 1.5rem 0;
 `;
+//Function to Load Razorpay script
+ function loadRazorPay(src)
+{
+ return new Promise((resolve) => {
+  const script = document.createElement('script')
+  script.src = src;
+  script.onload = () => {
+   resolve(true);
+  }
+  script.onerror = () => {
+   resolve(false);
+
+  }
+  document.body.appendChild(script);
+ })
+}
+
 
 const toasterr = () => {
   return toast.error("Please Log in to Complete the Checkout", {
@@ -97,16 +107,97 @@ const toasterr = () => {
 };
 export const Cart = () => {
   const history = useHistory();
-
-  const { products, total, quantity } = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
+    const { products, total, quantity } = useSelector((state) => state.cart);
   let quantityDiscount = products
     .map((prod) => prod.quantity)
     .reduce((total, val) => val + total, 0);
   const { currentUser } = useSelector((state) => state.user);
+  //Function to display RazorPay frontend Payment Gateway integration
+async function DisplayRazorPayCheckout() {
+ const result = await loadRazorPay("https://checkout.razorpay.com/v1/checkout.js");
+ if (!result) {
+  alert("Razorpay failed")
+return
+ }
+ const res = await axios.post("https://shoptronics-ecommerce.herokuapp.com/razorpay",
+  {total}
+ )
+
+  console.log(res.data)
+
+ var options = {
+  key: 'rzp_test_2I9iqbhqh8BDIH', // Enter the Key ID generated from the Dashboard
+  "amount": res.data.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+  "currency": res.data.currency,
+  "name": "Shoptronics Order",
+  "description": `More Power to you ⚡`,
+  "image": logo,
+ payment_capture: 1,
+   "order_id": res.data.id,//This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+   "handler": async function (response) {
+     console.log(response.razorpay_signature);
+   try {
+         const paymentId = response.razorpay_payment_id;
+         const url = `https://shoptronics-ecommerce.herokuapp.com/razorpay/capture/${paymentId}`;
+     const captureResponse = await axios.post(url, {
+       "amount": res.data.amount,
+       "currency":res.data.currency
+     })
+         const razpaydata = JSON.parse(captureResponse.data)
+         const captured = razpaydata.captured;
+         console.log(razpaydata)
+         if(captured){
+             console.log('success')
+     }
+     dispatch({ type: "EmptyCart" })
+     //Creation of order to the server
+   async function PostOrder() {
+
+      await axios.post("https://shoptronics-ecommerce.herokuapp.com/order",
+        {
+          userId: currentUser._id,
+          userEmail:currentUser.email,
+          products,
+          paymentData:razpaydata,
+          orderStatus:"Processing"
+        },
+        {
+          headers: {token: currentUser.token }
+        }
+      )
+     }
+     await PostOrder();
+     //redirecting to order confirmation page
+     history.push(`/order-placed/${razpaydata.order_id}`, {
+       user: currentUser,
+       paymentData:razpaydata
+     })
+
+   }
+   catch (err) {
+          console.log(err);
+        }
+   },
+  "prefill": {
+    "name": currentUser.username
+   },
+   "notes": {
+     "address":"149, New No 60, Coral Merchant Street,Chennai-600073,TN,India"
+   }
+ };
+  var paymentObject = new window.Razorpay(options);
+  return(
+ paymentObject.open())
+  }
+  /*      Payment function ends               */
+
+
+
   return (
     <>
       <Navbar />
-      <Title>CART{quantity > 0 && `(${quantity})`}</Title>
+      <Title><i className="fas fa-cart-arrow-down"></i> CART{quantity > 0 && `(${quantity})`}</Title>
       <Button
         style={{ marginLeft: "3rem" }}
         color="yellow"
@@ -176,11 +267,7 @@ export const Cart = () => {
                     color="yellow"
                     style={{ fontSize: "1.3rem", color: "black" }}
                     onClick={() => {
-                      return DisplayRazorPayCheckout(
-                        total,
-                        currentUser,
-                        products
-                      );
+                      return DisplayRazorPayCheckout() //displays a razor pay sub-page
                     }}
                   >
                     Proceed to Checkout
@@ -211,7 +298,7 @@ export const Cart = () => {
             <h3
               style={{ textAlign: "center", margin: "1rem", color: "#141e30" }}
             >
-              Your Shoptronics Cart is Empty.Let's add some items..
+              Your Shoptronics Cart is Empty.Let's add some items..What say?
             </h3>
             <CartEmptyImage src={cart} />
           </CartEmptyContainer>

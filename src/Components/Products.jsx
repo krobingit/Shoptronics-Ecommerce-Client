@@ -1,15 +1,15 @@
 import { useEffect, useState,forwardRef } from 'react';
 import {useHistory} from 'react-router-dom';
-import styled from 'styled-components';
 import { commonRequest } from '../axiosreq';
-import BeatLoader from "react-spinners/BeatLoader";
-import { small } from '../responsive';
 import { CartPlus, HeartFill } from 'react-bootstrap-icons';
 import { IconButton } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import Slide from '@mui/material/Slide';
+import { Title } from '../Pages/Home';
+import { SpinnerInfinity } from 'spinners-react';
+import styled from 'styled-components';
 
 const Container = styled.div`
 padding:0 2rem;
@@ -45,17 +45,6 @@ const ProductImage = styled.img`
 width:17rem;
 height:12rem;
 object-fit:fill;
-`
-const ProductTitle = styled.h2`
-font-size:1.8rem;
-text-align:center;
-margin:0 0 2rem 0;
-text-shadow:1.5px 1px #141e30;
-color:gold;
-letter-spacing:3px;
-background:linear-gradient(135deg, #121721 0%, #000000 100%) fixed;
-font-family: 'Fira Sans', sans-serif;
-${small({fontSize:"1.5rem"})}
 `
 const ProductDetails = styled.div`
 text-align:center;
@@ -126,21 +115,21 @@ export function Products() {
   const detailstyle = { fontSize: "1.1rem" };
   return (
     <>
-   <ProductTitle>PRODUCTS
-          </ProductTitle>
+   <Title>PRODUCTS
+          </Title>
    <Container>
      {
        loading ?
          <LoaderContainer>
-              <h3 style={{ margin:"0.5rem 0",letterSpacing:"1px",fontFamily: "'Patua One', cursive", fontSize: "1.5rem" }}>
+              <SpinnerInfinity size={75} thickness={140} speed={150} color="#141e30" secondaryColor="gold" />
+                   <h3 style={{ margin:"1rem 0",fontStyle:"italic",letterSpacing:"1px",fontFamily: "'Patua One', cursive", fontSize: "1.5rem" }}>
                 Getting your products..</h3>
-               <BeatLoader color="#141e30" margin={7} loading={loading} size={25} />
          </LoaderContainer>
          :
          <>
               <ProductContainer>
                         { notify && <>
-      <Snackbar     TransitionComponent={transition}
+      <Snackbar TransitionComponent={transition}
         key={transition ? transition.name : ''} open={open} autoHideDuration={4000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="warning" sx={{ width: '100%' }}>
             This item is already on your wishlist!!

@@ -113,7 +113,7 @@ const confirm = useConfirm();
         <ShoppingCartIcon sx={{ color: quantity>0 && "gold",fontSize:"1.7rem" }} /></Badge>Cart</Button>
 
         {/*Orders Button*/}
-        <Button sx={{ "&:hover": { backgroundColor: "#AA771C" } }} style={btnStyles}>
+        <Button onClick={() =>history.push("/orders")} sx={{ "&:hover": { backgroundColor: "#AA771C" } }} style={btnStyles}>
           <i className="fas fa-shopping-bag" style={{ marginRight: "5px",fontSize:"1.6rem" }} ></i>Orders</Button>
 
 {/*Wishlist Button with Badge*/}

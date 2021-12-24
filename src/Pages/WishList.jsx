@@ -6,21 +6,11 @@ import { WishListComp } from '../Components/wishList';
 import { Button } from 'semantic-ui-react';
 import { useHistory } from 'react-router-dom';
 import wishlistEmpty from '../Assets/wishlistEmpty.png'
+import { Title } from './Home';
 
 const Wish = styled.div`
 min-height:100vh;
 
-`
-const Title=styled.h2`
-font-size:1.8rem;
-text-align:center;
-margin:0 0 2rem 0;
-text-shadow:1.5px 1px #141e30;
-color:gold;
-letter-spacing:3px;
-background:linear-gradient(135deg, #121721 0%, #000000 100%) fixed;
-font-family: 'Fira Sans', sans-serif;
-${small({fontSize:"1.5rem"})}
 `
 const WishListEmptyContainer = styled.div`
 display:flex;
@@ -40,7 +30,7 @@ export const WishList=()=>
  return (
     <Wish>
   <Navbar />
-   <Title>WISHLIST{wishlistproducts.length>0 && `(${wishlistproducts.length})`}</Title>
+   <Title><i className="fas fa-heart"></i> WISHLIST{wishlistproducts.length>0 && `(${wishlistproducts.length})`}</Title>
     <Button style={{ marginLeft: "3rem" }} color="yellow" onClick={() => history.push("/products")}>Continue to Shop</Button>
 {!currentUser && history.push("/login")}
    {currentUser && wishlistproducts.length > 0

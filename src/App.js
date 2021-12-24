@@ -9,8 +9,12 @@ import { ProductList } from './Pages/ProductList';
 import { ProductToCart } from './Pages/ProductToCart';
 import { Cart } from './Pages/Cart';
 import { WishList } from './Pages/WishList';
+import { OrderPlaced } from './Pages/OrderPlaced';
+import { Orders } from './Pages/Orders';
+import { useSelector } from 'react-redux';
 
 function App() {
+  const { currentUser } = useSelector(state => state.user);
 
   return (
     <div className="App">
@@ -24,6 +28,15 @@ function App() {
         </Route>
             <Route path="/wishlist">
           <WishList />
+        </Route>
+        <Route path="/orders">
+          {currentUser ?
+            <Orders />
+            : <Login />
+          }
+        </Route>
+           <Route path="/order-placed/:orderId">
+          <OrderPlaced />
         </Route>
         <Route path="/forgotPassword">
           <ForgotPassword />
