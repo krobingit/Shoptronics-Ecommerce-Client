@@ -32,7 +32,6 @@ align-items:center;
 const OrderEmptyImage = styled.img`
 `
 const Summary = styled.div`
-margin:1rem;
 `
 const Heading = styled.h2
 `font-family: 'Raleway', sans-serif;
@@ -49,17 +48,16 @@ border: 1px solid rgba( 255, 255, 255, 0.18 );
 display:flex;
 flex-direction:column;
 flex-wrap:wrap;
-padding:1rem;
 margin-bottom:2rem;
 justify-content:space-around;
 ${medium({ alignItems:'center'})}
 `
 
 const ProductCard = styled.div`
-margin1.2rem;
 padding:0.5rem;
 display:flex;
 gap:1.2rem;
+width:100%;
 justify-content:space-evenly;
 ${medium({ flexDirection: "column",alignItems:"center",justifyContent:"center" })}
 `
@@ -85,11 +83,11 @@ const Status = styled.span`
 `
 const OrderDetail = styled.div`
 font-family: 'Fira Sans', sans-serif;
-padding:0.5rem;
 font-weight:700;
 width:max-content;
 font-size:1.2rem;
 border-bottom:2px dotted gold;
+${small({fontSize:"1.1rem"})}
 `
 
 
@@ -133,7 +131,6 @@ export const Orders = () => {
   }
    fetchData();
  }, [currentUser]);
-// const products = order.map((each_order) => each_order.products)
 
  return (
   <MainContainer>
@@ -166,10 +163,12 @@ export const Orders = () => {
       <Summary>
        <Heading>ORDERS</Heading>
        <Products>
-        {order.map((each) =>
+         {order.map((each) =>
+
          <Large>
           <Heading style={{fontSize:"1.2rem",fontWeight:"bold"}}>OrderID: {each.paymentData.order_id}</Heading>
           {each.products.map((product) =>
+
            <ProductCard key={product._id}>
             <ProductImage src={product.image} />
             <ProductName>{product.name}</ProductName>
