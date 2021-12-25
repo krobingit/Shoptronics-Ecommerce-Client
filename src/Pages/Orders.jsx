@@ -99,6 +99,7 @@ flex-wrap:wrap;
 margin-bottom:3rem;
 align-items:center;
 gap:2rem;
+margin:1rem 0;
 ${medium({ justifyContent:"center"})};
 ${small({flexDirection:"column",gap:"1rem"})};
 `
