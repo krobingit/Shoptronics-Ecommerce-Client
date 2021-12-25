@@ -36,8 +36,7 @@ margin:1rem;
 `
 const Heading = styled.h2
 `font-family: 'Raleway', sans-serif;
-background:yellow;
-text-transform:uppercase;
+background:gold;
 width:max-content;
 border-radius:1rem;
 padding:0.3rem;
@@ -77,9 +76,9 @@ width:15rem;
 font-size:1.2rem;
 `
 const Line = styled.div`
-  border: 1px dashed darkgray;
+ border: 1px dashed darkgray;
 width:100%;
-  margin-bottom: 0.5rem;
+ margin: 2rem 0;
 `;
 const Status = styled.span`
 
@@ -133,7 +132,7 @@ export const Orders = () => {
  return (
   <MainContainer>
   <Navbar />
-   <Title><i className="fas fa-shopping-bag"></i> Orders</Title>
+   <Title><i className="fas fa-shopping-bag"></i> ORDERS</Title>
    {loading ?
     <LoaderContainer>
      <SpinnerCircularFixed size={70} thickness={80} speed={163} color="#141e30" secondaryColor="gold" />
@@ -159,11 +158,11 @@ export const Orders = () => {
       </>
       :
       <Summary>
-       <Heading>Orders</Heading>
+       <Heading>ORDERS</Heading>
        <Products>
         {order.map((each) =>
          <Large>
-          <Heading style={{fontSize:"1.2rem",background:"gold",fontWeight:"bold"}}>Order-Id: {each.paymentData.order_id}</Heading>
+          <Heading style={{fontSize:"1.2rem",fontWeight:"bold"}}>OrderID: {each.paymentData.order_id}</Heading>
           {each.products.map((product) =>
            <ProductCard key={product._id}>
             <ProductImage src={product.image} />
@@ -177,7 +176,7 @@ export const Orders = () => {
            <OrderDetail>Amount: ₹{(each.paymentData.amount / 100).toLocaleString()}</OrderDetail>
            <OrderDetail>💳 Paid via Card ending {each.paymentData.card.last4}</OrderDetail>
            <OrderDetail>#️⃣ Payment ID: {each.paymentData.id}</OrderDetail>
-           <OrderDetail>✆ Deliverd to: {each.paymentData.contact}</OrderDetail>
+           <OrderDetail>✆ Delivered to: {each.paymentData.contact}</OrderDetail>
           </Details>
           <Line></Line>
          </Large>
