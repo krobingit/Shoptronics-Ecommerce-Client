@@ -109,6 +109,7 @@ color:brown;
 `
 const OrderAmount = styled.span`
 color:green;
+font-size:1.4rem;
 `
 export const Orders = () => {
  let history = useHistory();
@@ -178,7 +179,11 @@ export const Orders = () => {
            </ProductCard>)
           }
           <Details>
-          <OrderDetail>Order Status: <Status style={{ color: each.orderStatus === "Processing" ? "orange" : "green" }}>{each.orderStatus}</Status></OrderDetail>
+           <OrderDetail>Order Status: <Status
+            style={{
+             color: (each.orderStatus === "Processing" && "orange") || (each.orderStatus === "Shipped" && "purple")
+           ||(each.orderStatus === "Delivered" && "green") }}>
+            {each.orderStatus}</Status></OrderDetail>
            <OrderDetail>Order Total: <OrderAmount>₹{(each.paymentData.amount / 100).toLocaleString()}</OrderAmount></OrderDetail>
            <OrderDetail>💳 Paid via Card ending {each.paymentData.card.last4}</OrderDetail>
            <OrderDetail>#️⃣ Payment ID: {each.paymentData.id}</OrderDetail>
