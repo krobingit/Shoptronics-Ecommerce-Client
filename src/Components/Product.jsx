@@ -14,24 +14,25 @@ background: rgba( 255, 255, 255, 0.25 );
 box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.5 );
 border-radius: 10px;
 border: 1px solid rgba( 255, 255, 255, 0.18 );
-cursor:pointer;
 `
 
 const ProductImage = styled.img`
 width:17rem;
 height:12rem;
 object-fit:fill;
+cursor:pointer;
 `
 const ProductDetails = styled.div`
 text-align:center;
 font-family: 'Fira Sans', sans-serif;
 padding:0.5rem;
+
 `
 const ProductActions = styled.div`
 display:flex;
-justify-content:space-around;
-margin:1rem 0 0 0;
+justify-content:space-evenly;
 align-items:center;
+margin-left:2rem;
 `
 const Values = styled.span`
 color:brown;
@@ -51,7 +52,7 @@ export function Product({ name, price, category, manufacturer, image, _id, setNo
 <ProductCard key={_id} >
                <ProductImage src={image} onClick={() => history.push(`/product/${_id}`)} alt="product"/>
                <ProductDetails>
-                 <p style={detailstyle} onClick={() => history.push(`/product/${_id}`)}> {name}</p>
+                 <p style={{fontSize:"1.1rem",cursor:"pointer"}} onClick={() => history.push(`/product/${_id}`)}> {name}</p>
                  <p style={detailstyle}>Price: <Values style={{fontSize:"1.5rem"}}>₹{Math.round(price * 76).toLocaleString()}</Values></p>
                  <p style={detailstyle}>Category: <Values>{category[1].name}</Values></p>
                  <p style={detailstyle}>Brand: <Values>{manufacturer}</Values></p>
@@ -76,8 +77,8 @@ export function Product({ name, price, category, manufacturer, image, _id, setNo
                      }
                    }
                  }
-                 }><Heart  isClick={isClick} onClick={() => setClick(!isClick)}
-                     style={{ fontSize: "1.9rem" }} /></IconButton>
+                 }><Heart  style={{fontSize:"1rem"}} isClick={isClick} onClick={() => setClick(!isClick)}
+                    /></IconButton>
 
                </ProductActions>
              </ProductCard>
