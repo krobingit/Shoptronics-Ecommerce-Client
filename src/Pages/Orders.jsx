@@ -8,7 +8,9 @@ import { commonRequest } from '../axiosreq';
 import Empty  from '../Assets/orderEmpty.png';
 import { Button } from 'semantic-ui-react';
 import { useHistory } from 'react-router-dom';
-import { small,medium } from '../responsive';
+import { small, medium } from '../responsive';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 
 const LoaderContainer = styled.div`
 display:flex;
@@ -22,6 +24,9 @@ padding:1rem;
 const MainContainer = styled.div`
 `
 const Large = styled.div`
+display:flex;
+flex-direction:column;
+align-items:center;
 `
 const EmptyContainer = styled.div`
 display:flex;
@@ -56,7 +61,6 @@ ${medium({ alignItems:'center'})}
 const ProductCard = styled.div`
 padding:0.5rem;
 display:flex;
-gap:1.2rem;
 width:100%;
 justify-content:space-evenly;
 ${medium({ flexDirection: "column",alignItems:"center",justifyContent:"center" })}
@@ -82,10 +86,10 @@ const Status = styled.span`
 
 `
 const OrderDetail = styled.div`
-font-family: 'Fira Sans', sans-serif;
-font-weight:700;
+font-family: 'Signika Negative', sans-serif;
+font-weight:bold;
 width:max-content;
-font-size:1.2rem;
+font-size:1.3rem;
 border-bottom:2px dotted gold;
 ${small({fontSize:"1.1rem"})}
 `
@@ -113,6 +117,7 @@ font-size:1.4rem;
 export const Orders = () => {
  let history = useHistory();
  const [order, setOrder] = useState(null);
+ const [show, setShow] = useState(false);
  const [loading, setLoading] = useState(true);
  const { currentUser } = useSelector(state => state.user);
  useEffect(() => {
@@ -136,7 +141,7 @@ export const Orders = () => {
  return (
   <MainContainer>
   <Navbar />
-   <Title><i className="fas fa-shopping-bag"></i> ORDERS</Title>
+   <Title><i className="fas fa-shopping-bag"></i>ORDERS</Title>
    {loading ?
     <LoaderContainer>
      <SpinnerCircularFixed size={70} thickness={80} speed={163} color="#141e30" secondaryColor="gold" />
@@ -162,13 +167,20 @@ export const Orders = () => {
       </>
       :
       <Summary>
-       <Heading>ORDERS</Heading>
+       <Heading>Recent Orders</Heading>
        <Products>
          {order.map((each) =>
 
          <Large>
           <Heading style={{fontSize:"1.2rem",fontWeight:"bold"}}>OrderID: {each.paymentData.order_id}</Heading>
-          {each.products.map((product) =>
+          <OrderDetail style={{marginBottom:"1rem"}}>Order Placed on: <OrderDate>{new Date(each.createdAt).toDateString()},{new Date(each.createdAt).toTimeString().substring(0, 9)}IST</OrderDate></OrderDetail>
+             <OrderDetail style={{fontSize:"1.3rem",marginBottom:"1.5rem"}}>Order Status: <Status
+              style={{
+               color: (each.orderStatus === "Processing" && "orange") || (each.orderStatus === "Shipped" && "purple")
+                || (each.orderStatus === "Delivered" && "green")
+              }}>
+              {each.orderStatus}</Status></OrderDetail>
+           {each.products.map((product) =>
 
            <ProductCard key={product._id}>
             <ProductImage src={product.image} />
@@ -177,19 +189,18 @@ export const Orders = () => {
             <ProductQty>Qty: {product.quantity}</ProductQty>
 
            </ProductCard>)
-          }
-          <Details>
-           <OrderDetail>Order Status: <Status
-            style={{
-             color: (each.orderStatus === "Processing" && "orange") || (each.orderStatus === "Shipped" && "purple")
-           ||(each.orderStatus === "Delivered" && "green") }}>
-            {each.orderStatus}</Status></OrderDetail>
-           <OrderDetail>Order Total: <OrderAmount>₹{(each.paymentData.amount / 100).toLocaleString()}</OrderAmount></OrderDetail>
-           <OrderDetail>💳 Paid via Card ending {each.paymentData.card.last4}</OrderDetail>
-           <OrderDetail>#️⃣ Payment ID: {each.paymentData.id}</OrderDetail>
-           <OrderDetail>✆ Delivered to: {each.paymentData.contact}</OrderDetail>
-           <OrderDetail>Order Placed on: <OrderDate>{new Date(each.createdAt).toDateString()},{new Date(each.createdAt).toTimeString().substring(0,9)}IST</OrderDate></OrderDetail>
-          </Details>
+           }
+           <Button style={{ margin: "1rem" }} size="mini" inverted color="yellow" onClick={() => setShow(!show)}>{!show ? <KeyboardArrowDownIcon/>  : <ArrowDropUpIcon/>}</Button>
+           {show &&
+            <Details>
+
+             <OrderDetail>Order Total: <OrderAmount>₹{(each.paymentData.amount / 100).toLocaleString()}</OrderAmount></OrderDetail>
+             <OrderDetail>💳 Paid via Card ending {each.paymentData.card.last4}</OrderDetail>
+             <OrderDetail>#️⃣ Payment ID: {each.paymentData.id}</OrderDetail>
+             <OrderDetail>✆ Delivered to: {each.paymentData.contact}</OrderDetail>
+
+            </Details>
+}
           {order.length>1 &&
            <><Line></Line></>}
          </Large>

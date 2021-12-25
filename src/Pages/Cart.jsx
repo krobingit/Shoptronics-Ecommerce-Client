@@ -297,7 +297,7 @@ return
             <h3
               style={{ textAlign: "center", margin: "1rem", color: "#141e30" }}
             >
-              Your Shoptronics Cart is Empty.Let's add some items..What say?
+              Your Shoptronics Cart is Empty.  Let's add some items..What say?
             </h3>
             <CartEmptyImage src={cart} />
           </CartEmptyContainer>
