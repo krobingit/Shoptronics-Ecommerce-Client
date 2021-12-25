@@ -61,9 +61,8 @@ margin1.2rem;
 padding:0.5rem;
 display:flex;
 gap:1.2rem;
-align-items:center;
 justify-content:space-evenly;
-${medium({ flexDirection: "column", justifyContent:"center",width: "22rem" })}
+${medium({ flexDirection: "column",alignItems:"center",justifyContent:"center" })}
 `
 
 const ProductImage = styled.img`
@@ -87,13 +86,11 @@ const Status = styled.span`
 `
 const OrderDetail = styled.div`
 font-family: 'Fira Sans', sans-serif;
-background:wheat;
+padding:0.5rem;
 font-weight:700;
-text-transform:uppercase;
 width:max-content;
-border-radius:1rem;
-padding:0.3rem;
 font-size:1.2rem;
+border-bottom:2px dotted gold;
 `
 
 
@@ -101,10 +98,12 @@ const ProductQty = styled.h3``
 const ProductPrice=styled.h3``
 const Details = styled.div`
 display:flex;
+flex-wrap:wrap;
 margin-bottom:3rem;
 align-items:center;
 gap:2rem;
-${small({flexDirection:"column",gap:"0.5rem"})};
+${medium({ justifyContent:"center"})};
+${small({flexDirection:"column",gap:"1rem"})};
 `
 
 export const Orders = () => {
@@ -164,7 +163,7 @@ export const Orders = () => {
        <Products>
         {order.map((each) =>
          <Large>
-          <Heading style={{fontSize:"1.2rem",fontWeight:"bold"}}>Order-Id: {each.paymentData.order_id}</Heading>
+          <Heading style={{fontSize:"1.2rem",background:"gold",fontWeight:"bold"}}>Order-Id: {each.paymentData.order_id}</Heading>
           {each.products.map((product) =>
            <ProductCard key={product._id}>
             <ProductImage src={product.image} />
@@ -175,10 +174,10 @@ export const Orders = () => {
           }
           <Details>
           <OrderDetail>Order Status: <Status style={{ color: each.orderStatus === "Processing" ? "orange" : "green" }}>{each.orderStatus}</Status></OrderDetail>
-           <OrderDetail>Amount: {(each.paymentData.amount / 100).toLocaleString()}</OrderDetail>
+           <OrderDetail>Amount: ₹{(each.paymentData.amount / 100).toLocaleString()}</OrderDetail>
            <OrderDetail>💳 Paid via Card ending {each.paymentData.card.last4}</OrderDetail>
            <OrderDetail>#️⃣ Payment ID: {each.paymentData.id}</OrderDetail>
-           <OrderDetail>📱 Deliverd to: {each.paymentData.contact}</OrderDetail>
+           <OrderDetail>✆ Deliverd to: {each.paymentData.contact}</OrderDetail>
           </Details>
           <Line></Line>
          </Large>
