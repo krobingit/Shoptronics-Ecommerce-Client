@@ -9,8 +9,8 @@ import Empty  from '../Assets/orderEmpty.png';
 import { Button } from 'semantic-ui-react';
 import { useHistory } from 'react-router-dom';
 import { small, medium } from '../responsive';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
+
+import { OrderInfo } from '../Components/orderDetail';
 
 const LoaderContainer = styled.div`
 display:flex;
@@ -97,27 +97,15 @@ ${small({fontSize:"1.1rem"})}
 
 const ProductQty = styled.h3``
 const ProductPrice=styled.h3``
-const Details = styled.div`
-display:flex;
-flex-wrap:wrap;
-margin-bottom:3rem;
-align-items:center;
-gap:2rem;
-margin:1rem 0;
-${medium({ justifyContent:"center"})};
-${small({flexDirection:"column",gap:"1rem"})};
-`
+
 const OrderDate = styled.span`
 color:brown;
 `
-const OrderAmount = styled.span`
-color:green;
-font-size:1.4rem;
-`
+
 export const Orders = () => {
  let history = useHistory();
  const [order, setOrder] = useState(null);
- const [show, setShow] = useState(false);
+
  const [loading, setLoading] = useState(true);
  const { currentUser } = useSelector(state => state.user);
  useEffect(() => {
@@ -190,17 +178,10 @@ export const Orders = () => {
 
            </ProductCard>)
            }
-           <Button style={{ margin: "1rem" }} size="mini" inverted color="yellow" onClick={() => setShow(!show)}>{!show ? <KeyboardArrowDownIcon/>  : <ArrowDropUpIcon/>}</Button>
-           {show &&
-            <Details>
 
-             <OrderDetail>Order Total: <OrderAmount>₹{(each.paymentData.amount / 100).toLocaleString()}</OrderAmount></OrderDetail>
-             <OrderDetail>💳 Paid via Card ending {each.paymentData.card.last4}</OrderDetail>
-             <OrderDetail>#️⃣ Payment ID: {each.paymentData.id}</OrderDetail>
-             <OrderDetail>✆ Delivered to: {each.paymentData.contact}</OrderDetail>
+            <OrderInfo amount={each.paymentData.amount} last4={each.paymentData.card.last4}
+             id={each.paymentData.id} contact={each.paymentData.contact} />
 
-            </Details>
-}
           {order.length>1 &&
            <><Line></Line></>}
          </Large>
