@@ -59,7 +59,7 @@ ${medium({ alignItems:'center'})}
 `
 
 const ProductCard = styled.div`
-padding:0.5rem;
+padding:0.4rem;
 display:flex;
 width:100%;
 justify-content:space-evenly;
@@ -80,7 +80,6 @@ font-size:1.2rem;
 const Line = styled.div`
  border: 1px dashed darkgray;
 width:100%;
- margin: 2rem 0;
 `;
 const Status = styled.span`
 
@@ -160,7 +159,7 @@ export const Orders = () => {
          {order.map((each) =>
 
          <Large>
-          <Heading style={{fontSize:"1.2rem",fontWeight:"bold"}}>OrderID: {each.paymentData.order_id}</Heading>
+          <Heading style={{fontSize:"1.2rem",margin:"1rem 0",fontWeight:"bold"}}>OrderID: {each.paymentData.order_id}</Heading>
           <OrderDetail style={{marginBottom:"1rem"}}>Order Placed on: <OrderDate>{new Date(each.createdAt).toDateString()},{new Date(each.createdAt).toTimeString().substring(0, 9)}IST</OrderDate></OrderDetail>
              <OrderDetail style={{fontSize:"1.3rem",marginBottom:"1.5rem"}}>Order Status: <Status
               style={{

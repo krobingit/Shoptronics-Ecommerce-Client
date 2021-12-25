@@ -50,7 +50,7 @@ margin-top:2rem;
 `
 const ForgetContainer = styled.div`
 width:60%;
-background:beige;
+background:white;
 padding:1rem;
  ${medium({ width: "100%" })};
 `
