@@ -49,7 +49,7 @@ padding:1rem;
 `
 const LoginContainer = styled.div`
 width:60%;
-background:beige;
+background:white;
 padding:1rem;
  ${medium({ width: "100%" })};
 `
@@ -111,6 +111,7 @@ font-size:1.1rem;
 color:red;
 margin-bottom:1rem;
 font-weight:bold;
+${small({fontSize:"0.9rem"})}
 `;
 //Login Component
 function Login() {

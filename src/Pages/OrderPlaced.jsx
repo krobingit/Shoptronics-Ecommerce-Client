@@ -6,6 +6,7 @@ import { SpinnerRoundFilled } from 'spinners-react';
 import { useState} from 'react';
 import logo from '../Assets/confirmation.jpg';
 import { Button } from 'semantic-ui-react';
+import { useSelector } from 'react-redux';
 
 const Container = styled.div`
 `;
@@ -47,63 +48,15 @@ gap:2rem;
 align-items:center;
 width:100%;
 `
-/*
-const Summary = styled.div`
-margin:1rem;
-`
-const Heading = styled.h2
-`font-family: 'Raleway', sans-serif;
-background:yellow;
-text-transform:uppercase;
-width:max-content;
-border-radius:1rem;
-padding:0.3rem;
-`
-const Products = styled.div`
-background: rgba( 255, 255, 255, 0.25 );
-box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.5 );
-border-radius: 10px;
-border: 1px solid rgba( 255, 255, 255, 0.18 );
-display:flex;
-flex-direction:column;
-flex-wrap:wrap;
-margin-bottom:2rem;
-`
 
-const ProductCard = styled.div`
-margin1.2rem;
-padding:0.5rem;
-display:flex;
-gap:1.2rem;
-align-items:center;
-justify-content:space-evenly;
-${medium({ flexDirection: "column", width: "22rem" })}
-
-`
-
-const ProductImage = styled.img`
-width:13rem;
-height:10rem;
-object-fit:contain;
-object-position:center center;
-`
-
-const ProductName = styled.h3`
-width:15rem;
-font-size:1.2rem;
-`
-const ProductQty = styled.h3``
-const ProductPrice=styled.h3``
-
-
-*/
 export const OrderPlaced = () => {
 
   let location = useLocation();
   let history = useHistory();
-  let { user,paymentData } = location.state;
+  let { user, paymentData } = location.state;
   const [loading, setLoading] = useState(true);
-
+  let {currentUser
+} = useSelector((state) => state.user);
 setTimeout(()=>{
   setLoading(false)
 },3500)
@@ -112,7 +65,8 @@ setTimeout(()=>{
 
   <Container>
    <Navbar/>
-  <Title style={{height:"3rem"}}>☑ Your Order Confirmation</Title>
+     <Title style={{ height: "3rem" }}>☑ Your Order Confirmation</Title>
+     {!currentUser && history.push("/login")}
      {loading ?
        <LoaderContainer>
          <SpinnerRoundFilled color="goldenrod" size="75" thickness={150}/>
@@ -136,6 +90,3 @@ setTimeout(()=>{
 
 
 }
-
-/*
-*/

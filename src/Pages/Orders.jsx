@@ -17,7 +17,7 @@ align-items:center;
 justify-content:center;
 `
 const Container = styled.div`
-margin-bottom:1rem;
+padding:1rem;
 `
 const MainContainer = styled.div`
 `
@@ -104,7 +104,12 @@ gap:2rem;
 ${medium({ justifyContent:"center"})};
 ${small({flexDirection:"column",gap:"1rem"})};
 `
-
+const OrderDate = styled.span`
+color:brown;
+`
+const OrderAmount = styled.span`
+color:green;
+`
 export const Orders = () => {
  let history = useHistory();
  const [order, setOrder] = useState(null);
@@ -169,16 +174,19 @@ export const Orders = () => {
             <ProductName>{product.name}</ProductName>
             <ProductPrice>₹{Math.round(product.price * 76).toLocaleString()}</ProductPrice>
             <ProductQty>Qty: {product.quantity}</ProductQty>
+
            </ProductCard>)
           }
           <Details>
           <OrderDetail>Order Status: <Status style={{ color: each.orderStatus === "Processing" ? "orange" : "green" }}>{each.orderStatus}</Status></OrderDetail>
-           <OrderDetail>Amount: ₹{(each.paymentData.amount / 100).toLocaleString()}</OrderDetail>
+           <OrderDetail>Order Total: <OrderAmount>₹{(each.paymentData.amount / 100).toLocaleString()}</OrderAmount></OrderDetail>
            <OrderDetail>💳 Paid via Card ending {each.paymentData.card.last4}</OrderDetail>
            <OrderDetail>#️⃣ Payment ID: {each.paymentData.id}</OrderDetail>
            <OrderDetail>✆ Delivered to: {each.paymentData.contact}</OrderDetail>
+           <OrderDetail>Order Placed on: <OrderDate>{new Date(each.createdAt).toDateString()},{new Date(each.createdAt).toTimeString().substring(0,9)}IST</OrderDate></OrderDetail>
           </Details>
-          <Line></Line>
+          {order.length>1 &&
+           <><Line></Line></>}
          </Large>
 
 
