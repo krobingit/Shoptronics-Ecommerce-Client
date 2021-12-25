@@ -53,7 +53,7 @@ export const OrderPlaced = () => {
 
   let location = useLocation();
   let history = useHistory();
-  let { user, paymentData } = location.state;
+  let {  paymentData } = location.state;
   const [loading, setLoading] = useState(true);
   let {currentUser
 } = useSelector((state) => state.user);
@@ -76,7 +76,7 @@ setTimeout(()=>{
          <ConfirmImage src={logo}></ConfirmImage>
          <Payment>Payment Successful!</Payment>
          <Text>Hi <OrderID>{paymentData.card.name}</OrderID>,Your Order with Order#  <OrderID>'{paymentData.order_id}'</OrderID> has been successfully placed!</Text>
-         <Text>We are processing your items and shipping confirmation will be sent over <OrderID>{user.email}</OrderID>.</Text>
+         <Text>We are processing your items and shipping confirmation will be sent over <OrderID>{currentUser.email}</OrderID>.</Text>
                <Actions>
          <Button color="yellow" onClick={()=>history.push("/")}>Home</Button>
            <Button color="yellow" onClick={()=>history.push("/orders")}>Track your order</Button>

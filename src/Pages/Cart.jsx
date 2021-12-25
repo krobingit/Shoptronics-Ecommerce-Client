@@ -170,7 +170,6 @@ return
      await PostOrder();
      //redirecting to order confirmation page
      history.push(`/order-placed/${razpaydata.order_id}`, {
-       user: currentUser,
        paymentData:razpaydata
      })
 
