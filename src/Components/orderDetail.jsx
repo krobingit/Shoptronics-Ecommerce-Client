@@ -12,6 +12,7 @@ flex-wrap:wrap;
 margin-bottom:3rem;
 align-items:center;
 gap:2rem;
+justify-content:space-around;
 margin:1rem 0;
 ${medium({ justifyContent:"center"})};
 ${small({flexDirection:"column",gap:"1rem"})};
@@ -28,7 +29,7 @@ const OrderAmount = styled.span`
 color:green;
 font-size:1.4rem;
 `
-export function OrderInfo({amount,last4,id,contact}) {
+export function OrderInfo({amount,last4,id,contact,address}) {
  const [show, setShow] = useState(false);
  return (
   <>
@@ -39,7 +40,8 @@ export function OrderInfo({amount,last4,id,contact}) {
      <OrderDetail>Order Total: <OrderAmount>₹{(amount / 100).toLocaleString()}</OrderAmount></OrderDetail>
      <OrderDetail>💳 Paid via Card ending {last4}</OrderDetail>
      <OrderDetail>#️⃣ Payment ID: {id}</OrderDetail>
-     <OrderDetail>✆ Delivered to: {contact}</OrderDetail>
+             <OrderDetail>✆ Delivered to: {contact}</OrderDetail>
+             <OrderDetail style={{width:"15rem",textAlign:"center",border:"none"}}>Shipped to: {address}</OrderDetail>
 
     </Details>
    }

@@ -179,7 +179,7 @@ export const Orders = () => {
            }
 
             <OrderInfo amount={each.paymentData.amount} last4={each.paymentData.card.last4}
-             id={each.paymentData.id} contact={each.paymentData.contact} />
+             id={each.paymentData.id} contact={each.paymentData.contact} address={each.paymentData.notes.address} />
 
           {order.length>1 &&
            <><Line></Line></>}
