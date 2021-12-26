@@ -218,7 +218,7 @@ export const ProductToCart = () => {
               <StockButton color='yellow'>In Stock</StockButton>
               <ProductName>{product.name}</ProductName>
               <PriceBlock>
-                <ProductPrice>₹{Math.round(product.price * 76)}</ProductPrice>
+                <ProductPrice>₹{Math.round(product.price * 76).toLocaleString()}</ProductPrice>
                  <ShippingPrice>{product.shipping>1 ? `Shipping: ₹${Math.round(product.shipping+100)}` : ''}</ShippingPrice>
                 </PriceBlock>
               <ProductDesc><InfoIcon style={{ color: "#141e30", marginRight:"5px"}}/>
@@ -243,8 +243,6 @@ export const ProductToCart = () => {
                 <CartContainer>
                     <Button inverted color='yellow' style={btnstyle}
                     onClick={() => handleCart()}><i className="fas fa-shopping-cart"></i> Add To Cart</Button>
-                   <Button inverted color='yellow' style={btnstyle}
-                    onClick={() => dispatch({type:"EmptyCart"})}><i className="fas fa-shopping-cart"></i> E Cart</Button>
                 </CartContainer>
               </ProductActions>
               <Line></Line>
