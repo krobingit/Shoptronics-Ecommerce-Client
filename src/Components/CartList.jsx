@@ -9,6 +9,8 @@ import { useState, forwardRef } from "react";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useConfirm } from "material-ui-confirm";
 import { useHistory } from 'react-router-dom';
+import RemoveIcon from '@mui/icons-material/Remove';
+import AddIcon from '@mui/icons-material/Add';
 
 const Container = styled.div`
 `
@@ -88,7 +90,11 @@ color:black;
 const Remove = styled.div`
 
 `
+const QuantityActions = styled.div`
+display:flex;
+align-items:center;
 
+`
 export const CartList = () => {
   const { products, total, quantity } = useSelector((state) => state.cart);
   const confirm = useConfirm();
@@ -136,9 +142,13 @@ export const CartList = () => {
              ₹{((Math.round(product.price * 76) + 10000)).toLocaleString()}</ProductPrice>
       </PriceContainer>
 
-       <QuantityContainer>
-            <ProductQuantity>Quantity</ProductQuantity>
-       <ProductQuantity style={{ padding: "0.4rem",color:"#141e30" }}>{product.quantity}</ProductQuantity>
+         <QuantityContainer>
+           <ProductQuantity>Quantity</ProductQuantity>
+           <QuantityActions>
+             <AddIcon onClick={()=>dispatch({type:"AddQuantity",index:products.indexOf(product)})}/>
+             <ProductQuantity style={{ padding: "0.4rem", color: "#141e30" }}>{product.quantity}</ProductQuantity>
+             <RemoveIcon onClick={()=>dispatch({type:"RemoveQuantity",index:products.indexOf(product)})}/>
+           </QuantityActions>
         </QuantityContainer>
 
         <SubTotalContainer>
@@ -158,7 +168,7 @@ export const CartList = () => {
          <IconButton style={{ color: "#2d2d2d" }} onClick={async () => {
 await confirm({ description: `Do you want to remove this item from cart?` })
   .then(() => {
-    dispatch({ type: "RemoveItem", index: products.indexOf(product), payload: product })
+    dispatch({ type: "RemoveItem",payload: product,index:products.indexOf(product) })
     setNotify(true)
     handleClick(TransitionLeft)
   })

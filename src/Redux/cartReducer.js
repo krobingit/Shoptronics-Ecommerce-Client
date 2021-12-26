@@ -29,35 +29,35 @@ export const cartReducer = (state = initialState, action) => {
      }
    case "AddQuantity":
      {
-       let copyOfProd = [...products];
-       copyOfProd[action.index] = action.payload;
+       products[action.index].quantity += 1;
        return {
          ...state,
-         products: [...copyOfProd],
-         total: (total + (Math.round(action.payload.price * 76) * action.payload.quantity))
-
+total:Math.round(
+            products.reduce((result, cartItem) => result + cartItem.price*(cartItem.quantity*76), 0))
        }
      }
    case "RemoveQuantity":
      {
-       let copyOfProd = [...products ];
-       copyOfProd[action.index] = action.payload;
+       if(products[action.index].quantity>1)
+         products[action.index].quantity -= 1;
+
+
        return {
          ...state,
-         products: [...copyOfProd],
-         total:(total-(Math.round(action.payload.price*76)*action.payload.quantity))
-
+total:Math.round(
+            products.reduce((result, cartItem) => result +cartItem.price*(cartItem.quantity*76), 0))
        }
 
      }
 
    case "RemoveItem":
      {
-       let copyOfProd = [...products];
-       copyOfProd.splice(action.index,1)
+       let filteredProducts= [...products];
+       filteredProducts.splice(action.index,1)
+       //const filteredProducts=products.filter((product)=>product._id!==action.payload._id)
        return {
          ...state,
-         products: [...copyOfProd],
+         products: [...filteredProducts],
          quantity: quantity - 1,
          total:(total-(Math.round(action.payload.price*76)*action.payload.quantity))
 

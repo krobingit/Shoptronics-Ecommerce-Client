@@ -101,7 +101,7 @@ export function Products() {
                 </>}
 
            {products.map(({ name, price, category,manufacturer,image,_id })=>
-             <Product name={name} price={price} category={category} manufacturer={manufacturer}
+             <Product key={_id} name={name} price={price} category={category} manufacturer={manufacturer}
                image={image} _id={_id} setNotify={setNotify} handleClick={handleClick} TransitionLeft={TransitionLeft}/>
            )}
 
