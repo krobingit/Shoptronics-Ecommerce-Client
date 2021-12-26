@@ -243,6 +243,8 @@ export const ProductToCart = () => {
                 <CartContainer>
                     <Button inverted color='yellow' style={btnstyle}
                     onClick={() => handleCart()}><i className="fas fa-shopping-cart"></i> Add To Cart</Button>
+                   <Button inverted color='yellow' style={btnstyle}
+                    onClick={() => dispatch({type:"EmptyCart"})}><i className="fas fa-shopping-cart"></i> E Cart</Button>
                 </CartContainer>
               </ProductActions>
               <Line></Line>

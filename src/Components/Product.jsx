@@ -60,8 +60,9 @@ export function Product({ name, price, category, manufacturer, image, _id, setNo
                <ProductActions>
                  <IconButton style={{ color: "#141e30" }} onClick={()=>history.push(`/product/${_id}`)}>
                    <CartPlus style={{ fontSize: "1.9rem" }} /></IconButton>
-                 <IconButton  style={{ color: "#A9A9A9"}} onClick={() => {
-
+       <Heart style={{ fontSize: "1rem" }} isClick={isClick}
+         onClick={() => {
+setClick(!isClick)
                    if (!currentUser) {
                      history.push("/login")
                      return;
@@ -80,8 +81,7 @@ export function Product({ name, price, category, manufacturer, image, _id, setNo
 
  }
                  }
-                 }><Heart  style={{fontSize:"1rem"}} isClick={isClick} onClick={() => setClick(!isClick)}
-                    /></IconButton>
+                 }></Heart>
 
                </ProductActions>
              </ProductCard>

@@ -27,17 +27,27 @@ export const cartReducer = (state = initialState, action) => {
          products:[]
        }
      }
-      case "UpdateQuantity":
+   case "AddQuantity":
+     {
+       let copyOfProd = [...products];
+       copyOfProd[action.index] = action.payload;
+       return {
+         ...state,
+         products: [...copyOfProd],
+         total: (total + (Math.round(action.payload.price * 76) * action.payload.quantity))
+
+       }
+     }
+   case "RemoveQuantity":
      {
        let copyOfProd = [...products ];
        copyOfProd[action.index] = action.payload;
        return {
          ...state,
          products: [...copyOfProd],
-         total:(total+(Math.round(action.payload.price*76)*action.payload.quantity))
+         total:(total-(Math.round(action.payload.price*76)*action.payload.quantity))
 
        }
-
 
      }
 
