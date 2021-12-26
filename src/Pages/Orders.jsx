@@ -156,7 +156,7 @@ export const Orders = () => {
       <Summary>
         <Heading>Recent Orders ({order.length})</Heading>
        <Products>
-         {order.map((each) =>
+         {order.map((each,idx) =>
 
          <Large>
           <Heading style={{fontSize:"1.2rem",margin:"1rem 0",fontWeight:"bold"}}>OrderID: {each.paymentData.order_id}</Heading>
@@ -178,7 +178,7 @@ export const Orders = () => {
            </ProductCard>)
            }
 
-             <OrderInfo key={each.PaymentData.id} amount={each.paymentData.amount} last4={each.paymentData.card.last4}
+             <OrderInfo key={idx} amount={each.paymentData.amount} last4={each.paymentData.card.last4}
              id={each.paymentData.id} contact={each.paymentData.contact} address={each.paymentData.notes.address} />
 
           {order.length>1 &&
