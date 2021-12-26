@@ -154,13 +154,13 @@ export const Orders = () => {
       </>
       :
       <Summary>
-       <Heading>Recent Orders</Heading>
+        <Heading>Recent Orders ({order.length})</Heading>
        <Products>
          {order.map((each) =>
 
          <Large>
           <Heading style={{fontSize:"1.2rem",margin:"1rem 0",fontWeight:"bold"}}>OrderID: {each.paymentData.order_id}</Heading>
-          <OrderDetail style={{marginBottom:"1rem"}}>Order Placed on: <OrderDate>{new Date(each.createdAt).toDateString()},{new Date(each.createdAt).toTimeString().substring(0, 9)}IST</OrderDate></OrderDetail>
+          <OrderDetail style={{marginBottom:"1rem"}}>Order Date: <OrderDate>{new Date(each.createdAt).toDateString()},{new Date(each.createdAt).toTimeString().substring(0, 9)}IST</OrderDate></OrderDetail>
              <OrderDetail style={{fontSize:"1.3rem",marginBottom:"1.5rem"}}>Order Status: <Status
               style={{
                color: (each.orderStatus === "Processing" && "orange") || (each.orderStatus === "Shipped" && "purple")

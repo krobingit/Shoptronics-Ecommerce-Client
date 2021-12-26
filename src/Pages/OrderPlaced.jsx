@@ -33,6 +33,8 @@ width:10rem;
 `
 const Text = styled.h3`
 font-family: 'Bitter', serif;
+text-align:center;
+font-family: 'Poppins', sans-serif;
 `
 const Payment = styled.h3`
 font-family: 'Raleway', sans-serif;
@@ -47,6 +49,7 @@ justify-content:center;
 gap:2rem;
 align-items:center;
 width:100%;
+margin-top:2rem;
 `
 
 export const OrderPlaced = () => {
@@ -65,7 +68,7 @@ setTimeout(()=>{
 
   <Container>
    <Navbar/>
-     <Title style={{ height: "3rem" }}>☑ Your Order Confirmation</Title>
+     <Title >☑ Your Order Confirmation</Title>
      {!currentUser && history.push("/login")}
      {loading ?
        <LoaderContainer>
@@ -74,8 +77,9 @@ setTimeout(()=>{
        :
        <OrderContainer>
          <ConfirmImage src={logo}></ConfirmImage>
-         <Payment>Payment Successful!</Payment>
+         <Payment>Payment Successful! </Payment>
          <Text>Hi <OrderID>{paymentData.card.name}</OrderID>,Your Order with Order#  <OrderID>'{paymentData.order_id}'</OrderID> has been successfully placed!</Text>
+         <Text>Your payment id is <OrderID>{paymentData.id}</OrderID></Text>
          <Text>We are processing your items and shipping confirmation will be sent over <OrderID>{currentUser.email}</OrderID>.</Text>
                <Actions>
          <Button color="yellow" onClick={()=>history.push("/")}>Home</Button>

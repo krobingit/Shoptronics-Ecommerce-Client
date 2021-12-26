@@ -3,7 +3,8 @@ import { small, medium } from '../responsive';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import { useState} from 'react';
-import { Button } from 'semantic-ui-react';
+import { Button } from '@mui/material';
+
 
 const Details = styled.div`
 display:flex;
@@ -31,7 +32,7 @@ export function OrderInfo({amount,last4,id,contact}) {
  const [show, setShow] = useState(false);
  return (
   <>
-<Button style={{ margin: "1rem" }} size="mini" inverted color="yellow" onClick={() => setShow(!show)}>{!show ? <KeyboardArrowDownIcon/>  : <ArrowDropUpIcon/>}</Button>
+<Button variant="text" style={{ margin: "1rem",color:"#141e20",fontSize:"1.2rem",fontWeight:"bold" }}  onClick={() => setShow(!show)}>{!show ? "View More"   : "View Less"  } {!show ? <KeyboardArrowDownIcon/>   : <ArrowDropUpIcon/> }</Button>
    {show &&
     <Details>
 
