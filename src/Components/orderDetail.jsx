@@ -23,7 +23,17 @@ font-weight:bold;
 width:max-content;
 font-size:1.3rem;
 border-bottom:2px dotted gold;
-${small({fontSize:"1.1rem"})}
+${small({fontSize:"1.2rem"})}
+`
+const Address = styled.div`
+font-family: 'Signika Negative', sans-serif;
+font-weight:bold;
+width:max-content;
+font-size:1.3rem;
+border-bottom:2px dotted gold;
+${medium({ width:"12rem" })}
+text-align:center;
+border:none;
 `
 const OrderAmount = styled.span`
 color:green;
@@ -33,7 +43,7 @@ export function OrderInfo({amount,last4,id,contact,address}) {
  const [show, setShow] = useState(false);
  return (
   <>
-<Button variant="text" style={{ margin: "1rem",color:"#141e20",fontSize:"1.2rem",fontWeight:"bold" }}  onClick={() => setShow(!show)}>{!show ? "View More"   : "View Less"  } {!show ? <KeyboardArrowDownIcon/>   : <ArrowDropUpIcon/> }</Button>
+       <Button variant="text" style={{ margin: "1rem",color:"gold",background:"#141e30",height:"2rem", fontSize: "1.1rem", fontWeight: "bold" }} onClick={() => setShow(!show)}>{!show ? "View More" : "View Less"} {!show ? <KeyboardArrowDownIcon style={{color:"yellow"}}/>   : <ArrowDropUpIcon style={{color:"yellow"}}/> }</Button>
    {show &&
     <Details>
 
@@ -41,7 +51,7 @@ export function OrderInfo({amount,last4,id,contact,address}) {
      <OrderDetail>💳 Paid via Card ending {last4}</OrderDetail>
      <OrderDetail>#️⃣ Payment ID: {id}</OrderDetail>
              <OrderDetail>✆ Delivered to: {contact}</OrderDetail>
-             <OrderDetail style={{width:"15rem",textAlign:"center",border:"none"}}>Shipped to: {address}</OrderDetail>
+             <Address >Shipped to: {address}</Address>
 
     </Details>
    }

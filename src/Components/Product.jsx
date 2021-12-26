@@ -67,15 +67,15 @@ export function Product({ name, price, category, manufacturer, image, _id, setNo
                      return;
                    }
                    if (currentUser) {
-                     if (wishlistproducts.map((product) => product.name).every((pname) => pname !== name)) {
-                       dispatch({ type: "WishListAddItem", payload: { name, price, image, _id } })
-
-                     }
-                     else {
-                       handleClick(TransitionLeft);
+                     if (isClick)
+                     {
+                         dispatch({ type: "WishListRemoveItem", index: wishlistproducts.indexOf({_id})})
+                  handleClick(TransitionLeft);
                        setNotify(true);
                      }
-                   }
+                     else
+                        dispatch({ type: "WishListAddItem", payload: { name, price, image, _id } })
+                    }
                  }
                  }><Heart  style={{fontSize:"1rem"}} isClick={isClick} onClick={() => setClick(!isClick)}
                     /></IconButton>

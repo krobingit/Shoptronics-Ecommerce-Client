@@ -29,7 +29,7 @@ export const cartReducer = (state = initialState, action) => {
      }
       case "UpdateQuantity":
      {
-       let copyOfProd = { ...products };
+       let copyOfProd = [...products ];
        copyOfProd[action.index] = action.payload;
        return {
          ...state,

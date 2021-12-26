@@ -95,7 +95,7 @@ export function Products() {
       <Snackbar TransitionComponent={transition}
         key={transition ? transition.name : ''} open={open} autoHideDuration={4000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="warning" sx={{ width: '100%' }}>
-            This item is already on your wishlist!!
+         Item removed from Wishlist!
         </Alert>
       </Snackbar>
                 </>}
