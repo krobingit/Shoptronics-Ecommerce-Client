@@ -85,7 +85,7 @@ export function Products() {
        loading ?
          <LoaderContainer>
               <SpinnerInfinity size={75} thickness={140} speed={150} color="#141e30" secondaryColor="gold" />
-                   <h3 style={{ margin:"1rem 0",fontStyle:"italic",letterSpacing:"1px",fontFamily: "'Patua One', cursive", fontSize: "1.5rem" }}>
+                   <h3 style={{ margin:"1rem 0",letterSpacing:"1px",fontFamily: "'Patua One', cursive", fontSize: "1.5rem" }}>
                 Getting your products..</h3>
          </LoaderContainer>
          :

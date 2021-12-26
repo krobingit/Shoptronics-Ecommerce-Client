@@ -10,7 +10,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { useConfirm } from "material-ui-confirm";
 import { useHistory } from 'react-router-dom';
 import RemoveIcon from '@mui/icons-material/Remove';
-import AddIcon from '@mui/icons-material/Add';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 
 const Container = styled.div`
 `
@@ -145,9 +146,10 @@ export const CartList = () => {
          <QuantityContainer>
            <ProductQuantity>Quantity</ProductQuantity>
            <QuantityActions>
-             <AddIcon onClick={()=>dispatch({type:"AddQuantity",index:products.indexOf(product)})}/>
-             <ProductQuantity style={{ padding: "0.4rem", color: "#141e30" }}>{product.quantity}</ProductQuantity>
-             <RemoveIcon onClick={()=>dispatch({type:"RemoveQuantity",index:products.indexOf(product)})}/>
+             <AddCircleIcon style={{ color:"#141e30",cursor: "pointer",fontSize:"1.5rem" }}
+               onClick={() => dispatch({ type: "AddQuantity", index: products.indexOf(product) })} />
+             <ProductQuantity style={{ padding: "0.4rem",fontSize:"1.5rem", color: "#141e30" }}>{product.quantity}</ProductQuantity>
+             <RemoveCircleIcon  style={{color:"#141e30",cursor:"pointer",fontSize:"1.5rem" }} onClick={()=>dispatch({type:"RemoveQuantity",index:products.indexOf(product)})}/>
            </QuantityActions>
         </QuantityContainer>
 

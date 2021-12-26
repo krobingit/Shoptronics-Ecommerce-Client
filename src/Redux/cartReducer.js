@@ -38,15 +38,13 @@ total:Math.round(
      }
    case "RemoveQuantity":
      {
-       if(products[action.index].quantity>1)
+       if (products[action.index].quantity > 1)
          products[action.index].quantity -= 1;
-
-
-       return {
-         ...state,
-total:Math.round(
-            products.reduce((result, cartItem) => result +cartItem.price*(cartItem.quantity*76), 0))
-       }
+         return {
+           ...state,
+           total: Math.round(
+             products.reduce((result, cartItem) => result + cartItem.price * (cartItem.quantity * 76), 0))
+         }
 
      }
 
