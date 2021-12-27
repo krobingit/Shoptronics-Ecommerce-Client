@@ -11,7 +11,6 @@ import { Title } from "./Home";
 import logo from '../Assets/logo.jpg';
 import axios from 'axios';
 import razorpay from '../Assets/razorpay.png';
-import icon from '../Assets/icon.svg';
 import { small,medium } from '../responsive';
 
 

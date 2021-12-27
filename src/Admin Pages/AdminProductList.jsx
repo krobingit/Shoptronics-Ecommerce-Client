@@ -1,7 +1,14 @@
-import {AdminNav} from '../Components/AdminNavBar'
+import { AdminNav } from '../Components/AdminNavBar';
+//import { useState, useEffect } from 'react'
+
+
 
 export const AdminProductList = () => {
- return (<AdminNav/>
+
+
+ return (
+  <AdminNav />
+
 
 )
 
