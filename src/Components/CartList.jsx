@@ -9,7 +9,6 @@ import { useState, forwardRef } from "react";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useConfirm } from "material-ui-confirm";
 import { useHistory } from 'react-router-dom';
-import RemoveIcon from '@mui/icons-material/Remove';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 

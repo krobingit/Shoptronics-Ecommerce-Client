@@ -15,7 +15,7 @@ import * as React from 'react';
 import { useConfirm } from "material-ui-confirm";
 
 //styled-components
-const NavContainer = styled.div`
+export const NavContainer = styled.div`
 background:#141e30;
 color:white;
 display:flex;
@@ -29,7 +29,7 @@ position:sticky;
 top:0;
 z-index:1000;
 `
-const Title = styled.h1`
+export const Title = styled.h1`
 letter-spacing:2px;
 margin:0rem;
 font-family: 'Patua One', cursive;
@@ -43,7 +43,7 @@ const SearchInput = styled(Input)`
 border-radius:1rem;
 ${small({width:"10.8rem"})}
 `
-const Initial = styled.span`
+export const Initial = styled.span`
 color:gold;
 `
 const NavActions = styled.div`
@@ -155,7 +155,9 @@ const confirm = useConfirm();
             }} style={btnStyles} onClick={()=>handleLogin()}>Logout</MenuItem>
            <MenuItem  style={btnStyles}>Email: {currentUser.email}</MenuItem>
       </Menu>
-</>}
+        </>}
+
+
 </NavActions>
 
     </NavContainer>
@@ -168,3 +170,5 @@ const confirm = useConfirm();
 }
 
 export { Navbar }
+/*
+        */

@@ -13,6 +13,7 @@ import { useState } from 'react';
 import Loader from "react-loader-spinner";
 import { login } from '../Actions/login_actions';
 import cartlit from '../Assets/cart-lightening.png';
+import { useSelector } from "react-redux";
 //styled-components
 const Container = styled.div`
 background-image: linear-gradient(to right top, #12100e, #251a18, #37222a, #3d2e46, #2b4162);
@@ -120,6 +121,14 @@ function Login() {
   const [err, setErr] = useState(false);
   const [loading, setLoading] = useState(false);
   const history = useHistory();
+  const user = useSelector(state => state.user);
+
+  if (user.currentUser) {
+    if(user.currentUser.isAdmin)
+      history.push("/adminHome")
+      else history.push("/")
+
+  }
 
   const signInSchema =
     yup.object({
@@ -138,16 +147,14 @@ function Login() {
     validationSchema: signInSchema,
     onSubmit: async (values) => {
       setLoading(true);
-      let boolean = await login(dispatch, values);
-      if (!boolean)
-        setErr(true);
-      else
-        history.push("/")
+      let isUserTrue = await login(dispatch, values);
       setLoading(false);
+      if (!isUserTrue)
+        setErr(true);
+      }
+
     }
-
-
-  })
+  )
   const formStyles = {
     boxShadow: "0 8px 32px 0 rgba( 31, 38, 135, 0.37)",
     padding: "2rem",

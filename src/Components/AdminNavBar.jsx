@@ -1,0 +1,97 @@
+import styled from 'styled-components';
+import { Initial, NavContainer, Title } from './Navbar';
+import { useHistory } from 'react-router-dom';
+import { Button } from '@mui/material';
+import { useSelector, useDispatch } from 'react-redux';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Fade from '@mui/material/Fade';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+//import Badge from '@mui/material/Badge';
+import { small } from '../responsive';
+import * as React from 'react';
+
+const Container = styled.div`
+min-height:100vh;
+background-color: #7f5a83;
+background-image: linear-gradient(315deg, #7f5a83 0%, #0d324d 74%);
+
+
+`
+const Actions = styled.div`
+display:flex;
+flex-wrap:wrap;
+gap:1rem;
+${small({gap:"0"})}
+`
+
+export const AdminNav = () => {
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+ };
+ const btnStyles = { color: "inherit", fontSize: "1.1rem",fontWeight:"550", letterSpacing: "0.8px", fontFamily: "PT Sans Narrow, sans-serif" };
+ const history = useHistory();
+ const dispatch = useDispatch();
+  const { currentUser } = useSelector(state => state.user);
+ return (
+  <Container>
+  <NavContainer style={{background:"#041b2d"}}>
+
+<Title style={{fontSize:"1.7rem",marginLeft:"0.7rem",cursor:"pointer"}} onClick={()=>history.push("/adminHome")}>
+        <i className="fas fa-bolt" style={{ color: "gold", marginRight: "0.5rem" }}></i>
+        <Initial>S</Initial>hoptronic<Initial>s</Initial> <Initial>A</Initial>dmi<Initial>n</Initial>
+   </Title>
+   <Actions>
+    <Button onClick={() => history.push("/adminproductList")} sx={{ "&:hover": { backgroundColor: "#AA771C" } }} style={{ color: "gold", fontSize: "1.2rem", letterSpacing: "0.8px", fontFamily: "PT Sans Narrow, sans-serif" }} type="text">
+          <i className="fas fa-bolt" style={{ color: "gold", marginRight: "0.3rem",fontSize:"1.5rem" }}>
+    </i>Products</Button>
+   <Button onClick={() => history.push("/products")}
+    sx={{ "&:hover": { backgroundColor: "#AA771C" } }} style={{ color: "gold", fontSize: "1.2rem", letterSpacing: "0.8px", fontFamily: "PT Sans Narrow, sans-serif" }} type="text"><i className="fas fa-shopping-bag" style={{marginRight:"0.4rem"}}></i> Orders</Button>
+   <Button onClick={() => history.push("/products")}
+    sx={{ "&:hover": { backgroundColor: "#AA771C" } }} style={{ color: "gold", fontSize: "1.2rem", letterSpacing: "0.8px", fontFamily: "PT Sans Narrow, sans-serif" }} type="text"><i className="fas fa-users" style={{marginRight:"0.4rem",fontSize:"1.5rem"}}></i> Users</Button>
+   <> <Button
+        id="fade-button"
+        aria-controls="fade-menu"
+        aria-haspopup="true"
+        aria-expanded={open ? 'true' : undefined}
+        onClick={handleClick}
+        style={{ color: "gold", textTransform: "none", fontSize: "1.25rem",fontWeight:
+"550", fontFamily: "PT Sans Narrow, sans-serif"  }} type="text"
+      >
+      <i className="fas fa-user-shield" style={{ marginRight: "5px" }} ></i>{currentUser.username}<ArrowDropDownIcon />
+      </Button>
+      <Menu
+        id="fade-menu"
+        MenuListProps={{
+          'aria-labelledby': 'fade-button',
+        }}
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        TransitionComponent={Fade}
+      >
+          <MenuItem sx={{
+            "&:hover": { backgroundColor: "gold" },
+              borderRadius: "0.5rem"
+            }} style={btnStyles} onClick={()=>{
+dispatch({ type: "logOut" })
+history.push("/")
+      }}>Logout</MenuItem>
+           <MenuItem  style={btnStyles}>Email: {currentUser.email}</MenuItem>
+      </Menu>
+        </>
+
+</Actions>
+  </NavContainer>
+   </Container>
+
+)
+
+
+}
