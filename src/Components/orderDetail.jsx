@@ -29,9 +29,9 @@ const Address = styled.div`
 font-family: 'Signika Negative', sans-serif;
 font-weight:bold;
 width:max-content;
-font-size:1.3rem;
+font-size:1.2rem;
 border-bottom:2px dotted gold;
-${medium({ width:"12rem" })}
+${medium({ width:"17rem" })}
 text-align:center;
 border:none;
 `
