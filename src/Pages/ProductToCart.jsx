@@ -215,7 +215,7 @@ export const ProductToCart = () => {
         <ItemContainer>
           <ProductImage src={product.image}></ProductImage>
             <DetailContainer>
-              <StockButton color='yellow'>In Stock</StockButton>
+              <StockButton color='green'>In Stock</StockButton>
               <ProductName>{product.name}</ProductName>
               <PriceBlock>
                 <ProductPrice>₹{Math.round(product.price * 76).toLocaleString()}</ProductPrice>

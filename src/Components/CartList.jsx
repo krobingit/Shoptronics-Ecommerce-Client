@@ -148,7 +148,8 @@ export const CartList = () => {
              <AddCircleIcon style={{ color:"#141e30",cursor: "pointer",fontSize:"1.5rem" }}
                onClick={() => dispatch({ type: "AddQuantity", index: products.indexOf(product) })} />
              <ProductQuantity style={{ padding: "0.4rem",fontSize:"1.5rem", color: "#141e30" }}>{product.quantity}</ProductQuantity>
-             <RemoveCircleIcon  style={{color:"#141e30",cursor:"pointer",fontSize:"1.5rem" }} onClick={()=>dispatch({type:"RemoveQuantity",index:products.indexOf(product)})}/>
+             <RemoveCircleIcon style={{ color: "#141e30", cursor: "pointer", fontSize: "1.5rem" }}
+               onClick={() => dispatch({ type: "RemoveQuantity", index: products.indexOf(product) })} />
            </QuantityActions>
         </QuantityContainer>
 

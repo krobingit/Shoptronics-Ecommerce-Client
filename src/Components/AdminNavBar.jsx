@@ -21,7 +21,7 @@ background-image: linear-gradient(315deg, #7f5a83 0%, #0d324d 74%);
 const Actions = styled.div`
 display:flex;
 flex-wrap:wrap;
-gap:1rem;
+justify-content:space-evenly;
 ${small({gap:"0"})}
 `
 
@@ -54,7 +54,7 @@ export const AdminNav = () => {
    <Button onClick={() => history.push("/products")}
     sx={{ "&:hover": { backgroundColor: "#AA771C" } }} style={{ color: "gold", fontSize: "1.2rem", letterSpacing: "0.8px", fontFamily: "PT Sans Narrow, sans-serif" }} type="text"><i className="fas fa-shopping-bag" style={{marginRight:"0.4rem"}}></i> Orders</Button>
    <Button onClick={() => history.push("/products")}
-    sx={{ "&:hover": { backgroundColor: "#AA771C" } }} style={{ color: "gold", fontSize: "1.2rem", letterSpacing: "0.8px", fontFamily: "PT Sans Narrow, sans-serif" }} type="text"><i className="fas fa-users" style={{marginRight:"0.4rem",fontSize:"1.5rem"}}></i> Users</Button>
+    sx={{ "&:hover": { backgroundColor: "#AA771C" } }} style={{ color: "gold", fontSize: "1.2rem", letterSpacing: "0.8px", fontFamily: "PT Sans Narrow, sans-serif" }} type="text"><i className="fas fa-users" style={{marginRight:"0.4rem",fontSize:"1.3rem"}}></i> Users</Button>
    <> <Button
         id="fade-button"
         aria-controls="fade-menu"

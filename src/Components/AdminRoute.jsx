@@ -8,9 +8,9 @@ export const AdminRoute = ({ path, component }) => {
 
  return (
   <Route path={path}
-   render={() => {
-    return currentUser.isAdmin ? <>{component}</> : <Home />
-   }}>
+   render={() =>
+     currentUser.isAdmin ? <>{component}</> : <Home />
+   }>
   </Route>
 )
 

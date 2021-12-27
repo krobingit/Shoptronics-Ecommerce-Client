@@ -14,6 +14,7 @@ import { Orders } from "./Pages/Orders";
 import { useSelector } from "react-redux";
 import { AdminHome } from "./Admin Pages/AdminHome";
 import { AdminRoute } from "./Components/AdminRoute";
+import { AdminProductList } from "./Admin Pages/AdminProductList";
 
 function App() {
   const { currentUser } = useSelector((state) => state.user);
@@ -26,6 +27,7 @@ function App() {
           </Route>
           { /*Admin Routes*/}
           <AdminRoute exact path="/adminHome" component={<AdminHome/>}/>
+          <AdminRoute exact path="/adminProductList" component={<AdminProductList/>}/>
 
 
 
