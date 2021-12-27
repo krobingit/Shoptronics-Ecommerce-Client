@@ -10,8 +10,9 @@ import "react-toastify/dist/ReactToastify.css";
 import { Title } from "./Home";
 import logo from '../Assets/logo.jpg';
 import axios from 'axios';
-
-
+import razorpay from '../Assets/razorpay.png';
+import icon from '../Assets/icon.svg';
+import { small,medium } from '../responsive';
 
 
 const Container = styled.div`
@@ -78,6 +79,19 @@ const Demo = styled.div`
   font-size: 1.2rem;
   margin: 1.5rem 0;
 `;
+const RazorPay = styled.img`
+width:40rem;
+object-position:center center;
+${medium({width:"35rem"})}
+${small({width:"25rem"})}
+`
+
+const Pay = styled.div`
+display:flex;
+flex-direction:column;
+margin-top:1rem;
+align-items:center;
+`
 //Function to Load Razorpay script
  function loadRazorPay(src)
 {
@@ -257,7 +271,7 @@ return
                     onClick={toasterr}
                     style={{ fontSize: "1.3rem", color: "black" }}
                   >
-                    Proceed to Checkout
+                    Proceed to Checkout Powered by
                   </Button>
                 </>
               ) : (
@@ -270,8 +284,9 @@ return
                     }}
                   >
                     Proceed to Checkout
-                  </Button>
-
+                    </Button>
+                    <Pay>
+<RazorPay src={razorpay}></RazorPay>
                   <Demo>
                     <h3 style={{ textDecoration: "underline" }}>NOTE:</h3>
                     <p>
@@ -287,7 +302,8 @@ return
                     <p>
                       CVV:<b> any three digit number</b>
                     </p>
-                  </Demo>
+                      </Demo>
+                      </Pay>
                 </>
               )}
             </CartTotals>
