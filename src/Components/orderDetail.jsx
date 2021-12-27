@@ -39,7 +39,7 @@ const OrderAmount = styled.span`
 color:green;
 font-size:1.4rem;
 `
-export function OrderInfo({amount,id,contact,address}) {
+export function OrderInfo({amount,id,contact,method,address}) {
  const [show, setShow] = useState(false);
  return (
   <>
@@ -48,7 +48,7 @@ export function OrderInfo({amount,id,contact,address}) {
     <Details>
 
      <OrderDetail>Order Total: <OrderAmount>₹{(amount / 100).toLocaleString()}</OrderAmount></OrderDetail>
-     <OrderDetail>💳 Paid Online</OrderDetail>
+                 <OrderDetail>💳 Paid Online via {method}</OrderDetail>
      <OrderDetail>#️⃣ Payment ID: {id}</OrderDetail>
              <OrderDetail>✆ Delivered to: {contact}</OrderDetail>
              <Address >Shipped to: {address}</Address>
