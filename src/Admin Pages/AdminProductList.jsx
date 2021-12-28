@@ -9,6 +9,7 @@ import { IconButton } from '@mui/material';
 import HashLoader from "react-spinners/HashLoader";
 import { useSelector } from 'react-redux';
 import { useConfirm } from "material-ui-confirm";
+import {  useHistory } from 'react-router-dom';
 /*
 background-color: #7f5a83;
 background-image: linear-gradient(315deg, #7f5a83 0%, #0d324d 74%);*/
@@ -46,20 +47,20 @@ gap:1rem;
 `
 const LoaderContainer = styled.div`
 display:flex;
-flex-direction:column;
+min-height:100vh;
 align-items:center;
 justify-content:center;
 `
 
 export const AdminProductList = () => {
 
+  const history = useHistory();
   const {currentUser}=useSelector(state=>state.user)
   const [products, setProducts] = useState(null);
   const confirm = useConfirm();
    const getProducts = async () => {
       setLoading(true);
-      const response = await commonRequest.get("/product");
-      setProducts(response.data);
+     await commonRequest.get("/product").then((res)=>setProducts(res.data))
       setLoading(false);
     }
   const [loading, setLoading] = useState(false);
@@ -130,7 +131,7 @@ const deleteProduct = async(id) => {
       renderCell: ({ row }) => {
         return (
           <>
-            <p>{row.category[1].name}</p>
+            <p>{row.category}</p>
           </>
 
 )
@@ -144,11 +145,12 @@ const deleteProduct = async(id) => {
   renderCell: ({ row })=> {
 
         return (
-          <ButtonContainer><IconButton><i className="fas fa-edit" style={{color:"goldenrod"}}></i></IconButton>
-            <IconButton><i className="fas fa-trash-alt" style={{ color: "red" }} onClick={async() => {
+          <ButtonContainer><IconButton onClick={()=>history.push(`/adminProductEdit/${row._id}`)}><i className="fas fa-edit"  style={{color:"goldenrod"}}></i></IconButton>
+            <IconButton  onClick={async () => {
               await confirm({ description: `Do you want to remove this product from your store?` })
                 .then(() => deleteProduct(row._id));
-            }}></i></IconButton>
+            }}><i className="fas fa-trash-alt" style={{ color: "red" }}
+             ></i></IconButton>
 </ButtonContainer>
 )
 
@@ -164,11 +166,11 @@ const deleteProduct = async(id) => {
 
  <GridContainer>
       <DataGrid
-        style={{color:"black",fontSize:"1.1rem"}}
+        style={{color:"black",fontSize:"1.1rem",borderColor:"gold"}}
         rows={products}
         columns={columns}
         pageSize={20}
-        rowsPerPageOptions={[10]}
+        rowsPerPageOptions={[20]}
         getRowId={row=>row._id}
         checkboxSelection
         disableSelectionOnClick

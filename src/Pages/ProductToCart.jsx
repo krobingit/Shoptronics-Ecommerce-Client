@@ -246,7 +246,7 @@ export const ProductToCart = () => {
                 </CartContainer>
               </ProductActions>
               <Line></Line>
-              <p style={{ fontSize: "1.1rem" }}>Categories: <Value>{product.category[0].name},{product.category[1].name}</Value></p>
+              <p style={{ fontSize: "1.1rem" }}>Categories: <Value>{product.category}</Value></p>
                       <Options>
               <Button color="yellow" style={{ margin: "0 0 0 1.5rem",height:"3.5rem",padding:"0 1rem",fontSize:"1.1rem", width: "min-content" }} onClick={() => history.goBack()}>Previous</Button>
                 <Button  style={{ margin: "0 0 0 1.5rem",height:"3.5rem",padding:"0 1rem",fontSize:"1.1rem" }} onClick={() => {
