@@ -121,10 +121,12 @@ const toasterr = () => {
 export const Cart = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-    const { products, total, quantity } = useSelector((state) => state.cart);
+  const { products, total, quantity } = useSelector((state) => state.cart);
+
   let quantityDiscount = products
     .map((prod) => prod.quantity)
     .reduce((total, val) => val + total, 0);
+
   const { currentUser } = useSelector((state) => state.user);
   //Function to display RazorPay frontend Payment Gateway integration
 async function DisplayRazorPayCheckout() {
@@ -288,8 +290,11 @@ return
 <RazorPay src={razorpay}></RazorPay>
                   <Demo>
                     <h3 style={{ textDecoration: "underline" }}>NOTE:</h3>
-                    <p>
-                      Please use the below credentials for checkout and choose{" "}
+                        <p>
+                      Use "UPI" and enter UPI ID "success@razorpay"
+                          for successful checkout </p>
+                        <p>[OR]</p>
+                     <p> Use "Card" Option and  below credentials for checkout and choose{" "}
                       <b>Payment Success</b> at the final page
                     </p>
                     <p>

@@ -11,13 +11,7 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { small } from '../responsive';
 import * as React from 'react';
 
-const Container = styled.div`
-min-height:100vh;
-background-color: #7f5a83;
-background-image: linear-gradient(315deg, #7f5a83 0%, #0d324d 74%);
 
-
-`
 const Actions = styled.div`
 display:flex;
 flex-wrap:wrap;
@@ -40,7 +34,7 @@ export const AdminNav = () => {
  const dispatch = useDispatch();
   const { currentUser } = useSelector(state => state.user);
  return (
-  <Container>
+
   <NavContainer style={{background:"#041b2d"}}>
 
 <Title style={{fontSize:"1.7rem",marginLeft:"0.7rem",cursor:"pointer"}} onClick={()=>history.push("/adminHome")}>
@@ -89,7 +83,7 @@ history.push("/")
 
 </Actions>
   </NavContainer>
-   </Container>
+
 
 )
 

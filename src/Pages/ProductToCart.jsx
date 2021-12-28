@@ -224,7 +224,7 @@ export const ProductToCart = () => {
               <ProductDesc><InfoIcon style={{ color: "#141e30", marginRight:"5px"}}/>
               {product.description.split(";").join(",")}
             </ProductDesc>
-            <ProductBrand>Brand: <Value>{product.manufacturer}</Value></ProductBrand>
+            <ProductBrand>Brand: <Value>{product.brand}</Value></ProductBrand>
  <ProductModel>Model: <Value>{product.model}</Value></ProductModel>
               <ProductActions>
                 <QuantityContainer>

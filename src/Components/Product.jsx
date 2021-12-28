@@ -39,7 +39,7 @@ color:brown;
 `
   const detailstyle = { fontSize: "1.1rem" };
 
-export function Product({ name, price, category, manufacturer, image, _id, setNotify,
+export function Product({ name, price, category, brand, image, _id, setNotify,
  handleClick, TransitionLeft }) {
  const history = useHistory();
  const [isClick, setClick] = useState(false);
@@ -55,7 +55,7 @@ export function Product({ name, price, category, manufacturer, image, _id, setNo
                  <p style={{fontSize:"1.1rem",cursor:"pointer"}} onClick={() => history.push(`/product/${_id}`)}> {name}</p>
                  <p style={detailstyle}>Price: <Values style={{fontSize:"1.5rem"}}>₹{Math.round(price * 76).toLocaleString()}</Values></p>
                  <p style={detailstyle}>Category: <Values>{category[1].name}</Values></p>
-                 <p style={detailstyle}>Brand: <Values>{manufacturer}</Values></p>
+                 <p style={detailstyle}>Brand: <Values>{brand}</Values></p>
                </ProductDetails>
                <ProductActions>
                  <IconButton style={{ color: "#141e30" }} onClick={()=>history.push(`/product/${_id}`)}>

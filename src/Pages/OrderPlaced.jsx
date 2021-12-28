@@ -78,7 +78,7 @@ setTimeout(()=>{
        <OrderContainer>
          <ConfirmImage src={logo}></ConfirmImage>
          <Payment>Payment Successful! </Payment>
-         <Text>Hi <OrderID>{paymentData.card.name}</OrderID>,Your Order with Order#  <OrderID>'{paymentData.order_id}'</OrderID> has been successfully placed!</Text>
+         <Text>Hi <OrderID>{currentUser.username}</OrderID>,Your Order with Order#  <OrderID>'{paymentData.order_id}'</OrderID> has been successfully placed!</Text>
          <Text>Your payment id is <OrderID>{paymentData.id}</OrderID></Text>
          <Text>We are processing your items and shipping confirmation will be sent over <OrderID>{currentUser.email}</OrderID>.</Text>
                <Actions>
