@@ -40,7 +40,7 @@ export const AdminProductEdit = () => {
  const [product, setProduct] = useState(null);
  const [loading, setLoading] = useState(true);
  const { id } = useParams();
- let history = useHistory();
+
  useEffect(() => {
   const getProduct = async () => {
    await commonRequest.get(`/product/${id}`).then((res) => setProduct(res.data));
@@ -55,6 +55,7 @@ export const AdminProductEdit = () => {
 
 //conditional rendering --only when product has fetched the data, this function component will be returned
 const UpdateProduct = ({ loading, setProduct, product, user }) => {
+  let history = useHistory();
     const ToastSuccess = () => {
   return toast.success("Updated Product Successfully", {
     position: "bottom-right",
@@ -79,7 +80,7 @@ const UpdateProduct = ({ loading, setProduct, product, user }) => {
    onSubmit: async (values) => {
     console.log(values)
 try{
- const res = await commonRequest.put(`/product/${product._id}`, values,
+await commonRequest.put(`/product/${product._id}`, values,
   {
   headers:{token: user.token}
   }).then(() =>
@@ -200,7 +201,7 @@ console.log("Error updating user",err)
           rtl={false}
         />
        </Form>
-
+      <Button onClick={()=>history.push("/adminProductList")} inverted color="yellow">Go to Products</Button>
 
 
       </FormContainer>
