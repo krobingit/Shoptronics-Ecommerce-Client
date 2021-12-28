@@ -201,9 +201,7 @@ console.log("Error updating user",err)
           rtl={false}
         />
        </Form>
-      <Button onClick={()=>history.push("/adminProductList")} inverted color="yellow">Go to Products</Button>
-
-
+        <Button style={{marginRight:"auto",marginLeft:"2rem"}} onClick={() => history.push("/adminProductList")} color="yellow">Go to Products</Button>
       </FormContainer>
     }
    </>
