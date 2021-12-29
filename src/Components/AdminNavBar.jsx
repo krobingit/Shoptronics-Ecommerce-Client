@@ -45,9 +45,9 @@ export const AdminNav = () => {
     <Button onClick={() => history.push("/adminproductList")} sx={{ "&:hover": { backgroundColor: "#AA771C" } }} style={{ color: "gold", fontSize: "1.2rem", letterSpacing: "0.8px", fontFamily: "PT Sans Narrow, sans-serif" }} type="text">
           <i className="fas fa-bolt" style={{ color: "gold", marginRight: "0.3rem",fontSize:"1.5rem" }}>
     </i>Products</Button>
-   <Button onClick={() => history.push("/products")}
+   <Button
     sx={{ "&:hover": { backgroundColor: "#AA771C" } }} style={{ color: "gold", fontSize: "1.2rem", letterSpacing: "0.8px", fontFamily: "PT Sans Narrow, sans-serif" }} type="text"><i className="fas fa-shopping-bag" style={{marginRight:"0.4rem"}}></i> Orders</Button>
-   <Button onClick={() => history.push("/products")}
+   <Button
     sx={{ "&:hover": { backgroundColor: "#AA771C" } }} style={{ color: "gold", fontSize: "1.2rem", letterSpacing: "0.8px", fontFamily: "PT Sans Narrow, sans-serif" }} type="text"><i className="fas fa-users" style={{marginRight:"0.4rem",fontSize:"1.3rem"}}></i> Users</Button>
    <> <Button
         id="fade-button"

@@ -23,6 +23,7 @@ margin:2rem;
 const Container = styled.div`
 height:40rem;
 margin:1rem;
+width:max-content;
 overflow:hidden;
 padding:1rem;
 background: rgba( 255, 255, 255, 0.25 );
@@ -83,7 +84,7 @@ export const AdminHome = () => {
        :
 <HomeContainer>
        <Container>
-           <h3>Recently Registered Users </h3>
+           <h3 style={{color:"#141e30"}}>Recently Registered Users </h3>
            {users.map((user) =>
 
              <Card>
@@ -98,11 +99,12 @@ export const AdminHome = () => {
 )}
          </Container>
            <Container style={{width:"30rem"}}>
-           <h3>Recent Orders</h3>
+           <h3 style={{color:"#141e30"}}>Recent Orders</h3>
            {orders.map((each) =>
                <Card>
-                 <p>OrderID: {each.paymentData.order_id}</p>
-                 <p>{each.products.map((prod) => prod.name).join(",")}</p>
+               <p>OrderID: {each.paymentData.order_id}</p>
+               <p>Products:</p>
+               <p>{each.products.map((prod) => <p>{prod.name}</p>)}</p>
                <p>Order Date: {new Date(each.createdAt).toDateString()},{new Date(each.createdAt).toTimeString().substring(0, 9)}IST</p>
                <p>Placed by: {each.userEmail}</p>
                           <p>Order Status: {each.orderStatus}</p>
