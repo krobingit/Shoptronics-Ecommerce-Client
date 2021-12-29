@@ -14,7 +14,7 @@ export const cartReducer = (state = initialState, action) => {
        return {
          ...state,
          quantity: quantity + 1,
-         total: total + (Math.round(action.payload.price*76) * action.payload.quantity)
+         total: total + (Math.round(action.payload.price) * action.payload.quantity)
        }
      }
        case "EmptyCart":
@@ -33,7 +33,7 @@ export const cartReducer = (state = initialState, action) => {
        return {
          ...state,
 total:Math.round(
-            products.reduce((result, cartItem) => result + cartItem.price*(cartItem.quantity*76), 0))
+            products.reduce((result, cartItem) => result + cartItem.price*(cartItem.quantity), 0))
        }
      }
    case "RemoveQuantity":
@@ -43,7 +43,7 @@ total:Math.round(
          return {
            ...state,
            total: Math.round(
-             products.reduce((result, cartItem) => result + cartItem.price * (cartItem.quantity * 76), 0))
+             products.reduce((result, cartItem) => result + cartItem.price * (cartItem.quantity), 0))
          }
 
      }
@@ -57,7 +57,7 @@ total:Math.round(
          ...state,
          products: [...filteredProducts],
          quantity: quantity - 1,
-         total:(total-(Math.round(action.payload.price*76)*action.payload.quantity))
+         total:(total-(Math.round(action.payload.price)*action.payload.quantity))
 
        }
 

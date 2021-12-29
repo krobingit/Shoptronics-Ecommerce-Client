@@ -218,7 +218,7 @@ export const ProductToCart = () => {
               <StockButton color='green'>In Stock</StockButton>
               <ProductName>{product.name}</ProductName>
               <PriceBlock>
-                <ProductPrice>₹{Math.round(product.price * 76).toLocaleString()}</ProductPrice>
+                <ProductPrice>₹{Math.round(product.price).toLocaleString()}</ProductPrice>
                  <ShippingPrice>{product.shipping>1 ? `Shipping: ₹${Math.round(product.shipping+100)}` : ''}</ShippingPrice>
                 </PriceBlock>
               <ProductDesc><InfoIcon style={{ color: "#141e30", marginRight:"5px"}}/>

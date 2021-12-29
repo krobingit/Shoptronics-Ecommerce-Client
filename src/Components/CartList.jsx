@@ -137,9 +137,9 @@ export const CartList = () => {
 
       <PriceContainer>
        <ProductPrice>Price</ProductPrice>
-           <ProductPrice>₹{Math.round(product.price * 76).toLocaleString()}</ProductPrice>
+           <ProductPrice>₹{Math.round(product.price).toLocaleString()}</ProductPrice>
            <ProductPrice style={{ color:"green",textDecoration: "line-through grey solid" }}>
-             ₹{((Math.round(product.price * 76) + 10000)).toLocaleString()}</ProductPrice>
+             ₹{((Math.round(product.price) + 10000)).toLocaleString()}</ProductPrice>
       </PriceContainer>
 
          <QuantityContainer>
@@ -155,7 +155,7 @@ export const CartList = () => {
 
         <SubTotalContainer>
        <ProductSubTotal>Total Price</ProductSubTotal>
-       <ProductSubTotal style={{textShadow:"2px 1px yellow"}}>₹{(Math.round(product.price * 76)*product.quantity).toLocaleString()}</ProductSubTotal>
+       <ProductSubTotal style={{textShadow:"2px 1px yellow"}}>₹{(Math.round(product.price)*product.quantity).toLocaleString()}</ProductSubTotal>
        </SubTotalContainer>
        </DetailContainer>
        { notify && <>

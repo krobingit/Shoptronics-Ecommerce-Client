@@ -105,7 +105,7 @@ const deleteProduct = async(id) => {
     renderCell: ({row}) => {
       return (
         <>
-          <p>₹{Math.round(row.price*76).toLocaleString()}</p>
+          <p>₹{Math.round(row.price).toLocaleString()}</p>
         </>
 )
 
@@ -194,7 +194,7 @@ const deleteProduct = async(id) => {
           :
           <>
       <NewProduct>
-      <Button color="yellow">Create New Product</Button>
+      <Button color="yellow" onClick={()=>history.push("/adminProductAdd")}>Create New Product</Button>
       </NewProduct>
       <Container>
             <ProductList />

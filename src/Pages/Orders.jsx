@@ -172,7 +172,7 @@ export const Orders = () => {
            <ProductCard key={product._id}>
             <ProductImage src={product.image} />
             <ProductName>{product.name}</ProductName>
-            <ProductPrice>₹{Math.round(product.price * 76).toLocaleString()}</ProductPrice>
+            <ProductPrice>₹{Math.round(product.price).toLocaleString()}</ProductPrice>
             <ProductQty>Qty: {product.quantity}</ProductQty>
 
            </ProductCard>)

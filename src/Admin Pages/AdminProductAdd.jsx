@@ -1,21 +1,15 @@
-import { useParams, useHistory } from 'react-router-dom';
+import {  useHistory } from 'react-router-dom';
 import { AdminNav } from '../Components/AdminNavBar';
 import { useFormik } from "formik";
 import { Form } from 'semantic-ui-react';
 import { commonRequest } from '../axiosreq';
 import styled from 'styled-components';
 import { Button } from 'semantic-ui-react';
-import SyncLoader from "react-spinners/SyncLoader";
 import { useSelector } from 'react-redux';
 import { ToastContainer, toast } from "react-toastify";
 import { productSchema } from './AdminProductEdit';
 
-const LoaderContainer = styled.div`
-display:flex;
-min-height:100vh;
-align-items:center;
-justify-content:center;
-`
+
 const FormContainer = styled.div`
 display:flex;
 flex-direction:column;
@@ -91,18 +85,12 @@ console.log("Error updating user",err)
   return (
    <>
     <AdminNav />
-    {
-     loading
-      ?
-      <LoaderContainer>
-       <SyncLoader loading={loading} margin="5px" color="#FFEC03" size={18} />
-      </LoaderContainer>
-      :
+
       <FormContainer>
 
 
        <Form style={formStyles} onSubmit={handleSubmit}>
-        <h3 style={{ textAlign: "center", letterSpacing: "1.5px", color: "#4f2f5e" }}><i className="fas fa-edit"></i> EDIT PRODUCT</h3>
+        <h3 style={{ textAlign: "center", letterSpacing: "1.5px", color: "#4f2f5e" }}><i className="fas fa-plus-square"></i> CREATE PRODUCT</h3>
         <Form.Input onChange={handleChange} onBlur={handleBlur} value={values.name}
          error={errors.name && touched.name && errors.name}
          fluid
@@ -168,7 +156,7 @@ console.log("Error updating user",err)
          name="model"
          type="text"
         />
-        <Button type="submit" color="green">Update Product</Button>
+        <Button type="submit" color="blue">Add Product</Button>
          <ToastContainer
           position="bottom-right"
           autoClose={3500}
@@ -180,7 +168,7 @@ console.log("Error updating user",err)
        </Form>
         <Button style={{marginRight:"auto",marginLeft:"2rem"}} onClick={() => history.push("/adminProductList")} color="yellow">Go to Products</Button>
       </FormContainer>
-    }
+
    </>
   )
 

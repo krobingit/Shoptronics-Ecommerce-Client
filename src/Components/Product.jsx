@@ -53,7 +53,7 @@ export function Product({ name, price, category, brand, image, _id, setNotify,
                <ProductImage src={image} onClick={() => history.push(`/product/${_id}`)} alt="product"/>
                <ProductDetails>
                  <p style={{fontSize:"1.1rem",cursor:"pointer"}} onClick={() => history.push(`/product/${_id}`)}> {name}</p>
-                 <p style={detailstyle}>Price: <Values style={{fontSize:"1.5rem"}}>₹{Math.round(price * 76).toLocaleString()}</Values></p>
+                 <p style={detailstyle}>Price: <Values style={{fontSize:"1.5rem"}}>₹{Math.round(price).toLocaleString()}</Values></p>
                  <p style={detailstyle}>Category: <Values>{category}</Values></p>
                  <p style={detailstyle}>Brand: <Values>{brand}</Values></p>
                </ProductDetails>
