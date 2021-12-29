@@ -148,16 +148,16 @@ const confirm = useConfirm();
         open={open}
         onClose={handleClose}
         TransitionComponent={Fade}
-      >
-          <MenuItem sx={{
-            "&:hover": { backgroundColor: "gold" },
-              borderRadius: "0.5rem"
-            }} style={btnStyles} onClick={()=>handleLogin()}>Logout</MenuItem>
-            <MenuItem style={btnStyles}>Email: {currentUser.email}</MenuItem>
+          >
             {currentUser.isAdmin && <MenuItem sx={{
               "&:hover": { backgroundColor: "gold" },
               borderRadius: "0.5rem"
             }} style={btnStyles} onClick={() => history.push("/adminHome")}>To Admin Dashboard</MenuItem>}
+          <MenuItem sx={{
+            "&:hover": { backgroundColor: "gold" },
+              borderRadius: "0.5rem"
+            }} style={btnStyles} onClick={() => handleLogin()}>Logout</MenuItem>
+            <MenuItem style={btnStyles}>Email: {currentUser.email}</MenuItem>
       </Menu>
         </>}
 
