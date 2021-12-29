@@ -71,7 +71,13 @@ export const AdminNav = () => {
         open={open}
         onClose={handleClose}
         TransitionComponent={Fade}
-      >
+         >
+            <MenuItem sx={{
+            "&:hover": { backgroundColor: "gold" },
+              borderRadius: "0.5rem"
+            }} style={btnStyles} onClick={()=>{
+history.push("/")
+      }}>Back to Shoptronics Home</MenuItem>
           <MenuItem sx={{
             "&:hover": { backgroundColor: "gold" },
               borderRadius: "0.5rem"
