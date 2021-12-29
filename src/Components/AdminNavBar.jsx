@@ -15,6 +15,7 @@ import * as React from 'react';
 const Actions = styled.div`
 display:flex;
 flex-wrap:wrap;
+gap:1rem;
 justify-content:space-evenly;
 ${small({gap:"0"})}
 `

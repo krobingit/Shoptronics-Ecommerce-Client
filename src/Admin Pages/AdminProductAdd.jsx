@@ -119,7 +119,7 @@ console.log("Error updating user",err)
          error={errors.description && touched.description && errors.description}
          fluid
          label='Description'
-         placeholder='description'
+         placeholder='Description'
          id='description'
          name="description"
          type="text"
@@ -160,7 +160,7 @@ console.log("Error updating user",err)
          name="model"
          type="text"
         />
-        <Button type="submit" color="blue">Add Product</Button>
+        <Button type="submit" style={{color:"inherit"}} color="yellow">Add Product</Button>
          <ToastContainer
           position="bottom-right"
           autoClose={3500}

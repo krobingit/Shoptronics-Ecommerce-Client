@@ -103,10 +103,10 @@ export const AdminHome = () => {
        :
 <HomeContainer>
        <Container>
-           <h3 style={{color:"#141e30"}}>Recently Registered Users </h3>
+           <h3 style={{color:"#141e30",textAlign:"center",fontFamily: 'Fira Sans, sans-serif',textShadow:"1px 1px gold"}}>Recently Registered Users </h3>
            {users.map((user) =>
 
-             <Card style={{background:"wheat",borderRadius:"1rem",padding:"0.7rem"}}>
+             <Card style={{background:"whitesmoke",color:"#00001f",borderRadius:"1rem",padding:"0.7rem"}}>
                <p>Username: {user.username}</p>
                <p>Email: {user.email}</p>
                <p>Created At: {new Date(user.createdAt).toDateString()},{new Date(user.createdAt).toTimeString().substring(0, 9)}IST</p>
@@ -116,7 +116,7 @@ export const AdminHome = () => {
 )}
          </Container>
            <Container style={{width:"30rem"}}>
-           <h3 style={{color:"#141e30"}}>Recent Orders</h3>
+           <h3 style={{color:"#141e30",textAlign:"center",fontFamily: 'Fira Sans, sans-serif',textShadow:"1px 1px gold"}}>Recent Orders</h3>
            {orders.map((each) =>
                <Card>
                <Heading>OrderID: {each.paymentData.order_id}</Heading>
@@ -126,7 +126,7 @@ export const AdminHome = () => {
                  <p>Qty: {prod.quantity}</p></>)}</p>
                  </ProductContainer>
                <p>Order Date: <OrderDetail>{new Date(each.createdAt).toDateString()},{new Date(each.createdAt).toTimeString().substring(0, 9)}IST</OrderDetail></p>
-               <p>Placed by: <OrderDetail>{each.userEmail}</OrderDetail></p>
+               <p>Placed by: <OrderDetail>{each.userEmail},<i className="fas fa-phone"></i>{each.paymentData.contact}</OrderDetail></p>
                           <Heading style={{background:"whitesmoke"}}>Order Status: <Status
               style={{
                color: (each.orderStatus === "Processing" && "orange") || (each.orderStatus === "Shipped" && "purple")
