@@ -184,7 +184,7 @@ const deleteProduct = async(id) => {
   return (
    <>
       <AdminNav />
-      <Title>Products</Title>
+      <Title>Inventory</Title>
       {
         loading
           ?

@@ -25,7 +25,7 @@ justify-content:center;
 padding:1rem;
 `
 
-   const productSchema=yup.object({
+   export const productSchema=yup.object({
         name:yup.string().required("Please Enter Product Name"),
         brand:yup.string().required("Please Enter Brand"),
         price:yup.number().required("Please Enter Price"),

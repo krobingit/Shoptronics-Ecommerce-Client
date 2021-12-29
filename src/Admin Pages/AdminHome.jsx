@@ -32,15 +32,34 @@ border-radius: 10px;
 border: 1px solid rgba( 255, 255, 255, 0.18 );
 overflow:scroll;
 font-family: 'Merriweather', serif;
+font-weight:700;
 `
 
 const Card = styled.div`
 margin:0.8rem;
 `
+const Status = styled.span`
+`
 const Line = styled.div`
  border: 1px dashed darkgray;
 width:100%;
 `;
+const Heading = styled.p`
+background:gold;
+width:max-content;
+border-radius:1rem;
+padding:0.3rem;
+`
+const ProductContainer = styled.div`
+background:white;
+padding:0.3rem;
+border-radius:1rem;
+margin-bottom:0.5rem;
+color:#00001f;
+`
+const OrderDetail = styled.span`
+color:brown
+`
 
 export const AdminHome = () => {
   const { currentUser } = useSelector(state => state.user);
@@ -87,12 +106,10 @@ export const AdminHome = () => {
            <h3 style={{color:"#141e30"}}>Recently Registered Users </h3>
            {users.map((user) =>
 
-             <Card>
-               <p>{user.username}</p>
-               <p>{user.email}</p>
+             <Card style={{background:"wheat",borderRadius:"1rem",padding:"0.7rem"}}>
+               <p>Username: {user.username}</p>
+               <p>Email: {user.email}</p>
                <p>Created At: {new Date(user.createdAt).toDateString()},{new Date(user.createdAt).toTimeString().substring(0, 9)}IST</p>
-
-               <Line></Line>
              </Card>
 
 
@@ -102,13 +119,19 @@ export const AdminHome = () => {
            <h3 style={{color:"#141e30"}}>Recent Orders</h3>
            {orders.map((each) =>
                <Card>
-               <p>OrderID: {each.paymentData.order_id}</p>
+               <Heading>OrderID: {each.paymentData.order_id}</Heading>
                <p>Products:</p>
+               <ProductContainer>
                <p>{each.products.map((prod) => <><p>{prod.name}</p>
-               <p>Qty: {prod.quantity}</p></>)}</p>
-               <p>Order Date: {new Date(each.createdAt).toDateString()},{new Date(each.createdAt).toTimeString().substring(0, 9)}IST</p>
-               <p>Placed by: {each.userEmail}</p>
-                          <p>Order Status: {each.orderStatus}</p>
+                 <p>Qty: {prod.quantity}</p></>)}</p>
+                 </ProductContainer>
+               <p>Order Date: <OrderDetail>{new Date(each.createdAt).toDateString()},{new Date(each.createdAt).toTimeString().substring(0, 9)}IST</OrderDetail></p>
+               <p>Placed by: <OrderDetail>{each.userEmail}</OrderDetail></p>
+                          <Heading style={{background:"whitesmoke"}}>Order Status: <Status
+              style={{
+               color: (each.orderStatus === "Processing" && "orange") || (each.orderStatus === "Shipped" && "purple")
+                || (each.orderStatus === "Delivered" && "green")
+              }}>{each.orderStatus}</Status></Heading>
                  <Line></Line>
                </Card>
 
