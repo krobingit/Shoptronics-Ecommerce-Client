@@ -89,7 +89,7 @@ export const AdminHome = () => {
              <Card>
                <p>{user.username}</p>
                <p>{user.email}</p>
-               <p>Created At: {user.createdAt}</p>
+               <p>Created At: {user.createdAt.toDateString()},{user.createdAt.toTimeString()}</p>
 
                <Line></Line>
              </Card>
@@ -103,7 +103,7 @@ export const AdminHome = () => {
                <Card>
                  <p>OrderID: {each.paymentData.order_id}</p>
                  <p>{each.products.map((prod) => prod.name).join(",")}</p>
-               <p>Order Date: {each.createdAt}</p>
+               <p>Order Date: {each.createdAt.toDateString()},{each.createdAt.toTimeString()}</p>
                <p>Placed by: {each.userEmail}</p>
                           <p>Order Status: {each.orderStatus}</p>
                  <Line></Line>
