@@ -34,7 +34,7 @@ font-family: 'Merriweather', serif;
 `
 
 const Card = styled.div`
-
+margin:0.8rem;
 `
 const Line = styled.div`
  border: 1px dashed darkgray;
