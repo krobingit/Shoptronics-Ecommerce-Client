@@ -104,7 +104,8 @@ export const AdminHome = () => {
                <Card>
                <p>OrderID: {each.paymentData.order_id}</p>
                <p>Products:</p>
-               <p>{each.products.map((prod) => <p>{prod.name}</p>)}</p>
+               <p>{each.products.map((prod) => <><p>{prod.name}</p>
+               <p>Qty: {prod.quantity}</p></>)}</p>
                <p>Order Date: {new Date(each.createdAt).toDateString()},{new Date(each.createdAt).toTimeString().substring(0, 9)}IST</p>
                <p>Placed by: {each.userEmail}</p>
                           <p>Order Status: {each.orderStatus}</p>

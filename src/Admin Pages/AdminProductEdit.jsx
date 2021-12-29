@@ -71,7 +71,7 @@ const UpdateProduct = ({ loading, setProduct, product, user }) => {
     name: product.name,
     brand: product.brand ,
     description: product.description,
-    price: product.price,
+    price: Math.round(product.price*76),
     image: product.image,
     category: product.category,
     model: product.model
