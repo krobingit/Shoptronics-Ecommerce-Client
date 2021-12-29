@@ -85,8 +85,6 @@ await commonRequest.put(`/product/${product._id}`, values,
   headers:{token: user.token}
   }).then(() =>
    ToastSuccess() )
-
-
     }
     catch (err)
 {

@@ -54,8 +54,12 @@ try{
 await commonRequest.post(`/product/`, values,
   {
   headers:{token: user.token}
-  }).then(() =>
-   ToastSuccess() )
+ }).then(() => {
+  ToastSuccess()
+  setTimeout(() => {
+  history.push("/adminProductList")
+  },3500)
+ } )
 
 
     }
