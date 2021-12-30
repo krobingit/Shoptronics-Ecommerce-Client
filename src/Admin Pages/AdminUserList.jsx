@@ -119,19 +119,19 @@ export const AdminUserList = () => {
       field: "isAdmin",
       headerName: "Admin Access",
       type: "boolean",
-      width: 160,
+      width: 180,
       renderCell: ({ row }) => {
         return (
           <>
             <p>
               {row.isAdmin ? (
                 <i
-                  style={{ fontSize: "1.2rem" }}
+                  style={{ fontSize: "1.4rem",color:"#141e30" }}
                   className="fas fa-user-check"
                 ></i>
               ) : (
                 <i
-                  style={{ fontSize: "1.2rem" }}
+                  style={{ fontSize: "1.4rem",color:"#141e30" }}
                   className="fas fa-user-alt-slash"
                 ></i>
               )}

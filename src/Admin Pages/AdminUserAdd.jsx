@@ -194,10 +194,10 @@ export const AdminUserAdd = () => {
         </Form>
         <Button
           style={{ marginRight: "auto", marginLeft: "2rem" }}
-          onClick={() => history.push("/adminProductList")}
+          onClick={() => history.push("/adminUserList")}
           color="yellow"
         >
-          Go to Products
+          Go to Users
         </Button>
       </FormContainer>
     </>

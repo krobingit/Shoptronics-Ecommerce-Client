@@ -128,7 +128,7 @@ console.log("Error updating user",err)
 
 
        <Form style={formStyles} onSubmit={handleSubmit}>
-        <h3 style={{ textAlign: "center", letterSpacing: "1.5px", color: "#4f2f5e" }}><i className="fas fa-edit"></i> EDIT PRODUCT</h3>
+        <h3 style={{ textAlign: "center", letterSpacing: "1.5px", color: "#4f2f5e" }}><i className="fas fa-edit"></i> EDIT USER</h3>
         <Form.Input onChange={handleChange} onBlur={handleBlur} value={values.name}
          error={errors.name && touched.name && errors.name}
          fluid
