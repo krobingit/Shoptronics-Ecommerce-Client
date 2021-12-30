@@ -14,7 +14,6 @@ background-color: #7f5a83;
 background-image: linear-gradient(315deg, #7f5a83 0%, #0d324d 74%);*/
 const Container = styled.div`
 min-height:100vh;
-
 padding:1.5rem;
 display:flex;
 align-items:center;
