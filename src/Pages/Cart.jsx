@@ -272,7 +272,7 @@ return
                     onClick={toasterr}
                     style={{ fontSize: "1.3rem", color: "black" }}
                   >
-                    Proceed to Checkout Powered by
+                    Proceed to Checkout
                   </Button>
                 </>
               ) : (
