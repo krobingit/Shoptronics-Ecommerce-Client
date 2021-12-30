@@ -5,7 +5,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import styled from 'styled-components';
 import { Title } from '../Pages/Home';
 import { IconButton } from '@mui/material';
-import HashLoader from "react-spinners/HashLoader";
+import DotLoader from "react-spinners/DotLoader";
 import { useSelector } from 'react-redux';
 import { useConfirm } from "material-ui-confirm";
 import {  useHistory } from 'react-router-dom';
@@ -222,7 +222,7 @@ renderCell: ({ row }) => {
         loading
           ?
           <LoaderContainer>
-            <HashLoader loading={loading} color="#FFEC03" size={60} />
+            <DotLoader loading={loading} color="#FFEC03" size={60} />
             </LoaderContainer>
           :
           <>
