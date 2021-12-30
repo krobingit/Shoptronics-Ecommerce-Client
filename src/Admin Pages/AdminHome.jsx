@@ -25,14 +25,14 @@ height:40rem;
 margin:1rem;
 width:max-content;
 overflow:hidden;
-padding:1rem;
+padding:0.5rem;
 background: rgba( 255, 255, 255, 0.25 );
 box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.5 );
 border-radius: 10px;
 border: 1px solid rgba( 255, 255, 255, 0.18 );
 overflow:scroll;
 font-family: 'Merriweather', serif;
-font-weight:700;
+font-weight:650;
 `
 
 const Card = styled.div`
@@ -91,7 +91,7 @@ export const AdminHome = () => {
 
 
   }, [currentUser.token])
-  console.log(users,orders)
+
  return (
   <>
      <AdminNav />
@@ -106,21 +106,20 @@ export const AdminHome = () => {
            <h3 style={{color:"#141e30",textAlign:"center",fontFamily: 'Fira Sans, sans-serif',textShadow:"1px 1px gold"}}>Recently Registered Users </h3>
            {users.map((user) =>
 
-             <Card style={{background:"whitesmoke",color:"#00001f",borderRadius:"1rem",padding:"0.7rem"}}>
+             <Card style={{ background: "whitesmoke", color: "#00001f", borderRadius: "1rem", padding: "0.7rem" }}>
+               <p><i className="fas fa-user" style={{fontSize:"1.2rem"}} ></i></p>
                <p>Username: {user.username}</p>
                <p>Email: {user.email}</p>
                <p>Created At: {new Date(user.createdAt).toDateString()},{new Date(user.createdAt).toTimeString().substring(0, 9)}IST</p>
              </Card>
-
-
 )}
          </Container>
            <Container style={{width:"30rem"}}>
            <h3 style={{color:"#141e30",textAlign:"center",fontFamily: 'Fira Sans, sans-serif',textShadow:"1px 1px gold"}}>Recent Orders</h3>
-           {orders.map((each) =>
-               <Card>
+           {orders.map((each,idx) =>
+               <Card key={idx}>
                <Heading>OrderID: {each.paymentData.order_id}</Heading>
-               <p>Products:</p>
+               <p>Products({each.products.length} items)</p>
                <ProductContainer>
                <p>{each.products.map((prod) => <><p>{prod.name}</p>
                  <p>Qty: {prod.quantity}</p></>)}</p>

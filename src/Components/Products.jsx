@@ -100,9 +100,9 @@ export function Products() {
       </Snackbar>
                 </>}
 
-                {products.map(({ name, price, category, brand, image, _id }) =>
+                {products.map(({ name, price, category, brand, image, _id,instock }) =>
              //product component
-             <Product key={_id} name={name} price={price} category={category} brand={brand}
+             <Product key={_id} name={name} instock={instock} price={price} category={category} brand={brand}
                image={image} _id={_id} setNotify={setNotify} handleClick={handleClick} TransitionLeft={TransitionLeft}/>
            )}
 

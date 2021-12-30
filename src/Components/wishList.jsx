@@ -77,7 +77,8 @@ ${medium({flexDirection:"row",alignItems:"center",justifyContent: "space-around"
 `
 
 const ProductStock = styled.h4`
-font-size:1.2rem;
+font-size:1.1rem;
+padding: 0.4rem;
 margin:0;
 text-align:center;
 color:black;
@@ -118,7 +119,8 @@ export const WishListComp = () => {
   };
   function TransitionLeft(props) {
   return <Slide {...props} direction="left" />;
-}
+  }
+
  return (
   <Container>
    {wishlistproducts.map((product) =>
@@ -131,12 +133,13 @@ export const WishListComp = () => {
 
       <PriceContainer>
        <ProductPrice>Price</ProductPrice>
-       <ProductPrice>₹{Math.round(product.price * 76).toLocaleString()}</ProductPrice>
+       <ProductPrice>₹{Math.round(product.price).toLocaleString()}</ProductPrice>
       </PriceContainer>
 
        <StockContainer>
             <ProductStock>Stock Status</ProductStock>
-       <ProductStock style={{ padding: "0.4rem",color:"green",fontSize:"1.1rem" }}>IN STOCK</ProductStock>
+        {product.instock ? <ProductStock style={{ color: "green"}}>IN STOCK</ProductStock> :
+<ProductStock style={{  color: "red" }}>OUT OF STOCK</ProductStock> }
         </StockContainer>
 
       <CartContainer>

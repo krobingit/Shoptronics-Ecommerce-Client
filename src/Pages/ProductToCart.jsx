@@ -58,7 +58,7 @@ font-size:1.8rem;
 ${small({fontSize:"1.6rem"})}
 `
 const StockButton = styled(Button)`
-width:7rem;
+width:10rem;
 height:2.5rem;
 `
 const ProductBrand = styled.p`
@@ -119,6 +119,11 @@ border:0.6px solid darkgray;
 `
 const Options = styled.div`
 display:flex;
+`
+const StockMessage = styled.p`
+color:red;
+font-size:1rem;
+margin:1rem
 `
 const toastwish = () => {
 return(toast.warn('Item already on Wishlist!', {
@@ -215,7 +220,11 @@ export const ProductToCart = () => {
         <ItemContainer>
           <ProductImage src={product.image}></ProductImage>
             <DetailContainer>
-              <StockButton color='green'>In Stock</StockButton>
+              {product.instock ?
+                <StockButton color='green'>In Stock</StockButton>
+                : <StockButton color='red'>Out Of Stock</StockButton>}
+               {!product.instock && <StockMessage><i className="fas fa-exclamation-triangle"></i> Product is Out Of Stock!
+                  Add to WishList and you will get notified when it is in stock</StockMessage>}
               <ProductName>{product.name}</ProductName>
               <PriceBlock>
                 <ProductPrice>₹{Math.round(product.price).toLocaleString()}</ProductPrice>
@@ -231,18 +240,19 @@ export const ProductToCart = () => {
                   <h1 style={{ padding: "0.4rem",color:"#141e30" }}>{quantity}</h1>
                   <AddRemoveButtons>
                     {/*Add Item button */ }
-                    <IconButton onClick={()=>handleQuantity("add")} style={{fontSize:"1.2rem",padding:"0",display:"block",color:"gold"}}>
+                    <IconButton disabled={!product.instock && true } onClick={()=>handleQuantity("add")} style={{fontSize:"1.2rem",padding:"0",display:"block",color:"gold"}}>
                   <ArrowDropUpIcon />
                     </IconButton>
                     {/*Remove Item button */ }
-                <IconButton onClick={()=>handleQuantity("remove")} style={{fontSize:"1.2rem",padding:"0",display:"block",color:"gold"}}>
+                <IconButton disabled={!product.instock && true } onClick={()=>handleQuantity("remove")} style={{fontSize:"1.2rem",padding:"0",display:"block",color:"gold"}}>
                   <ArrowDropDownIcon />
                 </IconButton>
                 </AddRemoveButtons>
                 </QuantityContainer>
                 <CartContainer>
-                    <Button inverted color='yellow' style={btnstyle}
+                    <Button inverted color='yellow' style={btnstyle} disabled={!product.instock && true }
                     onClick={() => handleCart()}><i className="fas fa-shopping-cart"></i> Add To Cart</Button>
+
                 </CartContainer>
               </ProductActions>
               <Line></Line>
@@ -257,7 +267,7 @@ export const ProductToCart = () => {
                    }
                    if (currentUser) {
                      if (wishlistproducts.map((product) => product.name).every((pname) => pname !== product.name)) {
-                       dispatch({ type: "WishListAddItem", payload: { name:product.name, price:product.price, image:product.image, _id:product._id } })
+                       dispatch({ type: "WishListAddItem", payload: { name:product.name, price:product.price, image:product.image, _id:product._id,instock:product.instock } })
 
                      }
                      else {
@@ -275,7 +285,7 @@ export const ProductToCart = () => {
       <Snackbar     TransitionComponent={transition}
         key={transition ? transition.name : ''} open={open} autoHideDuration={4000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-            Yayy!! {product.name} has been added to your Cart!
+            Wohoo🎉 {product.name} has been added to your Cart!
         </Alert>
       </Snackbar>
       </>}

@@ -161,7 +161,9 @@ const deleteProduct = async(id) => {
 
 ];
 
- function ProductList() {
+  function ProductList() {
+   /*    pageSize={20}
+        rowsPerPageOptions={[20]}*/
    return (
 
  <GridContainer>
@@ -169,8 +171,6 @@ const deleteProduct = async(id) => {
         style={{color:"black",fontSize:"1.1rem",borderColor:"gold"}}
         rows={products}
         columns={columns}
-        pageSize={20}
-        rowsPerPageOptions={[20]}
         getRowId={row=>row._id}
         checkboxSelection
         disableSelectionOnClick

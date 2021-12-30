@@ -10,6 +10,7 @@ import { Button } from 'semantic-ui-react';
 import SyncLoader from "react-spinners/SyncLoader";
 import { useSelector } from 'react-redux';
 import { ToastContainer, toast } from "react-toastify";
+import { Checkbox } from 'semantic-ui-react';
 
 const LoaderContainer = styled.div`
 display:flex;
@@ -32,13 +33,15 @@ padding:1rem;
         image:yup.string().required("Please Enter Image URL").url("Invalid URL"),
         description:yup.string().required("Please Enter description"),
     category: yup.string().required("Please Enter Category"),
-        model:yup.string().required("Please Enter Product Model")
+     model: yup.string().required("Please Enter Product Model"),
+        instock:yup.boolean()
 
     })
 export const AdminProductEdit = () => {
  const { currentUser } = useSelector(state=>state.user)
  const [product, setProduct] = useState(null);
  const [loading, setLoading] = useState(true);
+
  const { id } = useParams();
 
  useEffect(() => {
@@ -56,6 +59,7 @@ export const AdminProductEdit = () => {
 //conditional rendering --only when product has fetched the data, this function component will be returned
 const UpdateProduct = ({ loading, setProduct, product, user }) => {
   let history = useHistory();
+    const [check, setCheck] = useState(product.instock);
     const ToastSuccess = () => {
   return toast.success("Updated Product Successfully", {
     position: "bottom-right",
@@ -74,7 +78,8 @@ const UpdateProduct = ({ loading, setProduct, product, user }) => {
     price: Math.round(product.price),
     image: product.image,
     category: product.category,
-    model: product.model
+      model: product.model,
+    instock:product.instock
    },
    validationSchema: productSchema,
    onSubmit: async (values) => {
@@ -189,6 +194,8 @@ console.log("Error updating user",err)
          name="model"
          type="text"
         />
+              <Checkbox style={{ marginBottom: "2rem",fontSize:"1.2rem" }} label='In Stock'
+                checked={check ? (values.instock = true) : (values.instock = false)} onClick={(e) => setCheck(e.target.checked)} name="instock" id="instock" />
         <Button type="submit" color="green">Update Product</Button>
          <ToastContainer
           position="bottom-right"

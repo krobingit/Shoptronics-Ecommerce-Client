@@ -39,7 +39,7 @@ color:brown;
 `
   const detailstyle = { fontSize: "1.1rem" };
 
-export function Product({ name, price, category, brand, image, _id, setNotify,
+export function Product({ name, price, category, brand, image, _id,instock, setNotify,
  handleClick, TransitionLeft }) {
  const history = useHistory();
  const [isClick, setClick] = useState(false);
@@ -75,7 +75,7 @@ setClick(!isClick)
                      }
                      else {
                        if (wishlistproducts.map((product) => product.name).every((pname) => pname !== name))
-                       dispatch({ type: "WishListAddItem", payload: { name, price, image, _id } })
+                       dispatch({ type: "WishListAddItem", payload: { name, price, image, _id,instock } })
                      }
 
 

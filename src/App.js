@@ -17,6 +17,8 @@ import { AdminRoute } from "./Components/AdminRoute";
 import { AdminProductList } from "./Admin Pages/AdminProductList";
 import { AdminProductEdit } from "./Admin Pages/AdminProductEdit";
 import { AdminProductAdd } from "./Admin Pages/AdminProductAdd";
+import { AdminOrderList } from "./Admin Pages/AdminOrderList";
+import { AdminOrderEditStatus } from "./Admin Pages/AdminOrderStatus";
 
 function App() {
   const { currentUser } = useSelector((state) => state.user);
@@ -32,6 +34,8 @@ function App() {
         <AdminRoute exact path="/adminProductList" component={<AdminProductList />} />
         <AdminRoute exact path="/adminProductEdit/:id" component={<AdminProductEdit />} />
          <AdminRoute exact path="/adminProductAdd" component={<AdminProductAdd/>}/>
+        <AdminRoute exact path="/adminOrderList" component={<AdminOrderList />} />
+          <AdminRoute exact path="/adminOrderEditStatus/:orderid/:userid" component={<AdminOrderEditStatus/>}/>
 
 
 
