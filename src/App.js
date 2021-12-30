@@ -19,6 +19,7 @@ import { AdminProductEdit } from "./Admin Pages/AdminProductEdit";
 import { AdminProductAdd } from "./Admin Pages/AdminProductAdd";
 import { AdminOrderList } from "./Admin Pages/AdminOrderList";
 import { AdminOrderEditStatus } from "./Admin Pages/AdminOrderStatus";
+import { NotFound } from "./Pages/NotFound";
 
 function App() {
   const { currentUser } = useSelector((state) => state.user);
@@ -71,6 +72,9 @@ function App() {
         </Route>
         <Route path="/register">
           <Register />
+        </Route>
+        <Route path="**">
+          <NotFound/>
         </Route>
       </Switch>
     </div>
