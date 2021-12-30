@@ -75,7 +75,13 @@ const ToastSuccess = () => {
        }, {
      headers:{token:currentUser.token}
 
-     }).then(()=>ToastSuccess())
+     }).then(() => {
+       ToastSuccess()
+ setTimeout(() => {
+  history.push("/adminOrderList")
+  },3500)
+     }
+    )
 
 
   }
