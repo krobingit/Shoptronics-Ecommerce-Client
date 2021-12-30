@@ -79,7 +79,7 @@ const ToastSuccess = () => {
        ToastSuccess()
  setTimeout(() => {
   history.push("/adminOrderList")
-  },3500)
+  },2500)
      }
     )
 

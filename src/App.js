@@ -20,6 +20,9 @@ import { AdminProductAdd } from "./Admin Pages/AdminProductAdd";
 import { AdminOrderList } from "./Admin Pages/AdminOrderList";
 import { AdminOrderEditStatus } from "./Admin Pages/AdminOrderStatus";
 import { NotFound } from "./Pages/NotFound";
+import { AdminUserList } from "./Admin Pages/AdminUserList";
+import { AdminUserEdit } from "./Admin Pages/AdminUserEdit";
+import { AdminUserAdd } from "./Admin Pages/AdminUserAdd";
 
 function App() {
   const { currentUser } = useSelector((state) => state.user);
@@ -36,7 +39,10 @@ function App() {
         <AdminRoute exact path="/adminProductEdit/:id" component={<AdminProductEdit />} />
          <AdminRoute exact path="/adminProductAdd" component={<AdminProductAdd/>}/>
         <AdminRoute exact path="/adminOrderList" component={<AdminOrderList />} />
-          <AdminRoute exact path="/adminOrderEditStatus/:orderid/:userid" component={<AdminOrderEditStatus/>}/>
+        <AdminRoute exact path="/adminOrderEditStatus/:orderid/:userid" component={<AdminOrderEditStatus />} />
+        <AdminRoute exact path="/adminUserList" component={<AdminUserList />} />
+        <AdminRoute exact path="/adminUserEdit/:id" component={<AdminUserEdit />} />
+         <AdminRoute exact path="/adminUserAdd/" component={<AdminUserAdd />} />
 
 
 
@@ -50,9 +56,7 @@ function App() {
         <Route path="/product/:id">
           <ProductToCart />
         </Route>
-          <Route path="/orders">
-            {currentUser ? <Orders /> : <Login />}
-          </Route>
+
 
                  {/*User Routes */}
         <Route path="/forgotPassword">
@@ -64,6 +68,9 @@ function App() {
  <Route path="/wishlist">
           <WishList />
         </Route>
+         <Route path="/orders">
+            {currentUser ? <Orders /> : <Login />}
+          </Route>
          <Route path="/order-placed/:orderId">
           <OrderPlaced />
         </Route>

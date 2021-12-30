@@ -115,7 +115,7 @@ const deleteOrder = async(id,userId) => {
     renderCell: ({row}) => {
       return (
         <>
-          <p>{new Date(row.createdAt).toDateString()}</p>
+          <p>{new Date(row.createdAt).toLocaleDateString()}</p>
         </>
 )
 

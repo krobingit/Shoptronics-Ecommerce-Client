@@ -89,6 +89,7 @@ const Copy = styled.p`
 color:grey;
 
 `
+
 function Register() {
   const history = useHistory();
    const [info, setInfo] = useState(null);

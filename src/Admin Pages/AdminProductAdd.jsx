@@ -58,7 +58,7 @@ await commonRequest.post(`/product/`, values,
   ToastSuccess()
   setTimeout(() => {
   history.push("/adminProductList")
-  },3500)
+  },2500)
  } )
 
 

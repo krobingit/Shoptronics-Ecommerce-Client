@@ -53,11 +53,11 @@ export const AdminProductEdit = () => {
   getProduct();
 
  }, [id])
- return product && <UpdateProduct setProduct={setProduct} user={currentUser} loading={loading} product={product}/>
+ return product && <UpdateProduct  user={currentUser} loading={loading} product={product}/>
 }
 
 //conditional rendering --only when product has fetched the data, this function component will be returned
-const UpdateProduct = ({ loading, setProduct, product, user }) => {
+const UpdateProduct = ({ loading, product, user }) => {
   let history = useHistory();
     const [check, setCheck] = useState(product.instock);
     const ToastSuccess = () => {

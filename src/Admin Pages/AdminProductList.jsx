@@ -9,7 +9,7 @@ import { IconButton } from '@mui/material';
 import HashLoader from "react-spinners/HashLoader";
 import { useSelector } from 'react-redux';
 import { useConfirm } from "material-ui-confirm";
-import {  useHistory } from 'react-router-dom';
+import {  useHistory,Link } from 'react-router-dom';
 /*
 background-color: #7f5a83;
 background-image: linear-gradient(315deg, #7f5a83 0%, #0d324d 74%);*/
@@ -78,7 +78,8 @@ const deleteProduct = async(id) => {
   console.log(response);
   getProducts();
 
-}
+  }
+
   const columns = [
   { field: '_id', headerName: 'ID', width: 230 },
   {
@@ -145,7 +146,8 @@ const deleteProduct = async(id) => {
   renderCell: ({ row })=> {
 
         return (
-          <ButtonContainer><IconButton onClick={()=>history.push(`/adminProductEdit/${row._id}`)}><i className="fas fa-edit"  style={{color:"goldenrod"}}></i></IconButton>
+          <ButtonContainer>
+            <Link to={`/adminProductEdit/${row._id}`}><IconButton><i className="fas fa-edit" style={{ color: "goldenrod" }}></i></IconButton></Link>
             <IconButton  onClick={async () => {
               await confirm({ description: `Do you want to remove this product from your store?` })
                 .then(() => deleteProduct(row._id));
