@@ -33,19 +33,26 @@ export const UserProfile = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    const getUser = async () => {
-      await commonRequest
-        .get(`/user/${id}`, {
-          headers: {
-            token: currentUser.token,
-          },
-        })
-        .then((res) => setUser(res.data));
-      setTimeout(() => {
-        setLoading(false);
-      }, 1500);
-    };
-    getUser();
+    try {
+      const getUser = async () => {
+        await commonRequest
+          .get(`/user/${id}`, {
+            headers: {
+              token: currentUser.token,
+            },
+          })
+          .then((res) => setUser(res.data));
+        setTimeout(() => {
+          setLoading(false);
+        }, 1500);
+      };
+      getUser();
+    }
+    catch (err)
+    {
+   console.log("Error getting user info"+err)
+
+    }
   }, [id, currentUser.token]);
   return (
     user && (

@@ -139,7 +139,7 @@ const UpdateUser = ({ loading, currentUser, user }) => {
                 color: "#4f2f5e",
               }}
             >
-              <i className="fas fa-user-edit"></i> EDIT USER
+              <i className="fas fa-user-edit"></i> UPDATE USER
             </h3>
             <Form.Input
               onChange={handleChange}

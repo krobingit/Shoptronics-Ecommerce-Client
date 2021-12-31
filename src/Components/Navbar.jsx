@@ -62,7 +62,7 @@ ${small({rowGap:"0.4rem",columnGap:"1rem"})};
 function Navbar() {
   const confirm = useConfirm();
   const [search, setSearch] = useContext(SearchContext);
-  console.log(search)
+
   const handleLogin = () => {
     confirm({ description: `Do you want to log out from your account?` })
       .then(() => dispatch({ type: "logOut" }))
@@ -160,7 +160,7 @@ function Navbar() {
                 <MenuItem sx={{
             "&:hover": { backgroundColor: "gold" },
               borderRadius: "0.5rem"
-            }} style={btnStyles} onClick={()=>history.push(`/userEdit/${currentUser._id}`)}>Edit Profile</MenuItem>
+            }} style={btnStyles} onClick={()=>history.push(`/userEdit/${currentUser._id}`)}>Update Profile</MenuItem>
           <MenuItem sx={{
             "&:hover": { backgroundColor: "gold" },
               borderRadius: "0.5rem"

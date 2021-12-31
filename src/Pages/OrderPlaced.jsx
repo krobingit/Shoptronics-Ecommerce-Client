@@ -24,23 +24,20 @@ justify-content:center;
 color:#141e30;
 font-size:1.3rem;
 padding:1.5rem;
+gap:0.2rem;
 `
-const OrderID = styled.span`
-color:green;
-`
+
 const ConfirmImage = styled.img`
-width:10rem;
+width:16rem;
 `
 const Text = styled.h3`
-font-family: 'Bitter', serif;
+font-size:1.3rem;
 text-align:center;
-font-family: 'Poppins', sans-serif;
-`
-const Payment = styled.h3`
 font-family: 'Raleway', sans-serif;
 font-size:1.6rem;
 text-shadow:1px 1px gold;
 `
+
 
 
 const Actions = styled.div`
@@ -77,10 +74,7 @@ setTimeout(()=>{
        :
        <OrderContainer>
          <ConfirmImage src={logo}></ConfirmImage>
-         <Payment>Payment Successful! </Payment>
-         <Text>Hi <OrderID>{currentUser.username}</OrderID>,Your Order with Order#  <OrderID>'{paymentData.order_id}'</OrderID> has been successfully placed!</Text>
-         <Text>Your payment id is <OrderID>{paymentData.id}</OrderID></Text>
-         <Text>We are processing your items and shipping confirmation will be sent over <OrderID>{currentUser.email}</OrderID>.</Text>
+         <Text>Your Order has been placed successfully!</Text>
                <Actions>
          <Button color="yellow" onClick={()=>history.push("/")}>Home</Button>
            <Button color="yellow" onClick={()=>history.push("/orders")}>Track your order</Button>
