@@ -61,7 +61,7 @@ ${small({rowGap:"0.4rem",columnGap:"1rem"})};
 
 function Navbar() {
   const confirm = useConfirm();
-  const [search, setSearch] = useContext(SearchContext);
+  const [ setSearch] = useContext(SearchContext);
 
   const handleLogin = () => {
     confirm({ description: `Do you want to log out from your account?` })
