@@ -104,9 +104,9 @@ export const AdminHome = () => {
 <HomeContainer>
        <Container>
            <h3 style={{color:"#141e30",textAlign:"center",fontFamily: 'Fira Sans, sans-serif',textShadow:"1px 1px gold"}}>Recently Registered Users </h3>
-           {users.map((user) =>
+           {users.map((user,idx) =>
 
-             <Card style={{ background: "whitesmoke", color: "#00001f", borderRadius: "1rem", padding: "0.7rem" }}>
+             <Card key={idx} style={{ background: "whitesmoke", color: "#00001f", borderRadius: "1rem", padding: "0.7rem" }}>
                <p><i className="fas fa-user" style={{fontSize:"1.2rem"}} ></i></p>
                <p>Username: {user.username}</p>
                <p>Email: {user.email}</p>
@@ -121,16 +121,18 @@ export const AdminHome = () => {
                <Heading>OrderID: {each.paymentData.order_id}</Heading>
                <p>Products({each.products.length} items)</p>
                <ProductContainer>
-               <p>{each.products.map((prod) => <><p>{prod.name}</p>
-                 <p>Qty: {prod.quantity}</p></>)}</p>
-                 </ProductContainer>
+               <p>{each.products.map((prod,idx) => <div key={idx}><p>{prod.name}</p>
+                 <p>Qty: {prod.quantity}</p></div>)}</p>
+               </ProductContainer>
+               <div>
                <p>Order Date: <OrderDetail>{new Date(each.createdAt).toDateString()},{new Date(each.createdAt).toTimeString().substring(0, 9)}IST</OrderDetail></p>
                <p>Placed by: <OrderDetail>{each.userEmail},<i className="fas fa-phone"></i>{each.paymentData.contact}</OrderDetail></p>
                           <Heading style={{background:"whitesmoke"}}>Order Status: <Status
               style={{
                color: (each.orderStatus === "Processing" && "orange") || (each.orderStatus === "Shipped" && "purple")
                 || (each.orderStatus === "Delivered" && "green")
-              }}>{each.orderStatus}</Status></Heading>
+                   }}>{each.orderStatus}</Status></Heading>
+                 </div>
                  <Line></Line>
                </Card>
 
