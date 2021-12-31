@@ -77,7 +77,7 @@ ${medium({flexDirection:"row",alignItems:"center",justifyContent: "space-around"
 `
 
 const ProductStock = styled.h4`
-font-size:1.1rem;
+font-size:1.2rem;
 padding: 0.4rem;
 margin:0;
 text-align:center;
@@ -85,7 +85,6 @@ color:black;
 `
 
 const Remove = styled.div`
-
 `
 const CartContainer = styled.div`
 display:flex;

@@ -1,7 +1,5 @@
 import { useEffect, useState,forwardRef } from 'react';
-
 import { commonRequest } from '../axiosreq';
-
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import Slide from '@mui/material/Slide';
@@ -9,7 +7,6 @@ import { Title } from '../Pages/Home';
 import { SpinnerInfinity } from 'spinners-react';
 import styled from 'styled-components';
 import { Product } from './Product';
-
 
 const Container = styled.div`
 padding:0 2rem;
@@ -38,7 +35,7 @@ export function Products() {
   const [transition, setTransition] = useState(undefined);
 
   const handleClick = (Transition) => {
-  setTransition(() => Transition);
+    setTransition(() => Transition);
     setOpen(true);
   };
 
@@ -50,8 +47,8 @@ export function Products() {
     setOpen(false);
   };
   function TransitionLeft(props) {
-  return <Slide {...props} direction="left" />;
-}
+    return <Slide {...props} direction="left" />;
+  }
 
   const [products, setProducts] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -73,7 +70,6 @@ export function Products() {
     getProducts();
 
   }, [])
-
 
 
   return (

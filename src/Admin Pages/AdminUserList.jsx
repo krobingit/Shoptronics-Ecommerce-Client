@@ -159,7 +159,7 @@ export const AdminUserList = () => {
                 }).then(() => deleteUser(row._id));
               }}
             >
-              <i className="fas fa-trash-alt" style={{ color: "red" }}></i>
+              <i className="fas fa-user-minus" style={{ color: "red" }}></i>
             </IconButton>
           </ButtonContainer>
         );

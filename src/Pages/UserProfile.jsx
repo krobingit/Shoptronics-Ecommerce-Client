@@ -1,5 +1,5 @@
+import { Navbar } from "../Components/Navbar";
 import { useParams, useHistory } from "react-router-dom";
-import { AdminNav } from "../Components/AdminNavBar";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import { Form } from "semantic-ui-react";
@@ -10,7 +10,6 @@ import { Button } from "semantic-ui-react";
 import SyncLoader from "react-spinners/SyncLoader";
 import { useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
-import { Checkbox } from "semantic-ui-react";
 
 const LoaderContainer = styled.div`
   display: flex;
@@ -26,7 +25,7 @@ const FormContainer = styled.div`
   padding: 1rem;
 `;
 
-export const AdminUserEdit = () => {
+export const UserProfile = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -57,8 +56,8 @@ export const AdminUserEdit = () => {
 
 //conditional rendering --only when product has fetched the data, this function component will be returned
 const UpdateUser = ({ loading, currentUser, user }) => {
-  let history = useHistory();
-  const [check, setCheck] = useState(user.isAdmin);
+ let history = useHistory();
+
   const ToastSuccess = () => {
     return toast.success("User Details Updated Successfully", {
       position: "bottom-right",
@@ -73,8 +72,7 @@ const UpdateUser = ({ loading, currentUser, user }) => {
       .string()
       .min(5, "Minimum 5 characters needed")
       .required("Username is mandatory"),
-    email: yup.string().email().required("Please enter your Email"),
-    isAdmin: yup.boolean(),
+    email: yup.string().email().required("Please enter your Email")
   });
 
   const { handleChange, handleSubmit, handleBlur, errors, touched, values } =
@@ -82,7 +80,6 @@ const UpdateUser = ({ loading, currentUser, user }) => {
       initialValues: {
         username: user.username,
         email: user.email,
-        isAdmin: user.isAdmin,
       },
       validationSchema: signUpSchema,
       onSubmit: async (values) => {
@@ -95,7 +92,7 @@ const UpdateUser = ({ loading, currentUser, user }) => {
             .then(() => {
               ToastSuccess();
               setTimeout(() => {
-                history.push("/adminUserList");
+                history.push("/");
               }, 2500);
             });
         } catch (err) {
@@ -119,7 +116,7 @@ const UpdateUser = ({ loading, currentUser, user }) => {
 
   return (
     <>
-      <AdminNav />
+      <Navbar />
       {loading ? (
         <LoaderContainer>
           <SyncLoader
@@ -139,7 +136,7 @@ const UpdateUser = ({ loading, currentUser, user }) => {
                 color: "#4f2f5e",
               }}
             >
-              <i className="fas fa-user-edit"></i> EDIT USER
+              <i className="fas fa-user-edit"></i> EDIT PROFILE
             </h3>
             <Form.Input
               onChange={handleChange}
@@ -166,17 +163,6 @@ const UpdateUser = ({ loading, currentUser, user }) => {
               name="email"
               type="text"
             />
-
-            <Checkbox
-              style={{ marginBottom: "2rem", fontSize: "1.2rem" }}
-              label="Admin Access"
-              checked={
-                check ? (values.isAdmin = true) : (values.isAdmin = false)
-              }
-              onClick={(e) => setCheck(e.target.checked)}
-              name="isAdmin"
-              id="isAdmin"
-            />
             <Button type="submit" color="green">
               Update User
             </Button>
@@ -189,13 +175,6 @@ const UpdateUser = ({ loading, currentUser, user }) => {
               rtl={false}
             />
           </Form>
-          <Button
-            style={{ marginRight: "auto", marginLeft: "2rem" }}
-            onClick={() => history.push("/adminUserList")}
-            color="yellow"
-          >
-            Go to Users
-          </Button>
         </FormContainer>
       )}
     </>

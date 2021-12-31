@@ -13,6 +13,8 @@ import Badge from '@mui/material/Badge';
 import { small } from '../responsive';
 import * as React from 'react';
 import { useConfirm } from "material-ui-confirm";
+import { useContext } from 'react';
+import {SearchContext} from '../App'
 
 //styled-components
 export const NavContainer = styled.div`
@@ -58,7 +60,9 @@ ${small({rowGap:"0.4rem",columnGap:"1rem"})};
 
 
 function Navbar() {
-const confirm = useConfirm();
+  const confirm = useConfirm();
+  const [search, setSearch] = useContext(SearchContext);
+  console.log(search)
   const handleLogin = () => {
     confirm({ description: `Do you want to log out from your account?` })
       .then(() => dispatch({ type: "logOut" }))
@@ -87,7 +91,7 @@ const confirm = useConfirm();
         <i className="fas fa-bolt" style={{ color: "gold", marginRight: "0.5rem" }}></i>
         <Initial>S</Initial>hoptronic<Initial>s</Initial>
       </Title></Link>
-      <SearchInput
+      <SearchInput onClick={(e)=>setSearch(e.target.value.toLowerCase())}
         icon={{ name: 'search', circular: true, link: true }}
         placeholder='Search...' />
       <NavActions>
@@ -153,6 +157,10 @@ const confirm = useConfirm();
               "&:hover": { backgroundColor: "gold" },
               borderRadius: "0.5rem"
             }} style={btnStyles} onClick={() => history.push("/adminHome")}>To Admin Dashboard</MenuItem>}
+                <MenuItem sx={{
+            "&:hover": { backgroundColor: "gold" },
+              borderRadius: "0.5rem"
+            }} style={btnStyles} onClick={()=>history.push(`/userEdit/${currentUser._id}`)}>Edit Profile</MenuItem>
           <MenuItem sx={{
             "&:hover": { backgroundColor: "gold" },
               borderRadius: "0.5rem"

@@ -5,6 +5,7 @@ import { IconButton } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Heart from "react-animated-heart";
+
 const ProductCard = styled.div`
 width:min-content;
 margin:1rem;
@@ -41,7 +42,8 @@ color:brown;
 
 export function Product({ name, price, category, brand, image, _id,instock, setNotify,
  handleClick, TransitionLeft }) {
- const history = useHistory();
+  const history = useHistory();
+
  const [isClick, setClick] = useState(false);
   const dispatch = useDispatch();
   const { currentUser } = useSelector(state => state.user);

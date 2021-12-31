@@ -23,55 +23,82 @@ import { NotFound } from "./Pages/NotFound";
 import { AdminUserList } from "./Admin Pages/AdminUserList";
 import { AdminUserEdit } from "./Admin Pages/AdminUserEdit";
 import { AdminUserAdd } from "./Admin Pages/AdminUserAdd";
+import { UserProfile } from "./Pages/UserProfile";
+import { createContext, useState } from 'react';
 
+const SearchContext = createContext(null);
 function App() {
   const { currentUser } = useSelector((state) => state.user);
+  const [search, setSearch] = useState("");
 
   return (
+    <SearchContext.Provider value={[search,setSearch]}>
     <div className="App">
       <Switch>
         <Route exact path="/">
           <Home />
-          </Route>
-          { /*Admin Routes*/}
-          <AdminRoute exact path="/adminHome" component={<AdminHome/>}/>
-        <AdminRoute exact path="/adminProductList" component={<AdminProductList />} />
-        <AdminRoute exact path="/adminProductEdit/:id" component={<AdminProductEdit />} />
-         <AdminRoute exact path="/adminProductAdd" component={<AdminProductAdd/>}/>
-        <AdminRoute exact path="/adminOrderList" component={<AdminOrderList />} />
-        <AdminRoute exact path="/adminOrderEditStatus/:orderid/:userid" component={<AdminOrderEditStatus />} />
+        </Route>
+        {/*Admin Routes*/}
+        <AdminRoute exact path="/adminHome" component={<AdminHome />} />
+        <AdminRoute
+          exact
+          path="/adminProductList"
+          component={<AdminProductList />}
+        />
+        <AdminRoute
+          exact
+          path="/adminProductEdit/:id"
+          component={<AdminProductEdit />}
+        />
+        <AdminRoute
+          exact
+          path="/adminProductAdd"
+          component={<AdminProductAdd />}
+        />
+        <AdminRoute
+          exact
+          path="/adminOrderList"
+          component={<AdminOrderList />}
+        />
+        <AdminRoute
+          exact
+          path="/adminOrderEditStatus/:orderid/:userid"
+          component={<AdminOrderEditStatus />}
+        />
         <AdminRoute exact path="/adminUserList" component={<AdminUserList />} />
-        <AdminRoute exact path="/adminUserEdit/:id" component={<AdminUserEdit />} />
-         <AdminRoute exact path="/adminUserAdd/" component={<AdminUserAdd />} />
+        <AdminRoute
+          exact
+          path="/adminUserEdit/:id"
+          component={<AdminUserEdit />}
+        />
+        <AdminRoute exact path="/adminUserAdd/" component={<AdminUserAdd />} />
 
-
-
-            {/*Common Routes*/ }
+        {/*Common Routes*/}
         <Route path="/cart">
           <Cart />
         </Route>
-             <Route path="/products">
+        <Route path="/products">
           <ProductList />
         </Route>
         <Route path="/product/:id">
           <ProductToCart />
         </Route>
 
-
-                 {/*User Routes */}
+        {/*User Routes */}
         <Route path="/forgotPassword">
           <ForgotPassword />
         </Route>
         <Route path="/login">
           <Login />
         </Route>
- <Route path="/wishlist">
+        <Route path="/userEdit/:id">
+          <UserProfile />
+        </Route>
+        <Route path="/wishlist">
           <WishList />
         </Route>
-         <Route path="/orders">
-            {currentUser ? <Orders /> : <Login />}
-          </Route>
-         <Route path="/order-placed/:orderId">
+        <Route path="/orders">{currentUser ? <Orders /> : <Login />}</Route>
+        <Route path="/order-placed/:orderId">
           <OrderPlaced />
         </Route>
         <Route path="/resetPassword/:userid/:token">
@@ -81,11 +108,12 @@ function App() {
           <Register />
         </Route>
         <Route path="**">
-          <NotFound/>
+          <NotFound />
         </Route>
       </Switch>
-    </div>
+      </div>
+      </SearchContext.Provider>
   );
 }
 
-export default App;
+export { App,SearchContext };
