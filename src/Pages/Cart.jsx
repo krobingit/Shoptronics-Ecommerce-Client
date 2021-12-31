@@ -184,9 +184,7 @@ return
      }
      await PostOrder();
      //redirecting to order confirmation page
-     history.push(`/order-placed/${razpaydata.order_id}`, {
-       paymentData:razpaydata
-     })
+     history.push(`/order-placed/${razpaydata.order_id}`)
 
    }
    catch (err) {

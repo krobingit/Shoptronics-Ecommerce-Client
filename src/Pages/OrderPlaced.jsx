@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Navbar } from '../Components/Navbar';
 import { Title } from './Home';
-import { useLocation,useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { SpinnerRoundFilled } from 'spinners-react';
 import { useState} from 'react';
 import logo from '../Assets/confirmation.jpg';
@@ -51,9 +51,8 @@ margin-top:2rem;
 
 export const OrderPlaced = () => {
 
-  let location = useLocation();
+
   let history = useHistory();
-  let {  paymentData } = location.state;
   const [loading, setLoading] = useState(true);
   let {currentUser
 } = useSelector((state) => state.user);
