@@ -130,7 +130,7 @@ const deleteOrder = async(id,userId) => {
    renderCell: ({ row }) => {
         return (
           <>
-            <p>₹{row.paymentData.amount.toLocaleString()}</p>
+            <p>₹{(row.paymentData.amount/100).toLocaleString()}</p>
           </>
 
 )
