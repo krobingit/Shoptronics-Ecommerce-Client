@@ -48,7 +48,7 @@ export function OrderInfo({amount,id,contact,method,address}) {
     <Details>
 
      <OrderDetail>Order Total: <OrderAmount>₹{(amount / 100).toLocaleString()}</OrderAmount></OrderDetail>
-                 <OrderDetail>💳 Paid Online via {method}</OrderDetail>
+                 <OrderDetail>💳 Paid Online via <span style={{textTransform:"uppercase"}}>{method}</span></OrderDetail>
      <OrderDetail>#️⃣ Payment ID: {id}</OrderDetail>
              <OrderDetail>✆ Delivered to: {contact}</OrderDetail>
              <Address >Shipped to: {address}</Address>

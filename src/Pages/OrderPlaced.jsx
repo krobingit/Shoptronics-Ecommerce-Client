@@ -2,11 +2,12 @@ import styled from 'styled-components';
 import { Navbar } from '../Components/Navbar';
 import { Title } from './Home';
 import { useHistory } from 'react-router-dom';
-import { SpinnerRoundFilled } from 'spinners-react';
+import FadeLoader from "react-spinners/FadeLoader";
 import { useState} from 'react';
 import logo from '../Assets/confirmation.jpg';
 import { Button } from 'semantic-ui-react';
 import { useSelector } from 'react-redux';
+import { medium } from '../responsive';
 
 const Container = styled.div`
 `;
@@ -31,11 +32,10 @@ const ConfirmImage = styled.img`
 width:16rem;
 `
 const Text = styled.h3`
-font-size:1.3rem;
+font-size:2rem;
 text-align:center;
 font-family: 'Raleway', sans-serif;
-font-size:1.6rem;
-text-shadow:1px 1px gold;
+${medium({fontSize:"1.5rem"})}
 `
 
 
@@ -68,9 +68,10 @@ setTimeout(()=>{
      {!currentUser && history.push("/login")}
      {loading ?
        <LoaderContainer>
-         <SpinnerRoundFilled color="goldenrod" size="75" thickness={150}/>
+        <FadeLoader color="gold" loading={loading}  size={60} />
        </LoaderContainer>
        :
+
        <OrderContainer>
          <ConfirmImage src={logo}></ConfirmImage>
          <Text>Your Order has been placed successfully!</Text>
