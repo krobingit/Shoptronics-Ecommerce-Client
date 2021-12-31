@@ -16,6 +16,12 @@ align-items:center;
 justify-content:center;
 padding:1rem;
 `
+const Card = styled.div`
+margin:0;
+`
+const ProductDetail = styled.p`
+margin:0;
+`
 export const AdminOrderEditStatus = () => {
   const { orderid, userid } = useParams();
 
@@ -90,7 +96,7 @@ const ToastSuccess = () => {
   { key: 'Sh', value: 'Shipped', text: 'Shipped' },
   { key: 'De', value: 'Delivered', text: 'Delivered' }
   ]
-
+  let i = 0;
  return (
   <>
    <AdminNav />
@@ -100,6 +106,13 @@ const ToastSuccess = () => {
        <Form style={formStyles} onSubmit={handleSubmit}>
          <h3 style={{ textAlign: "center", letterSpacing: "1.5px", color: "#4f2f5e" }}>ORDER STATUS</h3>
          <Form.Input label="Order ID" value={order.paymentData.order_id} readOnly></Form.Input>
+         <h4>PRODUCTS</h4>
+         {order.products.map((product,idx) =>
+           <Card key={idx}>
+             <ProductDetail>{++i}. {product.name} (Qty: {product.quantity})</ProductDetail>
+             </Card>
+         )}
+         <h4>ORDER STATUS</h4>
          <Select onChange={handleChange} style={{ marginBottom: "1rem" }} value={status} placeholder='Select Status' options={orderStatusOptions} />
         <Button type="submit" color="green">Update Order Status</Button>
          <ToastContainer
