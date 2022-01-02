@@ -100,11 +100,15 @@ const ProductPrice=styled.h3``
 const OrderDate = styled.span`
 color:brown;
 `
+const Header = styled.div`
+display:flex;
+align-items:center;
+flex-direction:column;
+`
 
 export const Orders = () => {
  let history = useHistory();
  const [order, setOrder] = useState(null);
-
  const [loading, setLoading] = useState(true);
  const { currentUser } = useSelector(state => state.user);
  useEffect(() => {
@@ -158,7 +162,8 @@ export const Orders = () => {
        <Products>
          {order.map((each,idx) =>
 
-         <Large>
+           <Large>
+             <Header key={each.paymentData.order_id}>
           <Heading style={{fontSize:"1.2rem",margin:"1rem 0",fontWeight:"bold"}}>OrderID: {each.paymentData.order_id}</Heading>
           <OrderDetail style={{marginBottom:"1rem"}}>Order Date: <OrderDate>{new Date(each.createdAt).toDateString()},{new Date(each.createdAt).toTimeString().substring(0, 9)}IST</OrderDate></OrderDetail>
              <OrderDetail style={{fontSize:"1.3rem",marginBottom:"1.5rem"}}>Order Status: <Status
@@ -166,7 +171,8 @@ export const Orders = () => {
                color: (each.orderStatus === "Processing" && "orange") || (each.orderStatus === "Shipped" && "purple")
                 || (each.orderStatus === "Delivered" && "green")
               }}>
-              {each.orderStatus}</Status></OrderDetail>
+                 {each.orderStatus}</Status></OrderDetail>
+               </Header>
            {each.products.map((product) =>
 
            <ProductCard key={product._id}>

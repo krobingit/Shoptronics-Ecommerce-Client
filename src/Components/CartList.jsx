@@ -98,7 +98,7 @@ const SubTotalContainer = styled.div`
   })}
 `;
 const ProductSubTotal = styled.h4`
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   margin: 0;
   color: black;
 `;
@@ -221,8 +221,8 @@ export const CartList = () => {
             </QuantityContainer>
 
             <SubTotalContainer>
-              <ProductSubTotal>Total Price</ProductSubTotal>
-              <ProductSubTotal style={{ textShadow: "2px 1px yellow" }}>
+              <h4 style={{fontSize:"1.3rem",color:"black"}}>Total Price</h4>
+              <ProductSubTotal >
                 ₹
                 {(
                   Math.round(product.price) * product.quantity

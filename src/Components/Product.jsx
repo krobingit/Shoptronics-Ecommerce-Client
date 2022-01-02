@@ -56,13 +56,11 @@ export function Product({ name, price, category, brand, image, _id,instock, setN
                <ProductDetails>
                  <p style={{fontSize:"1.1rem",cursor:"pointer"}} onClick={() => history.push(`/product/${_id}`)}> {name}</p>
                  <p style={detailstyle}>Price: <Values style={{fontSize:"1.5rem"}}>₹{Math.round(price).toLocaleString()}</Values></p>
-                 <p style={detailstyle}>Category: <Values>{category}</Values></p>
-                 <p style={detailstyle}>Brand: <Values>{brand}</Values></p>
                </ProductDetails>
                <ProductActions>
-                 <IconButton style={{ color: "#141e30" }} onClick={()=>history.push(`/product/${_id}`)}>
+                 <IconButton style={{ color: "#141e30"}} onClick={()=>history.push(`/product/${_id}`)}>
                    <CartPlus style={{ fontSize: "1.9rem" }} /></IconButton>
-       <Heart style={{ fontSize: "1rem" }} isClick={isClick}
+       <Heart style={{ fontSize: "1rem"  }} isClick={isClick}
          onClick={() => {
 setClick(!isClick)
                    if (!currentUser) {

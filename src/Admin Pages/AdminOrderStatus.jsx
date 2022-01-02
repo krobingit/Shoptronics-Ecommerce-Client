@@ -45,7 +45,7 @@ export const AdminOrderEditStatus = () => {
 
 const StatusChange = ({ order }) => {
       let history = useHistory();
-  const [status, setStatus] = useState(order.orderStatus)
+  const [status, setStatus] = useState(order.orderStatus);
   const { orderid, userid } = useParams();
   const { currentUser } = useSelector(state => state.user);
 

@@ -253,9 +253,8 @@ return
                   <h3
                     style={{
                       margin: "0",
-                      fontSize: "1.3rem",
+                      fontSize: "1.4rem",
                       color: "black",
-                      textShadow: "2px 2px yellow",
                     }}
                   >
                     ₹{total.toLocaleString()}

@@ -240,17 +240,17 @@ export const ProductToCart = () => {
                   <h1 style={{ padding: "0.4rem",color:"#141e30" }}>{quantity}</h1>
                   <AddRemoveButtons>
                     {/*Add Item button */ }
-                    <IconButton disabled={!product.instock && true } onClick={()=>handleQuantity("add")} style={{fontSize:"1.2rem",padding:"0",display:"block",color:"gold"}}>
+                    <IconButton disabled={!product.instock} onClick={()=>handleQuantity("add")} style={{fontSize:"1.2rem",padding:"0",display:"block",color:"gold"}}>
                   <ArrowDropUpIcon />
                     </IconButton>
                     {/*Remove Item button */ }
-                <IconButton disabled={!product.instock && true } onClick={()=>handleQuantity("remove")} style={{fontSize:"1.2rem",padding:"0",display:"block",color:"gold"}}>
+                <IconButton disabled={!product.instock} onClick={()=>handleQuantity("remove")} style={{fontSize:"1.2rem",padding:"0",display:"block",color:"gold"}}>
                   <ArrowDropDownIcon />
                 </IconButton>
                 </AddRemoveButtons>
                 </QuantityContainer>
                 <CartContainer>
-                    <Button inverted color='yellow' style={btnstyle} disabled={!product.instock && true }
+                    <Button inverted color='yellow' style={btnstyle} disabled={!product.instock }
                     onClick={() => handleCart()}><i className="fas fa-shopping-cart"></i> Add To Cart</Button>
 
                 </CartContainer>
