@@ -22,8 +22,6 @@ function Home(){
   <>
    <Navbar />
        <Slider />
-         <Title>HOME
-     </Title>
      <Products/>
 </>
 )
