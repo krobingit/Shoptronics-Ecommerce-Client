@@ -89,7 +89,10 @@ await commonRequest.put(`/product/${product._id}`, values,
   {
   headers:{token: user.token}
   }).then(() =>
-   ToastSuccess() )
+    ToastSuccess())
+   setTimeout(() => {
+                history.push("/adminProductList");
+              }, 2500);
     }
     catch (err)
 {

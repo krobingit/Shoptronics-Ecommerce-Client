@@ -244,7 +244,7 @@ export const CartList = () => {
                   severity="warning"
                   sx={{ width: "100%" }}
                 >
-                  One Item was removed from your Cart!
+                  Item removed from your Cart!
                 </Alert>
               </Snackbar>
             </>

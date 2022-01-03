@@ -2,6 +2,7 @@ import {Navbar} from '../Components/Navbar'
 import { Slider } from '../Components/Slider';
 import styled from 'styled-components';
 import { small } from '../responsive';
+import { Products } from '../Components/Products';
 
 export const Title = styled.h2`
 background-color: #ffcd00;
@@ -22,7 +23,8 @@ function Home(){
    <Navbar />
        <Slider />
          <Title>HOME
-          </Title>
+     </Title>
+     <Products/>
 </>
 )
 

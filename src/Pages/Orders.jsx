@@ -118,7 +118,6 @@ export const Orders = () => {
      headers: { token: currentUser.token }
     })
     setOrder(response.data);
-
     setLoading(false)
    }
    catch (err) {

@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { Title } from '../Pages/Home';
 import { Button } from 'semantic-ui-react';
 import { IconButton } from '@mui/material';
-import HashLoader from "react-spinners/HashLoader";
+import SkewLoader from "react-spinners/SkewLoader";
 import { useSelector } from 'react-redux';
 import { useConfirm } from "material-ui-confirm";
 import {  useHistory,Link } from 'react-router-dom';
@@ -191,7 +191,7 @@ const deleteProduct = async(id) => {
         loading
           ?
           <LoaderContainer>
-            <HashLoader loading={loading} color="#FFEC03" size={60} />
+               <SkewLoader color="yellow" loading={loading} size={30} />
             </LoaderContainer>
           :
           <>

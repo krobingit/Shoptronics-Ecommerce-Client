@@ -44,7 +44,7 @@ export function Product({ name, price, category, brand, image, _id,instock, setN
  handleClick, TransitionLeft }) {
   const history = useHistory();
 
- const [isClick, setClick] = useState(false);
+ const [click, setClick] = useState(false);
   const dispatch = useDispatch();
   const { currentUser } = useSelector(state => state.user);
 
@@ -60,15 +60,15 @@ export function Product({ name, price, category, brand, image, _id,instock, setN
                <ProductActions>
                  <IconButton style={{ color: "#141e30"}} onClick={()=>history.push(`/product/${_id}`)}>
                    <CartPlus style={{ fontSize: "1.9rem" }} /></IconButton>
-       <Heart style={{ fontSize: "1rem"  }} isClick={isClick}
+       <Heart style={{ fontSize: "1rem"  }} isClick={click}
          onClick={() => {
-setClick(!isClick)
+setClick(!click)
                    if (!currentUser) {
                      history.push("/login")
                      return;
                    }
                    if (currentUser) {
-                     if (isClick) {
+                     if (click) {
                        dispatch({ type: "WishListRemoveItem", index: wishlistproducts.indexOf({ _id }) })
                        handleClick(TransitionLeft);
                        setNotify(true);
