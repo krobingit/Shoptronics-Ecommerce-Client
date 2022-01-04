@@ -8,7 +8,6 @@ import { useHistory } from 'react-router-dom';
 import ship from '../Assets/shipping.png'
 import { API_URL } from '../globalconstant';
 import { useState } from 'react';
-import Loader from "react-loader-spinner";
 
 const MainContainer = styled.div`
 background-image: linear-gradient(to right top, #12100e, #251a18, #37222a, #3d2e46, #2b4162);
@@ -212,10 +211,8 @@ console.log(req)
    type ="password"
      />
     <FormActions>
-       <Button type="submit" style={{color: "#4f2f5e", marginTop: "1rem", width: "80%", fontSize: "1rem",fontFamily: "Rubik, sans-serif", borderRadius: "1rem" }} color='yellow'>SIGN UP</Button>
-            {loader ? <><Loader type="Oval" color="#4f2f5e" height={50} width={30}/>
-             <p style={{ color: "purple" }}>Please wait..</p></>
-    : ''}
+            <Button loading={loader} type="submit" style={{color: "#4f2f5e", marginTop: "1rem", width: "80%", fontSize: "1rem",fontFamily: "Rubik, sans-serif", borderRadius: "1rem" }} color='yellow'>SIGN UP</Button>
+
     {info ? <p
      style={{ color: info.length>40 ? "blue" : "red",textAlign:"center" }}>{info}</p> : ''}
 

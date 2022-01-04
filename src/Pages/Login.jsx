@@ -10,7 +10,6 @@ import { Button } from 'semantic-ui-react';
 import { useDispatch } from 'react-redux';
 import { medium,small } from '../responsive';
 import { useState } from 'react';
-import Loader from "react-loader-spinner";
 import { login } from '../Actions/login_actions';
 import cartlit from '../Assets/cart-lightening.png';
 import { useSelector } from "react-redux";
@@ -213,10 +212,9 @@ function Login() {
             />
             <p onClick={() => { history.push("/forgotPassword") }} style={{ color: "#4f2f5e", fontWeight: "bold", cursor: "pointer" }}>Forgot Password?</p>
             <FormActions>
-              <Button type="submit" style={{ marginTop: "1rem", width: "80%", color: "#4f2f5e", fontSize: "1rem", fontFamily: "Rubik, sans-serif", borderRadius: "1rem" }} color='yellow'
+              <Button loading={loading} type="submit" style={{ marginTop: "1rem", width: "80%", color: "#4f2f5e", fontSize: "1rem", fontFamily: "Rubik, sans-serif", borderRadius: "1rem" }} color='yellow'
               >SIGN IN</Button>
-              {loading &&  <><Loader type="Oval" color="#4f2f5e" height={50} width={30} />
-              <p style={{ color: "purple" }}>Validating..</p></> }
+
               {err && <ErrorMsg>Invalid Credentials</ErrorMsg>}
             </FormActions>
             <hr />
