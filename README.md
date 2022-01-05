@@ -2,6 +2,13 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+*Implemented authentication system such as login,Registration and Password Reset flow with JWT,bcrypt,nodemailer
+packages.
+*Responsive UI for desktop and mobile devices.
+*Maintained the Application State using react-redux,redux-persist State Management library.
+*Integrated Razor Pay API for payment processing.
+*It provides role based authentication to Admin for maintaining the inventory, orders and providing admin access to
+authorized people to handle the store ,implemented protected routes for admin login in the backend.
 ## Available Scripts
 
 In the project directory, you can run:
