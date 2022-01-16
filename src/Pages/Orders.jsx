@@ -83,9 +83,7 @@ const Line = styled.div`
  border: 1px dashed darkgray;
 width:100%;
 `;
-const Status = styled.span`
 
-`
 const OrderDetail = styled.div`
 font-family: 'Signika Negative', sans-serif;
 font-weight:bold;
@@ -179,8 +177,8 @@ export const Orders = () => {
           <Step key={label}>
             <StepLabel  sx={{
   ".Mui-active": {
-    color: label === "Processing" && 'orangered' || label === "Shipped" && 'purple'
-                || label === "Delivered" && 'green'
+    color: (label === "Processing" && 'orangered') || (label === "Shipped" && 'purple')
+                || (label === "Delivered" && 'green')
               },
               ".Mui-completed": {
               color:'green'
