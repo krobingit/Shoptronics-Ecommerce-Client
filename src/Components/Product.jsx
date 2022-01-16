@@ -40,7 +40,7 @@ color:brown;
 `
   const detailstyle = { fontSize: "1.1rem" };
 
-export function Product({ name, price, category, brand, image, _id,instock, setNotify,
+export function Product({ name, price, image, _id,instock, setNotify,
  handleClick, TransitionLeft }) {
   const history = useHistory();
 

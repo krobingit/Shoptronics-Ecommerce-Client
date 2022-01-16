@@ -9,8 +9,10 @@ import Empty  from '../Assets/orderEmpty.png';
 import { Button } from 'semantic-ui-react';
 import { useHistory } from 'react-router-dom';
 import { small, medium } from '../responsive';
-
 import { OrderInfo } from '../Components/orderDetail';
+import Stepper from '@mui/material/Stepper';
+import Step from '@mui/material/Step';
+import StepLabel from '@mui/material/StepLabel';
 
 const LoaderContainer = styled.div`
 display:flex;
@@ -106,6 +108,7 @@ align-items:center;
 flex-direction:column;
 `
 
+
 export const Orders = () => {
  let history = useHistory();
  const [order, setOrder] = useState(null);
@@ -128,6 +131,11 @@ export const Orders = () => {
    fetchData();
  }, [currentUser]);
 
+  const steps = [
+  'Processing',
+  'Shipped',
+  'Delivered',
+];
  return (
   <MainContainer>
   <Navbar />
@@ -165,12 +173,22 @@ export const Orders = () => {
              <Header key={each.paymentData.order_id}>
           <Heading style={{fontSize:"1.2rem",margin:"1rem 0",fontWeight:"bold"}}>OrderID: {each.paymentData.order_id}</Heading>
           <OrderDetail style={{marginBottom:"1rem"}}>Order Date: <OrderDate>{new Date(each.createdAt).toDateString()},{new Date(each.createdAt).toTimeString().substring(0, 9)}IST</OrderDate></OrderDetail>
-             <OrderDetail style={{fontSize:"1.3rem",marginBottom:"1.5rem"}}>Order Status: <Status
-              style={{
-               color: (each.orderStatus === "Processing" && "orange") || (each.orderStatus === "Shipped" && "purple")
-                || (each.orderStatus === "Delivered" && "green")
-              }}>
-                 {each.orderStatus}</Status></OrderDetail>
+               <Stepper style={{width:"100%"}} activeStep={each.orderStatus === "Processing" ?  0 : '' || each.orderStatus === "Shipped"
+? 1 : '' || each.orderStatus === "Delivered" ? 3 : ''} alternativeLabel>
+        {steps.map((label) => (
+          <Step key={label}>
+            <StepLabel  sx={{
+  ".Mui-active": {
+    color: label === "Processing" && 'orangered' || label === "Shipped" && 'purple'
+                || label === "Delivered" && 'green'
+              },
+              ".Mui-completed": {
+              color:'green'
+              }
+}} >{label}</StepLabel>
+          </Step>
+        ))}
+      </Stepper>
                </Header>
            {each.products.map((product) =>
 
