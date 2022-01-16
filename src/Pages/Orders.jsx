@@ -177,7 +177,7 @@ export const Orders = () => {
           <Step key={label}>
             <StepLabel  sx={{
   ".Mui-active": {
-    color: (label === "Processing" && 'orangered') || (label === "Shipped" && 'purple')
+    color: (label === "Processing" && '#ff8c00') || (label === "Shipped" && 'purple')
                 || (label === "Delivered" && 'green')
               },
               ".Mui-completed": {
