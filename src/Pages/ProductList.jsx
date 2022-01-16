@@ -7,7 +7,6 @@ export function ProductList() {
 
  return (
   <>
-
    <Navbar />
    <Slider />
    <Products/>

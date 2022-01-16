@@ -61,7 +61,7 @@ ${small({rowGap:"0.4rem",columnGap:"1rem"})};
 
 function Navbar() {
   const confirm = useConfirm();
-  const [ setSearch] = useContext(SearchContext);
+  const [setSearch] = useContext(SearchContext);
 
   const handleLogin = () => {
     confirm({ description: `Do you want to log out from your account?` })
@@ -91,7 +91,7 @@ function Navbar() {
         <i className="fas fa-bolt" style={{ color: "gold", marginRight: "0.5rem" }}></i>
         <Initial>S</Initial>hoptronic<Initial>s</Initial>
       </Title></Link>
-      <SearchInput onClick={(e)=>setSearch(e.target.value.toLowerCase())}
+      <SearchInput onClick={(e)=>setSearch(e.target.value)}
         icon={{ name: 'search', circular: true, link: true }}
         placeholder='Search...' />
       <NavActions>

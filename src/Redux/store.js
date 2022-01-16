@@ -4,8 +4,9 @@ import storage from 'redux-persist/lib/storage';
 import { encryptTransform } from 'redux-persist-transform-encrypt';
 import { cartReducer } from '../Redux/cartReducer'
 import {wishlistReducer} from '../Redux/wishlistReducer'
-//import { searchReducer } from '../Redux/searchReducer'
 import { userReducer } from './userReducer'
+import { brandReducer } from './brandReducer'
+import { categoryReducer } from './categoryReducer'
 
 const enhancers = redux.compose(
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
@@ -28,7 +29,9 @@ transforms: [
 const rootReducer = redux.combineReducers({
   user: userReducer,
   cart: cartReducer,
-  wishlist: wishlistReducer
+  wishlist: wishlistReducer,
+  brand: brandReducer,
+  category:categoryReducer
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

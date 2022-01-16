@@ -5,6 +5,7 @@ import { IconButton } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Heart from "react-animated-heart";
+import { small } from '../responsive';
 
 const ProductCard = styled.div`
 width:min-content;
@@ -15,6 +16,7 @@ background: rgba( 255, 255, 255, 0.25 );
 box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.5 );
 border-radius: 10px;
 border: 1px solid rgba( 255, 255, 255, 0.18 );
+${small({margin:"0.5rem"})}
 `
 
 const ProductImage = styled.img`
@@ -22,6 +24,7 @@ width:17rem;
 height:12rem;
 object-fit:fill;
 cursor:pointer;
+${small({width:"13rem",height:"8rem"})}
 `
 const ProductDetails = styled.div`
 text-align:center;
