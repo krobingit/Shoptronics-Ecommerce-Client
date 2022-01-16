@@ -51,7 +51,7 @@ export function OrderInfo({amount,id,contact,method,address}) {
                  <OrderDetail>💳 Paid Online via <span style={{textTransform:"uppercase"}}>{method}</span></OrderDetail>
      <OrderDetail>#️⃣ Payment ID: {id}</OrderDetail>
              <OrderDetail>✆ Delivered to: {contact}</OrderDetail>
-             <Address >Shipped to: {address}</Address>
+             <Address >Shipping Address: {address}</Address>
 
     </Details>
    }
