@@ -36,7 +36,6 @@ letter-spacing:2px;
 margin:0rem;
 font-family: 'Patua One', cursive;
 font-weight:700;
-flex:1;
 font-size:2.1rem;
 &:active{color: gold }
 ${small({fontSize:"1.8rem"})}
@@ -94,7 +93,7 @@ function Navbar()
         icon={{ name: 'search', circular: true, link: true }}
         placeholder='Search...' />
       <NavActions>
-        <Button onClick={() => history.push("/products")} sx={{ "&:hover": { backgroundColor: "#AA771C" } }} style={{ color: "gold", fontSize: "1.2rem", letterSpacing: "0.8px", fontFamily: "PT Sans Narrow, sans-serif" }} type="text">
+        <Button onClick={() => history.push("/products")} sx={{ "&:hover": { backgroundColor: "#AA771C" } }} style={{ color: "gold", fontSize: "1.1rem", letterSpacing: "0.8px", fontFamily: "PT Sans Narrow, sans-serif" }} type="text">
           <i className="fas fa-bolt" style={{ color: "gold", marginRight: "0.3rem",fontSize:"1.5rem" }}>
         </i>Products</Button>
         {/*Conditional rendering*/ }
