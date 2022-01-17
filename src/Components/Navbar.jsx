@@ -57,12 +57,11 @@ align-items:center;
 ${small({rowGap:"0.4rem",columnGap:"1rem"})};
 `
 
-
-
-function Navbar() {
+function Navbar()
+{
   const confirm = useConfirm();
-  const [setSearch] = useContext(SearchContext);
-
+  const [search,setSearch] = useContext(SearchContext);
+console.log(search)
   const handleLogin = () => {
     confirm({ description: `Do you want to log out from your account?` })
       .then(() => dispatch({ type: "logOut" }))
@@ -91,7 +90,7 @@ function Navbar() {
         <i className="fas fa-bolt" style={{ color: "gold", marginRight: "0.5rem" }}></i>
         <Initial>S</Initial>hoptronic<Initial>s</Initial>
       </Title></Link>
-      <SearchInput onClick={(e)=>setSearch(e.target.value)}
+      <SearchInput onChange={(e)=>setSearch(e.target.value)}
         icon={{ name: 'search', circular: true, link: true }}
         placeholder='Search...' />
       <NavActions>

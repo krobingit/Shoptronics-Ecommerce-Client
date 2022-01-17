@@ -31,19 +31,23 @@ justify-content:center;
 
 const ProductContainer = styled.div`
 display:flex;
-width:75%;
+width:80%;
 flex-wrap:wrap;
 align-items:center;
-justify-content:center;
+justify-content:space-evenly;
+  ${small({ width: "62%", padding: "0.1rem" })}
 `
 
 const FilterContainer = styled.div`
-  overflow: hidden;
   border-radius: 1rem;
-  width: 25%;
+  width: 20%;
   padding: 0.5rem;
   height: max-content;
-  ${small({ width: "14rem", padding: "0.1rem" })}
+position:sticky;
+top: 8rem;
+height:80vh;
+overflow: scroll;
+  ${small({ width: "38%", padding: "0.1rem" })}
 `;
 
 
@@ -51,8 +55,8 @@ const SideContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0.5rem;
-  height: 14rem;
-  overflow: scroll;
+  height: max-content;
+  overflow-y:scroll;
   margin-bottom: 1rem;
 `;
 
@@ -74,7 +78,7 @@ ${small({fontSize:"1rem"})}
 `
 
 export function Products() {
-  const [search] = useContext(SearchContext);
+  const [search,setSearch] = useContext(SearchContext);
 
     const dispatch = useDispatch();
   const [filters, setFilters] = useState({
@@ -134,7 +138,7 @@ export function Products() {
         if (search.length > 1) {
           filteredProducts = filteredProducts.filter(
             (product) =>
-              product.productName
+              product.name
                 .toLowerCase()
                 .includes(search.trim().toLowerCase()) ||
               product.category
@@ -159,6 +163,19 @@ export function Products() {
               filteredProducts = filteredProducts.filter((product) =>
                 filters["category"].includes(product.category)
               );
+              setProducts(filteredProducts);
+              setLoading(true);
+            }
+               if (key === "price") {
+              let PRICE = filters["price"];
+              if(PRICE==="Lowest")
+                   filteredProducts.sort((a, b) => a - b);
+              else if(PRICE==="Highest")
+              filteredProducts.sort((a, b) =>b-a);
+              setProducts(filteredProducts);
+              setLoading(true);
+            }
+              if (key === "pricerange") {
               setProducts(filteredProducts);
               setLoading(true);
             }
@@ -201,6 +218,7 @@ export function Products() {
               price: [],
               year: [],
             });
+            setSearch("")
           }}
         >
           Clear All Filters

@@ -9,7 +9,7 @@ import { small } from '../responsive';
 
 const ProductCard = styled.div`
 width:min-content;
-margin:1rem;
+margin:0.7rem;
 overflow:hidden;
 padding:1rem;
 background: rgba( 255, 255, 255, 0.25 );
@@ -20,11 +20,11 @@ ${small({margin:"0.5rem"})}
 `
 
 const ProductImage = styled.img`
-width:17rem;
-height:12rem;
+width:15rem;
+height:10rem;
 object-fit:fill;
 cursor:pointer;
-${small({width:"13rem",height:"8rem"})}
+${small({width:"12.5rem",height:"6rem"})}
 `
 const ProductDetails = styled.div`
 text-align:center;
