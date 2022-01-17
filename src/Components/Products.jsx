@@ -4,7 +4,7 @@ import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import Slide from '@mui/material/Slide';
 import { Title } from '../Pages/Home';
-import { SpinnerInfinity } from 'spinners-react';
+import { SpinnerCircularFixed } from 'spinners-react';
 import styled from 'styled-components';
 import { Product } from './Product';
 import { useContext } from 'react';
@@ -24,7 +24,6 @@ padding:0.5rem
 const LoaderContainer = styled.div`
 display:flex;
 width:100%;
-flex-direction:column;
 align-items:center;
 justify-content:center;
 `
@@ -80,6 +79,10 @@ ${small({fontSize:"1rem"})}
 export function Products() {
   const [search,setSearch] = useContext(SearchContext);
 
+  const [products, setProducts] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [productsList,setProductsList]=useState(null)
+  const [notify, setNotify] = useState(false);
     const dispatch = useDispatch();
   const [filters, setFilters] = useState({
     category: [],
@@ -108,17 +111,14 @@ export function Products() {
     return <Slide {...props} direction="left" />;
   }
 
-  const [products, setProducts] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [productsList,setProductsList]=useState(null)
-  const [notify, setNotify] = useState(false);
 
   useEffect(() => {
     const getProducts = async () => {
-    try {
-         setLoading(true)
-      const res = await commonRequest.get("/product");
-      setProductsList(res.data);
+      try {
+      setLoading(true)
+      const res = await commonRequest.get("/product")
+        setProductsList(res.data);
+res.then(()=>setLoading(false))
     }
     catch (err) {
       console.log(err)
@@ -132,7 +132,7 @@ export function Products() {
 
  useEffect(() => {
     const filterProducts =  () => {
-      setLoading(true);
+
       var filteredProducts = productsList;
 
       if (productsList && filters) {
@@ -146,8 +146,7 @@ export function Products() {
                 .toLowerCase()
                 .includes(search.trim().toLowerCase())
           );
-          setProducts(filteredProducts);
-          setLoading(true);
+          setProducts(filteredProducts)
         }
 
         for (let key in filters) {
@@ -158,14 +157,12 @@ export function Products() {
                 filters["brand"].includes(product.brand)
               );
               setProducts(filteredProducts);
-              setLoading(true);
             }
             if (key === "category") {
               filteredProducts = filteredProducts.filter((product) =>
                 filters["category"].includes(product.category)
               );
               setProducts(filteredProducts);
-              setLoading(true);
             }
                if (key === "price") {
               let PRICE = filters["price"];
@@ -174,21 +171,19 @@ export function Products() {
               else if(PRICE==="Highest")
               filteredProducts.sort((a, b) =>b-a);
               setProducts(filteredProducts);
-              setLoading(true);
             }
               if (key === "pricerange") {
               setProducts(filteredProducts);
-              setLoading(true);
             }
           }
         }
       }
      // console.log(filters);
-      setLoading(false);
       setProducts(filteredProducts);
     };
     filterProducts();
  }, [search, filters,productsList]);
+
 
   const btnStyle = { color: "red" };
   return (
@@ -199,9 +194,7 @@ export function Products() {
            {
        loading ?
          <LoaderContainer>
-              <SpinnerInfinity size={75} thickness={140} speed={150} color="#141e30" secondaryColor="gold" />
-                   <h3 style={{ margin:"1rem 0",letterSpacing:"1px",fontFamily: "'Patua One', cursive", fontSize: "1.5rem" }}>
-                Getting your products..</h3>
+    <SpinnerCircularFixed size={70} thickness={80} speed={163} color="#141e30" secondaryColor="gold" />
          </LoaderContainer>
          :
          <>
@@ -317,3 +310,4 @@ export function Products() {
 )
 
 }
+/*  <SpinnerInfinity size={75} thickness={140} speed={150} color="#141e30" secondaryColor="gold" />*/

@@ -140,7 +140,7 @@ export const Orders = () => {
    <Title><i className="fas fa-shopping-bag"></i>ORDERS</Title>
    {loading ?
     <LoaderContainer>
-     <SpinnerCircularFixed size={70} thickness={80} speed={163} color="#141e30" secondaryColor="gold" />
+    <SpinnerCircularFixed size={70} thickness={80} speed={163} color="#141e30" secondaryColor="gold" />
     </LoaderContainer>
     :
     <Container>
