@@ -23,10 +23,10 @@ export const PriceRange = [
   start: 1000, end: 100000
  },
   {
-    start: 100000, end: 400000
+    start: 100000, end: 300000
   },
   {
-    start: 400000, end: 800000
+    start: 300000, end: 800000
   }
 
 ]

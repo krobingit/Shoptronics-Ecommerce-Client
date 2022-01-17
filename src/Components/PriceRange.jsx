@@ -19,7 +19,8 @@ const handleInput = (e) => {
    setFilters({ ...filters, price:[e.minValue,e.maxValue]  });
 };
  return (
-  <Container>
+		<Container>
+			<h4>Between ₹{start} and ₹{end}</h4>
 <MultiRangeSlider
 			min={start}
 			max={end}
