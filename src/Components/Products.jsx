@@ -9,13 +9,14 @@ import styled from 'styled-components';
 import { Product } from './Product';
 import { useContext } from 'react';
 import { SearchContext } from '../App'
-import { Categories, Brands} from './Data';
+import { Categories, Brands, PriceRange} from './Data';
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { small } from '../responsive';
 import Button from '@mui/material/Button';
 import { useDispatch } from "react-redux";
 import { Category } from "./Category";
 import { Brand } from "./Brand";
+import { Price } from "./PriceRange";
 
 const Container = styled.div`
 display:flex;
@@ -30,7 +31,7 @@ justify-content:center;
 
 const ProductContainer = styled.div`
 display:flex;
-width:80%;
+width:75%;
 flex-wrap:wrap;
 align-items:center;
 justify-content:space-evenly;
@@ -39,7 +40,7 @@ justify-content:space-evenly;
 
 const FilterContainer = styled.div`
   border-radius: 1rem;
-  width: 20%;
+  width: 25%;
   padding: 0.5rem;
   height: max-content;
 position:sticky;
@@ -118,7 +119,7 @@ export function Products() {
       setLoading(true)
       const res = await commonRequest.get("/product")
         setProductsList(res.data);
-res.then(()=>setLoading(false))
+      setLoading(false)
     }
     catch (err) {
       console.log(err)
@@ -132,10 +133,10 @@ res.then(()=>setLoading(false))
 
  useEffect(() => {
     const filterProducts =  () => {
+      let products = productsList;
+      var filteredProducts = products;
 
-      var filteredProducts = productsList;
-
-      if (productsList && filters) {
+      if (products && filters) {
         if (search.length > 1) {
           filteredProducts = filteredProducts.filter(
             (product) =>
@@ -157,34 +158,38 @@ res.then(()=>setLoading(false))
                 filters["brand"].includes(product.brand)
               );
               setProducts(filteredProducts);
+
             }
             if (key === "category") {
               filteredProducts = filteredProducts.filter((product) =>
                 filters["category"].includes(product.category)
               );
               setProducts(filteredProducts);
+
             }
-               if (key === "price") {
+              if (key === "price") {
               let PRICE = filters["price"];
-              if(PRICE==="Lowest")
-                   filteredProducts.sort((a, b) => a - b);
-              else if(PRICE==="Highest")
-              filteredProducts.sort((a, b) =>b-a);
-              setProducts(filteredProducts);
-            }
-              if (key === "pricerange") {
+              filteredProducts = filteredProducts.filter(
+                (product) =>
+                  product.price > PRICE[0] && product.price < PRICE[1]
+              );
+              filteredProducts.sort((a, b) => {
+                if (a.price > b.price) return 1;
+                else return -1;
+              });
               setProducts(filteredProducts);
             }
           }
         }
       }
-     // console.log(filters);
-      setProducts(filteredProducts);
+
+setProducts(filteredProducts);
     };
-    filterProducts();
+   filterProducts();
+
  }, [search, filters,productsList]);
 
-
+//console.log(filters);
   const btnStyle = { color: "red" };
   return (
     <>
@@ -210,16 +215,12 @@ res.then(()=>setLoading(false))
         <Button
           style={btnStyle}
           onClick={() => {
-            dispatch({ type: "ClearGender" });
             dispatch({ type: "ClearCategories" });
             dispatch({ type: "ClearBrands" });
             setFilters({
-              gender:[],
               category:[],
               brand:[],
-              rating: [],
-              price: [],
-              year: [],
+              price: []
             });
             setSearch("")
           }}
@@ -278,8 +279,16 @@ res.then(()=>setLoading(false))
                   />
                 ))}
             </SideContainer>
-        <h4>Price Range</h4>
-
+                <h4>Price Range</h4>
+                {
+PriceRange.map(({start,end})=>
+          <Price
+            start={start}
+            end={end}
+            filters={filters}
+            setFilters={setFilters}
+          />
+        )}
       </FilterContainer>
 
               <ProductContainer>

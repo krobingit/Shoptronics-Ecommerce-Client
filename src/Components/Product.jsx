@@ -11,7 +11,7 @@ const ProductCard = styled.div`
 width:min-content;
 margin:0.7rem;
 overflow:hidden;
-padding:1rem;
+padding:.5rem 1rem;
 background: rgba( 255, 255, 255, 0.25 );
 box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.5 );
 border-radius: 10px;
