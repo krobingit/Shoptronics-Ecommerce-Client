@@ -182,7 +182,7 @@ export function Products() {
           }
         }
       }
-      console.log(filters);
+     // console.log(filters);
       setLoading(false);
       setProducts(filteredProducts);
     };
