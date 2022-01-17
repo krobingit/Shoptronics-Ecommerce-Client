@@ -44,10 +44,10 @@ const FilterContainer = styled.div`
   padding: 0.5rem;
   height: max-content;
 position:sticky;
-top: 8rem;
+top: 7rem;
 height:80vh;
 overflow: scroll;
-  ${small({ width: "38%", padding: "0.1rem" })}
+  ${small({ width: "38%", padding: "0.1rem",top:"8rem" })}
 `;
 
 
@@ -83,7 +83,8 @@ export function Products() {
     const dispatch = useDispatch();
   const [filters, setFilters] = useState({
     category: [],
-    brand: []
+    brand: [],
+    price:[]
   });
   const Alert = forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -195,6 +196,15 @@ export function Products() {
    <Title>PRODUCTS
           </Title>
       <Container>
+           {
+       loading ?
+         <LoaderContainer>
+              <SpinnerInfinity size={75} thickness={140} speed={150} color="#141e30" secondaryColor="gold" />
+                   <h3 style={{ margin:"1rem 0",letterSpacing:"1px",fontFamily: "'Patua One', cursive", fontSize: "1.5rem" }}>
+                Getting your products..</h3>
+         </LoaderContainer>
+         :
+         <>
          <FilterContainer>
         <h3>FILTERS</h3>
          <ProductCount>
@@ -278,15 +288,7 @@ export function Products() {
         <h4>Price Range</h4>
 
       </FilterContainer>
-     {
-       loading ?
-         <LoaderContainer>
-              <SpinnerInfinity size={75} thickness={140} speed={150} color="#141e30" secondaryColor="gold" />
-                   <h3 style={{ margin:"1rem 0",letterSpacing:"1px",fontFamily: "'Patua One', cursive", fontSize: "1.5rem" }}>
-                Getting your products..</h3>
-         </LoaderContainer>
-         :
-         <>
+
               <ProductContainer>
                         { notify && <>
       <Snackbar TransitionComponent={transition}
