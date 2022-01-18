@@ -2,7 +2,10 @@ import {Navbar} from '../Components/Navbar'
 import { Slider } from '../Components/Slider';
 import styled from 'styled-components';
 import { small } from '../responsive';
-import { Products } from '../Components/Products';
+import { useHistory } from 'react-router-dom';
+import { Brands } from '../Components/Brands';
+import { Categories } from '../Components/Categories';
+
 
 export const Title = styled.h2`
 background-color: #ffcd00;
@@ -16,13 +19,19 @@ letter-spacing:3px;
 font-family: 'Fira Sans', sans-serif;
 ${small({fontSize:"1.5rem"})}
 `
+
 function Home(){
+
+  const history = useHistory();
 
  return (
   <>
    <Navbar />
-       <Slider />
-     <Products/>
+     <Slider />
+     <Brands history={history} />
+     <Categories history={history} />
+
+
 </>
 )
 
@@ -31,4 +40,14 @@ function Home(){
 }
 
 
-export {Home}
+export { Home }
+/*
+<Button inverted color="yellow"  style={style} onClick={() =>
+     {
+       dispatch({ type: "AddCategory", payload: "Laptops" })
+       history.push("/products",{
+  searchcategory:"Laptops"
+       })
+     }}>Shop now</Button>
+
+*/

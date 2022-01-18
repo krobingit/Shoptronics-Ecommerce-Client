@@ -1,4 +1,4 @@
-import { useEffect, useState,forwardRef } from 'react';
+import { useEffect, useState,forwardRef,useContext } from 'react';
 import { commonRequest } from '../axiosreq';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
@@ -7,8 +7,7 @@ import { Title } from '../Pages/Home';
 import { SpinnerCircularFixed } from 'spinners-react';
 import styled from 'styled-components';
 import { Product } from './Product';
-import { useContext } from 'react';
-import { SearchContext } from '../App'
+import {  SearchContext } from '../App'
 import { Categories, Brands, PriceRange} from './Data';
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { small } from '../responsive';
@@ -17,6 +16,8 @@ import { useDispatch } from "react-redux";
 import { Category } from "./Category";
 import { Brand } from "./Brand";
 import { Price } from "./PriceRange";
+import {useLocation} from "react-router-dom"
+
 
 const Container = styled.div`
 display:flex;
@@ -78,18 +79,18 @@ ${small({fontSize:"1rem"})}
 `
 
 export function Products() {
-  const [search,setSearch] = useContext(SearchContext);
-
+  const location = useLocation();
+  const [search, setSearch] = useContext(SearchContext);
   const [products, setProducts] = useState(null);
   const [loading, setLoading] = useState(false);
   const [productsList,setProductsList]=useState(null)
   const [notify, setNotify] = useState(false);
-    const dispatch = useDispatch();
   const [filters, setFilters] = useState({
     category: [],
     brand: [],
     price:[]
   });
+    const dispatch = useDispatch();
   const Alert = forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
   });
@@ -112,6 +113,25 @@ export function Products() {
     return <Slide {...props} direction="left" />;
   }
 
+  useEffect(() => {
+
+    const state = () => {
+      if (location.state) {
+        if (location.state.searchcategory) {
+          let category = [];
+          category.push(location.state.searchcategory)
+          setFilters({category })
+        }
+        if (location.state.searchbrand) {
+          let brand = [];
+          brand.push(location.state.searchbrand)
+          setFilters({  brand })
+        }
+      }
+    }
+    state();
+
+  },[location.state])
 
   useEffect(() => {
     const getProducts = async () => {
@@ -130,6 +150,7 @@ export function Products() {
     getProducts();
 
   }, [])
+
 
  useEffect(() => {
     const filterProducts =  () => {
@@ -189,7 +210,9 @@ setProducts(filteredProducts);
 
  }, [search, filters,productsList]);
 
+
 //console.log(filters);
+
   const btnStyle = { color: "red" };
   return (
     <>
@@ -281,8 +304,9 @@ setProducts(filteredProducts);
             </SideContainer>
                 <h4>Price Range</h4>
                 {
-PriceRange.map(({start,end})=>
+PriceRange.map(({start,end},idx)=>
           <Price
+    key={idx}
             start={start}
             end={end}
             filters={filters}
