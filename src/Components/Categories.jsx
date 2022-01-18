@@ -11,7 +11,7 @@ const MainContainer = styled.div`
   justify-content: space-evenly;
 `;
 const HeaderText = styled.h1`
-  color: #414a4c;
+  color: rgb(52,52,52);
   letter-spacing: 2px;
   width: 100%;
   text-align: center;
