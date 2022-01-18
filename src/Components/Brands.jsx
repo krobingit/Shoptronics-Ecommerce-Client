@@ -49,6 +49,7 @@ const HideCard = styled.div`
   height: 98%;
   color: white;
   display: none;
+border-radius: 0.8rem;
 `;
 const ImageContainer = styled.div`
   position: relative;
@@ -67,7 +68,7 @@ const ImageContainer = styled.div`
   }
 `;
 const Image = styled.img`
-  border: 1px solid grey;
+ border:2px solid #141e30;
   cursor: pointer;
   width: 30rem;
   height: 17rem;

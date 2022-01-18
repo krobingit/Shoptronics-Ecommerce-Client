@@ -57,8 +57,8 @@ const SideContainer = styled.div`
   flex-direction: column;
   padding: 0.5rem;
   height: max-content;
-  overflow-y:scroll;
   margin-bottom: 1rem;
+${small({overflowX:"scroll"})}
 `;
 
 const ProductCount = styled.div`
