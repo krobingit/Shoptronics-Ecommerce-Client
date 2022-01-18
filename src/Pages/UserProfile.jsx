@@ -64,7 +64,7 @@ export const UserProfile = () => {
 //conditional rendering --only when product has fetched the data, this function component will be returned
 const UpdateUser = ({ loading, currentUser, user }) => {
  let history = useHistory();
-
+  const [userupdate, setUserUpdate] = useState(null)
   const ToastSuccess = () => {
     return toast.success("User Details Updated Successfully", {
       position: "bottom-right",
@@ -96,7 +96,8 @@ const UpdateUser = ({ loading, currentUser, user }) => {
             .put(`/user/${user._id}`, values, {
               headers: { token: currentUser.token },
             })
-            .then(() => {
+            .then((res) => {
+setUserUpdate(res.data)
               ToastSuccess();
               setTimeout(() => {
                 history.push("/");
@@ -107,7 +108,11 @@ const UpdateUser = ({ loading, currentUser, user }) => {
         }
       },
     });
-
+  if (userupdate) {
+    console.log(userupdate)
+    currentUser.username = userupdate.username;
+    currentUser.email = userupdate.email;
+    }
   const formStyles = {
     background: "whitesmoke",
     boxShadow: "0 8px 32px 0 rgba( 31, 38, 135, 0.37)",

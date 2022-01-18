@@ -42,13 +42,3 @@ function Home(){
 
 
 export { Home }
-/*
-<Button inverted color="yellow"  style={style} onClick={() =>
-     {
-       dispatch({ type: "AddCategory", payload: "Laptops" })
-       history.push("/products",{
-  searchcategory:"Laptops"
-       })
-     }}>Shop now</Button>
-
-*/
