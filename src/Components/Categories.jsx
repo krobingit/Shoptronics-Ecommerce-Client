@@ -43,6 +43,8 @@ const Image = styled.img`
   margin-bottom: 1rem;
   width: 30rem;
   height: 17rem;
+transition:all 0.5s;
+&:hover{transform:scale(0.95)};
   border-radius: 0.8rem;
   ${small({ width: "23rem", height: "13rem" })}
 `;
