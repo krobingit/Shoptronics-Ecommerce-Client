@@ -46,7 +46,7 @@ width:30rem;
 height:17rem;
 border-radius:0.8rem;
 transition:all 0.5s;
-&:hover{transform:scale(0.9)};
+&:hover{transform:scale(0.95)};
 ${small({width:"23rem",height:"13rem"})}
 `
 
