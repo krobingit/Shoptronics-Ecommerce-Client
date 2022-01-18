@@ -62,7 +62,8 @@ function Categories({ history }) {
             history={history}
           />
         ))}
-      </MainContainer>
+    </MainContainer>
+
     </>
   );
 }

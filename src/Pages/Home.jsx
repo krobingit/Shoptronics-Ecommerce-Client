@@ -5,6 +5,7 @@ import { small } from '../responsive';
 import { useHistory } from 'react-router-dom';
 import { Brands } from '../Components/Brands';
 import { Categories } from '../Components/Categories';
+import { NewsLetter } from '../Components/NewsLetter';
 
 
 export const Title = styled.h2`
@@ -30,7 +31,7 @@ function Home(){
      <Slider />
      <Brands history={history} />
      <Categories history={history} />
-
+   <NewsLetter />
 
 </>
 )
