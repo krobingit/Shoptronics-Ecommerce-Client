@@ -128,7 +128,7 @@ history.push("/login")
    }
   }
    fetchData();
- }, [currentUser]);
+ }, [currentUser,history]);
 
   const steps = [
   'Processing',
