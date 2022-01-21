@@ -123,7 +123,8 @@ export const Orders = () => {
    }
    catch (err) {
     console.log("Error Fetching Order", err);
-    setLoading(false)
+    setLoading(false);
+history.push("/login")
    }
   }
    fetchData();

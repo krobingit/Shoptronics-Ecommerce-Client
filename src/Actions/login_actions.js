@@ -1,6 +1,7 @@
 import { commonRequest } from '../axiosreq'
 //this action is initiated in Pages>Login.jsx under OnSubmit formik function
-export const login = async (dispatch, user) => {
+export const login = async (dispatch, user) =>
+{
 dispatch({type:"loginInitiate"})
  try {
   const response = await commonRequest.post("/userauth/login", user)
