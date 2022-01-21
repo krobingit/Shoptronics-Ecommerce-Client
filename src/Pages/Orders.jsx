@@ -124,11 +124,10 @@ export const Orders = () => {
    catch (err) {
     console.log("Error Fetching Order", err);
     setLoading(false);
-history.push("/login")
    }
   }
    fetchData();
- }, [currentUser,history]);
+ }, [currentUser]);
 
   const steps = [
   'Processing',
@@ -145,10 +144,6 @@ history.push("/login")
     </LoaderContainer>
     :
        <Container>
-          {
-           order === null && <LoaderContainer><h1>To fetch your orders,log in again</h1>
-           <Button onClick={()=>history.push("/login")}>Login</Button></LoaderContainer>
-         }
      {
      order && order.length === 0
       ?
