@@ -144,9 +144,13 @@ history.push("/login")
     <SpinnerCircularFixed size={70} thickness={80} speed={163} color="#141e30" secondaryColor="gold" />
     </LoaderContainer>
     :
-    <Container>
+       <Container>
+          {
+           order === null && <LoaderContainer><h1>To fetch your orders,log in again</h1>
+           <Button onClick={()=>history.push("/login")}>Login</Button></LoaderContainer>
+         }
      {
-     order.length === 0
+     order && order.length === 0
       ?
       <>
        <Button
@@ -202,7 +206,7 @@ history.push("/login")
              <OrderInfo key={idx} amount={each.paymentData.amount} method={each.paymentData.method}
              id={each.paymentData.id} contact={each.paymentData.contact} address={each.paymentData.notes.address} />
 
-          {order.length>1 &&
+          {order && order.length>1 &&
            <><Line></Line></>}
          </Large>
 
@@ -210,7 +214,8 @@ history.push("/login")
         )}
        </Products>
       </Summary>
-    }
+         }
+
     </Container>
    }
 </MainContainer>
