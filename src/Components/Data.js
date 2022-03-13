@@ -45,7 +45,7 @@ export const BrandItems =
     ,
     {
       brand: "Sony",
-      image:"https://scontent.fmaa2-4.fna.fbcdn.net/v/t1.6435-9/s960x960/37221233_1179867062154294_6036764615440859136_n.jpg?_nc_cat=105&ccb=1-5&_nc_sid=730e14&_nc_ohc=lDdGXHNhqJMAX9qGR8D&_nc_ht=scontent.fmaa2-4.fna&oh=00_AT91Nn5CNNumUEDjneDXEzP_WorV0_EWD1Q3hPItrL8jfw&oe=620CEA56"
+      image:"https://i.pinimg.com/736x/ba/1a/84/ba1a84c74b8eee5c95f6ccfea62fe048.jpg"
     } ,
     {
          brand: "LG",
