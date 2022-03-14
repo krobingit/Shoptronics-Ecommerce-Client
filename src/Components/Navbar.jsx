@@ -14,9 +14,18 @@ import { small } from '../responsive';
 import * as React from 'react';
 import { useConfirm } from "material-ui-confirm";
 import { useContext } from 'react';
-import {SearchContext} from '../App'
+import { SearchContext } from '../App';
 
 //styled-components
+const ProfilePic = styled.img`
+  display: flex;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+ margin:0rem 1rem 0 0.5rem;
+object-fit:cover;
+`;
+
 export const NavContainer = styled.div`
 background:#141e30;
 color:white;
@@ -139,7 +148,7 @@ function Navbar()
         style={{ color: "gold", textTransform: "none", fontSize: "1.25rem",fontWeight:
 "550", fontFamily: "PT Sans Narrow, sans-serif"  }} type="text"
       >
-      <i className="fas fa-user-circle" style={{ marginRight: "5px" }} ></i>{currentUser.username}<ArrowDropDownIcon />
+          {currentUser.profile_img ? <ProfilePic alt="profile-pic" src={currentUser.profile_img}/> : <i className="fas fa-user-circle" style={{ marginRight: "5px" }} ></i>}{currentUser.username}<ArrowDropDownIcon />
       </Button>
       <Menu
         id="fade-menu"

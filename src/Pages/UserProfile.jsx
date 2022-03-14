@@ -2,7 +2,7 @@ import { Navbar } from "../Components/Navbar";
 import { useParams, useHistory } from "react-router-dom";
 import * as yup from "yup";
 import { useFormik } from "formik";
-import { Form } from "semantic-ui-react";
+import { Form, Progress } from "semantic-ui-react";
 import { useState, useEffect } from "react";
 import { commonRequest } from "../axiosreq";
 import styled from "styled-components";
@@ -10,6 +10,13 @@ import { Button } from "semantic-ui-react";
 import SyncLoader from "react-spinners/SyncLoader";
 import { useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
+import app from "../firebase";
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
 
 const LoaderContainer = styled.div`
   display: flex;
@@ -25,11 +32,19 @@ const FormContainer = styled.div`
   padding: 1rem;
 `;
 
+const ProfilePic = styled.img`
+  display: flex;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+object-fit:cover;
+`;
+
 export const UserProfile = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-
   const { id } = useParams();
 
   useEffect(() => {
@@ -47,11 +62,8 @@ export const UserProfile = () => {
         }, 1500);
       };
       getUser();
-    }
-    catch (err)
-    {
-   console.log("Error getting user info"+err)
-
+    } catch (err) {
+      console.log("Error getting user info" + err);
     }
   }, [id, currentUser.token]);
   return (
@@ -63,8 +75,11 @@ export const UserProfile = () => {
 
 //conditional rendering --only when product has fetched the data, this function component will be returned
 const UpdateUser = ({ loading, currentUser, user }) => {
- let history = useHistory();
-  const [userupdate, setUserUpdate] = useState(null)
+  let history = useHistory();
+  const [userupdate, setUserUpdate] = useState(null);
+  const [upload, setUpload] = useState(false);
+  const [file, setFile] = useState(null);
+const [progress,setProgress]=useState("")
   const ToastSuccess = () => {
     return toast.success("User Details Updated Successfully", {
       position: "bottom-right",
@@ -79,19 +94,87 @@ const UpdateUser = ({ loading, currentUser, user }) => {
       .string()
       .min(5, "Minimum 5 characters needed")
       .required("Username is mandatory"),
-    email: yup.string().email().required("Please enter your Email")
+    email: yup.string().email().required("Please enter your Email"),
   });
-
+  //Upload Profile picture
+  function handleImage(values) {
+    setUpload(true);
+    const storage = getStorage(app);
+      const storageRef = ref(storage, file.name);
+      const uploadTask = uploadBytesResumable(storageRef, file);
+    // Register three observers:
+    // 1. 'state_changed' observer, called any time the state changes
+    // 2. Error observer, called on failure
+    // 3. Completion observer, called on successful completion
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        // Observe state change events such as progress, pause, and resume
+        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        setProgress(progress)
+        console.log("Upload is " + progress + "% done");
+        switch (snapshot.state) {
+          case "paused":
+            console.log("Upload is paused");
+            break;
+          case "running":
+            console.log("Upload is running");
+            break;
+          default:
+        }
+      },
+      (error) => {
+        // Handle unsuccessful uploads
+        console.log(error);
+      },
+      () => {
+        // Handle successful uploads on complete
+        // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+        getDownloadURL(uploadTask.snapshot.ref)
+          .then((downloadURL) => {
+            console.log("File available at", downloadURL);
+            setUpload(false);
+            const User = {
+              ...values,
+              profile_img: downloadURL,
+            };
+            console.log(User);
+            console.log(user._id);
+            //api call
+            commonRequest
+              .put(`/user/${user?._id}`, User, {
+                headers: { token: currentUser.token },
+              })
+              .then((res) => {
+                setUserUpdate(res.data);
+                ToastSuccess();
+                setTimeout(() => {
+                  history.push("/");
+                }, 2500);
+              });
+          })
+          .catch((err) => {
+            console.log("Error updating user", err);
+          });
+      }
+    );
+  }
   const { handleChange, handleSubmit, handleBlur, errors, touched, values } =
     useFormik({
       initialValues: {
         username: user.username,
         email: user.email,
+        profile_img: user?.profile_img || "",
       },
       validationSchema: signUpSchema,
       onSubmit: async (values) => {
-        console.log(values);
-        try {
+        if(file)
+        handleImage(values);
+        else
+        {
+         try {
           await commonRequest
             .put(`/user/${user._id}`, values, {
               headers: { token: currentUser.token },
@@ -106,13 +189,16 @@ setUserUpdate(res.data)
         } catch (err) {
           console.log("Error updating user", err);
         }
+
+        }
+
       },
     });
   if (userupdate) {
-    console.log(userupdate)
     currentUser.username = userupdate.username;
     currentUser.email = userupdate.email;
-    }
+    currentUser.profile_img = userupdate.profile_img;
+  }
   const formStyles = {
     background: "whitesmoke",
     boxShadow: "0 8px 32px 0 rgba( 31, 38, 135, 0.37)",
@@ -175,9 +261,23 @@ setUserUpdate(res.data)
               name="email"
               type="text"
             />
+            <Form.Input
+              type="file"
+              id="profile_img"
+                name="profile_img"
+                label="Profile Picture"
+              onChange={(e) => {
+                console.log(e.target.files);
+                setFile(e.target.files[0]);
+              }}
+              />
+                {values?.profile_img && (
+              <ProfilePic src={values.profile_img} alt="profile-picture" />
+            )}
             <Button type="submit" color="green">
               Update User
-            </Button>
+              </Button>{ progress && upload &&
+                <Progress percent={Math.round(progress)} inverted color='yellow' progress success={progress && progress>90 && true}></Progress>}
             <ToastContainer
               position="bottom-right"
               autoClose={3500}
