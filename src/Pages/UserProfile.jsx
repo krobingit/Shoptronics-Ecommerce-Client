@@ -18,11 +18,10 @@ import {
   getDownloadURL,
 } from "firebase/storage";
 
-
-const ProfilePicEdit=styled.div`
-display:flex;
-gap:1rem;
-`
+const ProfilePicEdit = styled.div`
+  display: flex;
+  gap: 1rem;
+`;
 const LoaderContainer = styled.div`
   display: flex;
   min-height: 100vh;
@@ -43,7 +42,7 @@ const ProfilePic = styled.img`
   height: 50px;
   border-radius: 50%;
   margin-bottom: 1rem;
-object-fit:cover;
+  object-fit: cover;
 `;
 
 export const UserProfile = () => {
@@ -84,7 +83,7 @@ const UpdateUser = ({ loading, currentUser, user }) => {
   const [userupdate, setUserUpdate] = useState(null);
   const [upload, setUpload] = useState(false);
   const [file, setFile] = useState(null);
-const [progress,setProgress]=useState("")
+  const [progress, setProgress] = useState("");
   const ToastSuccess = () => {
     return toast.success("User Details Updated Successfully", {
       position: "bottom-right",
@@ -105,8 +104,8 @@ const [progress,setProgress]=useState("")
   function handleImage(values) {
     setUpload(true);
     const storage = getStorage(app);
-      const storageRef = ref(storage, file.name);
-      const uploadTask = uploadBytesResumable(storageRef, file);
+    const storageRef = ref(storage, file.name);
+    const uploadTask = uploadBytesResumable(storageRef, file);
     // Register three observers:
     // 1. 'state_changed' observer, called any time the state changes
     // 2. Error observer, called on failure
@@ -118,7 +117,7 @@ const [progress,setProgress]=useState("")
         // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
         const progress =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        setProgress(progress)
+        setProgress(progress);
         console.log("Upload is " + progress + "% done");
         switch (snapshot.state) {
           case "paused":
@@ -166,26 +165,31 @@ const [progress,setProgress]=useState("")
       }
     );
   }
-  const { handleChange, handleSubmit, handleBlur, errors, touched, values,setFieldValue } =
-    useFormik({
-      initialValues: {
-        username: user.username,
-        email: user.email,
-        profile_img: user?.profile_img || "",
-      },
-      validationSchema: signUpSchema,
-      onSubmit: async (values) => {
-        if(file)
-        handleImage(values);
-        else
-        {
-         try {
+  const {
+    handleChange,
+    handleSubmit,
+    handleBlur,
+    errors,
+    touched,
+    values,
+    setFieldValue,
+  } = useFormik({
+    initialValues: {
+      username: user.username,
+      email: user.email,
+      profile_img: user?.profile_img || null,
+    },
+    validationSchema: signUpSchema,
+    onSubmit: async (values) => {
+      if (file) handleImage(values);
+      else {
+        try {
           await commonRequest
             .put(`/user/${user._id}`, values, {
               headers: { token: currentUser.token },
             })
             .then((res) => {
-setUserUpdate(res.data)
+              setUserUpdate(res.data);
               ToastSuccess();
               setTimeout(() => {
                 history.push("/");
@@ -194,11 +198,9 @@ setUserUpdate(res.data)
         } catch (err) {
           console.log("Error updating user", err);
         }
-
-        }
-
-      },
-    });
+      }
+    },
+  });
   if (userupdate) {
     currentUser.username = userupdate.username;
     currentUser.email = userupdate.email;
@@ -269,23 +271,37 @@ setUserUpdate(res.data)
             <Form.Input
               type="file"
               id="profile_img"
-                name="profile_img"
-                label="Profile Picture"
+              name="profile_img"
+              label="Profile Picture"
               onChange={(e) => {
                 console.log(e.target.files);
                 setFile(e.target.files[0]);
               }}
-              />
-              {values?.profile_img && (
-                <ProfilePicEdit>
+            />
+            {values?.profile_img && (
+              <ProfilePicEdit>
                 <ProfilePic src={values.profile_img} alt="profile-picture" />
-                  <i style={{cursor:"pointer"}} className="fad fa-trash-alt" onClick={()=>setFieldValue("profile_img","")}></i>
-</ProfilePicEdit>
+                <i
+                  style={{ cursor: "pointer" }}
+                  className="fad fa-trash-alt"
+                  onClick={() => setFieldValue("profile_img", null)}
+                ></i>
+              </ProfilePicEdit>
             )}
             <Button type="submit" color="green">
               Update User
-              </Button>{ progress && upload &&
-                <Progress percent={Math.round(progress)} inverted color='yellow' progress success={progress && progress>90 && true}></Progress>}
+            </Button>
+            {progress && upload && (
+              <Progress
+                percent={Math.round(progress)}
+                inverted
+                color="yellow"
+                progress
+                success={progress && progress > 80 && true}
+              >
+                Uploading Profile Picture..
+              </Progress>
+            )}
             <ToastContainer
               position="bottom-right"
               autoClose={3500}
