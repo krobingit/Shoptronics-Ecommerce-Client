@@ -299,7 +299,7 @@ const UpdateUser = ({ loading, currentUser, user }) => {
                 progress
                 success={progress && progress > 80 && true}
               >
-                Uploading Profile Picture..
+                Updating Profile Picture..
               </Progress>
             )}
             <ToastContainer
