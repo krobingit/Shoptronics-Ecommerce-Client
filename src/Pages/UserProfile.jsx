@@ -18,6 +18,11 @@ import {
   getDownloadURL,
 } from "firebase/storage";
 
+
+const ProfilePicEdit=styled.div`
+display:flex;
+gap:1rem;
+`
 const LoaderContainer = styled.div`
   display: flex;
   min-height: 100vh;
@@ -161,7 +166,7 @@ const [progress,setProgress]=useState("")
       }
     );
   }
-  const { handleChange, handleSubmit, handleBlur, errors, touched, values } =
+  const { handleChange, handleSubmit, handleBlur, errors, touched, values,setFieldValue } =
     useFormik({
       initialValues: {
         username: user.username,
@@ -271,8 +276,11 @@ setUserUpdate(res.data)
                 setFile(e.target.files[0]);
               }}
               />
-                {values?.profile_img && (
-              <ProfilePic src={values.profile_img} alt="profile-picture" />
+              {values?.profile_img && (
+                <ProfilePicEdit>
+                <ProfilePic src={values.profile_img} alt="profile-picture" />
+                  <i style={{cursor:"pointer"}} className="fad fa-trash-alt" onClick={()=>setFieldValue("profile_img","")}></i>
+</ProfilePicEdit>
             )}
             <Button type="submit" color="green">
               Update User
