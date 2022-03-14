@@ -15,6 +15,7 @@ import * as React from 'react';
 import { useConfirm } from "material-ui-confirm";
 import { useContext } from 'react';
 import { SearchContext } from '../App';
+import { commonRequest } from "../axiosreq";
 
 //styled-components
 const ProfilePic = styled.img`
@@ -87,9 +88,22 @@ function Navbar()
   const dispatch = useDispatch();
   const { quantity } = useSelector(state => state.cart);
   const { currentUser } = useSelector(state => state.user);
+  const [user, setUser] = React.useState(null)
   const {wishlistproducts}= useSelector(state => state.wishlist);
   const btnStyles = { color: "inherit", fontSize: "1.1rem",fontWeight:"550", letterSpacing: "0.8px", fontFamily: "PT Sans Narrow, sans-serif" };
   const wishlistquantity = wishlistproducts.length;
+  React.useEffect(() => {
+  const getUser = async () => {
+        await commonRequest
+          .get(`/user/${currentUser._id}`, {
+            headers: {
+              token: currentUser.token,
+            },
+          })
+          .then((res) => setUser(res.data));
+    };
+    getUser()
+  },[currentUser])
   return (
     <NavContainer>
 
@@ -148,7 +162,7 @@ function Navbar()
         style={{ color: "gold", textTransform: "none", fontSize: "1.25rem",fontWeight:
 "550", fontFamily: "PT Sans Narrow, sans-serif"  }} type="text"
       >
-          {currentUser.profile_img ? <ProfilePic alt="profile-pic" src={currentUser.profile_img}/> : <i className="fas fa-user-circle" style={{ marginRight: "5px" }} ></i>}{currentUser.username}<ArrowDropDownIcon />
+          {user?.profile_img ? <ProfilePic alt="profile-pic" src={user?.profile_img}/> : <i className="fas fa-user-circle" style={{ marginRight: "5px" }} ></i>}{user?.username}<ArrowDropDownIcon />
       </Button>
       <Menu
         id="fade-menu"
