@@ -29,7 +29,7 @@ export const WishList=()=>
  const history=useHistory();
  return (
     <Wish>
-  <Navbar />
+  <Navbar tab="wishlist"/>
    <Title><i className="fas fa-heart"></i> WISHLIST{wishlistproducts.length>0 && `(${wishlistproducts.length})`}</Title>
     <Button style={{ marginLeft: "3rem" }} color="yellow" onClick={() => history.push("/products")}>Continue to Shop</Button>
 {!currentUser && history.push("/login")}

@@ -136,7 +136,7 @@ export const Orders = () => {
 ];
  return (
   <MainContainer>
-  <Navbar />
+  <Navbar tab="orders"/>
    <Title><i className="fas fa-shopping-bag"></i>ORDERS</Title>
    {loading ?
     <LoaderContainer>

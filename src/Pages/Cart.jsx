@@ -208,7 +208,7 @@ return
 
   return (
     <>
-      <Navbar />
+      <Navbar tab="cart" />
       <Title><i className="fas fa-cart-arrow-down"></i> CART{quantity > 0 && `(${quantity})`}</Title>
       <Button
         style={{ marginLeft: "3rem" }}
