@@ -27,7 +27,7 @@ function Home(){
 
  return (
   <>
-   <Navbar />
+   <Navbar tab="home"/>
      <Slider />
      <Brands history={history} />
      <Categories history={history} />

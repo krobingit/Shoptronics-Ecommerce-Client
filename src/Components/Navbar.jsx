@@ -66,7 +66,7 @@ align-items:center;
 ${small({rowGap:"0.4rem",columnGap:"1rem"})};
 `
 
-function Navbar()
+function Navbar({tab=null})
 {
   const confirm = useConfirm();
   const [,setSearch] = useContext(SearchContext);
@@ -95,9 +95,9 @@ function Navbar()
   React.useEffect(() => {
   const getUser = async () => {
         await commonRequest
-          .get(`/user/${currentUser._id}`, {
+          .get(`/user/${currentUser?._id}`, {
             headers: {
-              token: currentUser.token,
+              token: currentUser?.token,
             },
           })
           .then((res) => setUser(res.data));
@@ -112,9 +112,9 @@ function Navbar()
         <i className="fas fa-bolt" style={{ color: "gold", marginRight: "0.5rem" }}></i>
         <Initial>S</Initial>hoptronic<Initial>s</Initial>
       </Title></Link>
-      <SearchInput onChange={(e)=>setSearch(e.target.value)}
+      {!tab && <SearchInput onChange={(e)=>setSearch(e.target.value)}
         icon={{ name: 'search', circular: true, link: true }}
-        placeholder='Search...' />
+        placeholder='Search...' />}
       <NavActions>
         <Button onClick={() => history.push("/products")} sx={{ "&:hover": { backgroundColor: "#AA771C" } }} style={{ color: "gold", fontSize: "1.1rem", letterSpacing: "0.8px", fontFamily: "PT Sans Narrow, sans-serif" }} type="text">
           <i className="fas fa-bolt" style={{ color: "gold", marginRight: "0.3rem",fontSize:"1.5rem" }}>
