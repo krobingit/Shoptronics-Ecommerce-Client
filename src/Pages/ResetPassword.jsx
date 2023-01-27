@@ -122,7 +122,7 @@ function ResetPassword() {
 setLoading(true)
        const { password } = values;
     try {
-      const response = await axios.post(`${API_URL}/resetPassword/${userid}/${token}`,
+      const response = await axios.post(`${API_URL}resetPassword/${userid}/${token}`,
         { password: password });
 console.log(response)
       resetForm();
