@@ -12,6 +12,7 @@ import logo from '../Assets/logo.jpg';
 import axios from 'axios';
 import razorpay from '../Assets/razorpay.png';
 import { small,medium } from '../responsive';
+import { API_URL } from '../globalconstant';
 
 
 const Container = styled.div`
@@ -135,7 +136,7 @@ async function DisplayRazorPayCheckout() {
   alert("Razorpay failed")
 return
  }
- const res = await axios.post("https://shoptronics-ecommerce.herokuapp.com/razorpay",
+ const res = await axios.post(`${API_URL}razorpay`,
   {total}
  )
 
@@ -154,7 +155,7 @@ return
      console.log(response.razorpay_signature);
    try {
          const paymentId = response.razorpay_payment_id;
-         const url = `https://shoptronics-ecommerce.herokuapp.com/razorpay/capture/${paymentId}`;
+         const url = `${API_URL}razorpay/capture/${paymentId}`;
      const captureResponse = await axios.post(url, {
        "amount": res.data.amount,
        "currency":res.data.currency
@@ -169,7 +170,7 @@ return
      //Creation of order to the server
    async function PostOrder() {
 
-      await axios.post("https://shoptronics-ecommerce.herokuapp.com/order",
+      await axios.post(`${API_URL}order`,
         {
           userId: currentUser._id,
           userEmail:currentUser.email,
