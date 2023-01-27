@@ -112,7 +112,7 @@ function ForgotPassword() {
    onSubmit: async (values,{resetForm}) => {
      setLoading(true);
      try {
-       const { request} = await axios.post(`${API_URL}/resetPassword/resetToken`, values);
+       const { request} = await axios.post(`${API_URL}resetPassword/resetToken`, values);
        console.log(request);
        resetForm();
        setInfo("Password Reset Link has been sent to your mail. Please Check it out");
