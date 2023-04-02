@@ -25,6 +25,7 @@ import { AdminUserEdit } from "./Admin Pages/AdminUserEdit";
 import { AdminUserAdd } from "./Admin Pages/AdminUserAdd";
 import { UserProfile } from "./Pages/UserProfile";
 import { createContext, useState } from 'react';
+import OAuthSuccessRedirect from "./Pages/OAuthLoginSuccess";
 
 const SearchContext = createContext(null);
 function App() {
@@ -86,6 +87,9 @@ function App() {
         </Route>
 
         {/*User Routes */}
+        <Route path="/auth/login/success">
+        <OAuthSuccessRedirect />
+        </Route>
         <Route path="/forgotPassword">
           <ForgotPassword />
         </Route>

@@ -13,6 +13,7 @@ import { useState } from 'react';
 import { login } from '../Actions/login_actions';
 import cartlit from '../Assets/cart-lightening.png';
 import { useSelector } from "react-redux";
+import GoogleSignInButton from './GoogleButton';
 //styled-components
 const Container = styled.div`
 background-image: linear-gradient(to right top, #12100e, #251a18, #37222a, #3d2e46, #2b4162);
@@ -160,7 +161,13 @@ function Login() {
     borderRadius: "1rem",
     margin: "1.5rem 0.5rem 1.5rem 0.5rem",
   }
-
+  
+  const googleAuth=()=>{
+    window.open("https://shoptronics-ecom.onrender.com/auth/google", "_self");
+  }
+  /* const fbAuth=()=>{
+    window.open("http://localhost:7000/auth/facebook", "_self");
+  } */
   return (
 
     <Container>
@@ -220,15 +227,16 @@ function Login() {
             <hr />
             <p style={{ fontSize: "1rem", fontWeight: "600", color: "#4f2f5e" }}>Or Sign up using</p>
             <SocialMediaIcons>
-              <button type="button" className="ui circular facebook icon button">
+             {/*  <button type="button" className="ui circular facebook icon button">
                 <i className="facebook icon"></i>
               </button>
               <button type="button" className="ui circular twitter icon button">
                 <i className="twitter icon"></i>
               </button>
-              <button type="button" className="ui circular google plus icon button">
+              <button type="button" className="ui circular google plus icon button" onClick={googleAuth}>
                 <i className="google plus icon"></i>
-              </button>
+              </button> */}
+              <GoogleSignInButton onClick={googleAuth}/>
             </SocialMediaIcons>
             <Copy>  © 2021 Shoptronics</Copy>
 
