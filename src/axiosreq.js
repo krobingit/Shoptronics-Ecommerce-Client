@@ -1,4 +1,4 @@
 import axios from 'axios';
 
 export const commonRequest = axios.create({
-baseURL:"http://localhost:7000/"})
+baseURL:"https://shoptronics-ecom.onrender.com/"})
