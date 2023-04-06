@@ -27,7 +27,7 @@ const OAuthSuccessRedirect = () => {
     !currentUser && loginUser();
   }, [currentUser, dispatch, history]);
   return error
-    ? `${error.status} ${error.statusText}`
+    ? `${error.status} ${error.data || error.statusText}`
     : "Redirecting to Shoptronics Home..";
 };
 
