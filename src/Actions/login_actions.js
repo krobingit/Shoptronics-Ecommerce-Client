@@ -5,7 +5,9 @@ export const login = async (dispatch, user) =>
 dispatch({type:"loginInitiate"})
  try {
   const response = await commonRequest.post("/userauth/login", user).catch((error)=>{
-   throw new Error(error.request.statusText)
+   const errorMessage=error.request.statusText || error.message
+   if(errorMessage)
+    throw new Error(errorMessage)
   })
   dispatch({ type: "loginOK", payload: response.data })
   return {
