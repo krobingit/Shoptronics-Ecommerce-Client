@@ -14,6 +14,7 @@ import { login } from '../Actions/login_actions';
 import cartlit from '../Assets/cart-lightening.png';
 import { useSelector } from "react-redux";
 import GoogleSignInButton from './GoogleButton';
+import { API_URL } from '../globalconstant';
 //styled-components
 const Container = styled.div`
 background-image: linear-gradient(to right top, #12100e, #251a18, #37222a, #3d2e46, #2b4162);
@@ -147,10 +148,10 @@ function Login() {
     validationSchema: signInSchema,
     onSubmit: async (values) => {
       setLoading(true);
-      let isUserTrue = await login(dispatch, values);
+      let result = await login(dispatch, values);
       setLoading(false);
-      if (!isUserTrue)
-        setErr(true);
+      if (!result.isUserTrue)
+        setErr(result.errorMessage);
       }
 
     }
@@ -163,11 +164,9 @@ function Login() {
   }
   
   const googleAuth=()=>{
-    window.open("https://shoptronics-ecom.onrender.com/auth/google", "_self");
+    window.open(`${API_URL}auth/google`, "_self");
   }
-  /* const fbAuth=()=>{
-    window.open("http://localhost:7000/auth/facebook", "_self");
-  } */
+
   return (
 
     <Container>
@@ -222,7 +221,7 @@ function Login() {
               <Button loading={loading} type="submit" style={{ marginTop: "1rem", width: "80%", color: "#4f2f5e", fontSize: "1rem", fontFamily: "Rubik, sans-serif", borderRadius: "1rem" }} color='yellow'
               >SIGN IN</Button>
 
-              {err && <ErrorMsg>Invalid Credentials</ErrorMsg>}
+              {err && <ErrorMsg>{err}</ErrorMsg>}
             </FormActions>
             <hr />
             <p style={{ fontSize: "1rem", fontWeight: "600", color: "#4f2f5e" }}>Or Sign up using</p>

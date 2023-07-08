@@ -4,14 +4,22 @@ export const login = async (dispatch, user) =>
 {
 dispatch({type:"loginInitiate"})
  try {
-  const response = await commonRequest.post("/userauth/login", user)
+  const response = await commonRequest.post("/userauth/login", user).catch((error)=>{
+   throw new Error(error.request.statusText)
+  })
   dispatch({ type: "loginOK", payload: response.data })
-  return true;
+  return {
+    isUserTrue:true,
+    errorMessage:null
+  }
  }
  catch (err)
  {
   dispatch({ type: "loginFail" })
-  return false;
+  return {
+    isUserTrue:false,
+    errorMessage:err.message
+  };
 
  }
 
