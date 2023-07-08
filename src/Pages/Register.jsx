@@ -8,6 +8,7 @@ import { useHistory } from 'react-router-dom';
 import ship from '../Assets/shipping.png'
 import { API_URL } from '../globalconstant';
 import { useState } from 'react';
+import { commonRequest } from '../axiosreq';
 
 const MainContainer = styled.div`
 background-image: linear-gradient(to right top, #12100e, #251a18, #37222a, #3d2e46, #2b4162);
@@ -120,29 +121,19 @@ function Register() {
      confirmPassword: ""
   },
   validationSchema: signUpSchema,
-   onSubmit: (values, { resetForm }) => {
+   onSubmit: async(values, { resetForm }) => {
 
      setLoader(true);
    const { confirmPassword, ...others } = values;
 
-    fetch(`${API_URL}userauth/register`,
-     {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body:JSON.stringify(others)
-     }).then((response) => {
-      if (!response.ok) {
-        setLoader(false)
-        throw new Error(response.statusText);
-      }
-      return response.json();
-     }).then((response)=>{
+    await commonRequest.post(`${API_URL}userauth/register`,others).then((response) => {
       setLoader(false)
-      setInfo(response.userMessage)
-      resetForm();
+      setInfo(response.data.userMessage)
+      resetForm()
      }).catch(error=>{
+      //console.log(error.response)
       setLoader(false)
-      setInfo(error.message)
+      setInfo(error?.response?.data?.error || error.message)
     })
   }
 
