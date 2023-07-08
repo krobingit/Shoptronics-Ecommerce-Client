@@ -125,28 +125,25 @@ function Register() {
      setLoader(true);
    const { confirmPassword, ...others } = values;
 
-    const req = fetch(`${API_URL}/userauth/register`,
+    fetch(`${API_URL}userauth/register`,
      {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body:JSON.stringify(others)
      }).then((response) => {
-
-    //  console.log(response)
-      if (response.status === 400)
-      {
-       setLoader(false)
-       setInfo("Username/Email already exists")
+      if (!response.ok) {
+        setLoader(false)
+        throw new Error(response.statusText);
       }
-      else
-      {
- setLoader(false)
-setInfo(`Hi ${others.username},Your account has been created successfully! Please Login with your Email/Password`)
-    resetForm();
-}
-
-     })
-console.log(req)
+      return response.json();
+     }).then((response)=>{
+      setLoader(false)
+      setInfo(response.userMessage)
+      resetForm();
+     }).catch(error=>{
+      setLoader(false)
+      setInfo(error.message)
+    })
   }
 
 
