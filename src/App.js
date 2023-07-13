@@ -26,6 +26,7 @@ import { AdminUserAdd } from "./Admin Pages/AdminUserAdd";
 import { UserProfile } from "./Pages/UserProfile";
 import { createContext, useState } from 'react';
 import OAuthSuccessRedirect from "./Pages/OAuthLoginSuccess";
+import { LoginWithMobile } from "./Pages/LoginWithMobile";
 
 const SearchContext = createContext(null);
 function App() {
@@ -95,6 +96,9 @@ function App() {
         </Route>
         <Route path="/login">
           <Login />
+        </Route>
+        <Route path="/loginWithMobile">
+          <LoginWithMobile />
         </Route>
         <Route path="/userEdit/:id">
           <UserProfile />

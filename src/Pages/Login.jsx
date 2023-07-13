@@ -115,6 +115,13 @@ margin-bottom:1rem;
 font-weight:bold;
 ${small({fontSize:"0.9rem"})}
 `;
+
+const HStack=styled.div`
+display:flex;
+justify-content:space-between;
+align-items:flex-start;
+`
+
 //Login Component
 function Login() {
   //const user = useSelector(state => state.user);
@@ -189,7 +196,7 @@ function Login() {
  <Demo>
               <p>For Demo,Please Use below credentials</p>
              <p><b>User</b>: dummy@gmail.com & <b>Password</b>:Demo@123</p>
-            <p><b>Admin</b>: admin@gmail.com & <b>Password</b>:Admin@123</p>
+        {/*     <p><b>Admin</b>: admin@gmail.com & <b>Password</b>:Admin@123</p> */}
             </Demo>
         </Info>
         <LoginContainer>
@@ -216,7 +223,10 @@ function Login() {
               name="password"
               type="password"
             />
+            <HStack>
             <p onClick={() => { history.push("/forgotPassword") }} style={{ color: "#4f2f5e", fontWeight: "bold", cursor: "pointer" }}>Forgot Password?</p>
+            <p onClick={() => { history.push("/loginWithMobile") }} style={{ color: "#0000a0", fontWeight: "bold", cursor: "pointer",fontSize:"15px" }}>Login with Mobile</p>
+            </HStack>
             <FormActions>
               <Button loading={loading} type="submit" style={{ marginTop: "1rem", width: "80%", color: "#4f2f5e", fontSize: "1rem", fontFamily: "Rubik, sans-serif", borderRadius: "1rem" }} color='yellow'
               >SIGN IN</Button>

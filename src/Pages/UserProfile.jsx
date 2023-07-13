@@ -17,6 +17,7 @@ import {
   uploadBytesResumable,
   getDownloadURL,
 } from "firebase/storage";
+import { NotFound } from "./NotFound";
 
 const ProfilePicEdit = styled.div`
   display: flex;
@@ -48,32 +49,32 @@ const ProfilePic = styled.img`
 export const UserProfile = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const { id } = useParams();
 
   useEffect(() => {
-    try {
       const getUser = async () => {
-        await commonRequest
-          .get(`/user/${id}`, {
+        setLoading(true)
+        await commonRequest.get(`/user/${id}`, {
             headers: {
-              token: currentUser.token,
+              token: currentUser?.token,
             },
           })
-          .then((res) => setUser(res.data));
-        setTimeout(() => {
+          .then((res) => {
+            setUser(res.data)
+            setLoading(false)
+          })
+          .catch((error)=>{
+          console.error(error)
           setLoading(false);
-        }, 1500);
+          })
       };
       getUser();
-    } catch (err) {
-      console.log("Error getting user info" + err);
-    }
-  }, [id, currentUser.token]);
+  }, [id, currentUser]);
   return (
-    user && (
+    loading ? 'Loading...' : user ? (
       <UpdateUser currentUser={currentUser} loading={loading} user={user} />
-    )
+    ) : <NotFound />
   );
 };
 
@@ -218,7 +219,6 @@ const UpdateUser = ({ loading, currentUser, user }) => {
     flexDirection: "column",
     justifyContent: "center",
   };
-
   return (
     <>
       <Navbar />

@@ -77,8 +77,11 @@ function Navbar({ tab = null }) {
       .then(() => {
          commonRequest.get("/auth/logout",{
           withCredentials: true,
+        }).then(()=>{
+          dispatch({ type: "logOut" });
+          history.push("/")
         })
-        dispatch({ type: "logOut" });
+       
       })
       .catch((err) => err && console.log(err));
   };
