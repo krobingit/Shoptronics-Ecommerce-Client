@@ -21,6 +21,7 @@ const OAuthSuccessRedirect = () => {
         })
         .catch((error) => {
           console.log("Unauthorized");
+          dispatch({ type: "loginFail" });
           setError(error.response);
         });
     }

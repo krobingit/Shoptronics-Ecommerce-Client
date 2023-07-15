@@ -3,6 +3,7 @@ import { Button } from "semantic-ui-react";
 import { Form } from "semantic-ui-react";
 import { medium, large } from "../responsive";
 import * as yup from "yup";
+import "yup-phone";
 import { useFormik } from "formik";
 import { useHistory } from "react-router-dom";
 import ship from "../Assets/shipping.png";
@@ -10,6 +11,8 @@ import { API_URL } from "../globalconstant";
 import { useState } from "react";
 import { commonRequest } from "../axiosreq";
 import PhoneInput from "react-phone-input-2";
+import VerifyOTPModal from "./VerifyOTPModal";
+import axios from "axios";
 
 const MainContainer = styled.div`
   background-image: linear-gradient(
@@ -104,6 +107,11 @@ function Register() {
   const history = useHistory();
   const [info, setInfo] = useState(null);
   const [loader, setLoader] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [input, setInput] = useState(null);
+  const [registerValues, setRegisterValues] = useState(null);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   const formStyles = {
     background: "whitesmoke",
     boxShadow: "0 8px 32px 0 rgba( 31, 38, 135, 0.37)",
@@ -129,7 +137,10 @@ function Register() {
       .string()
       .oneOf([yup.ref("password"), null], "Passwords must match")
       .required("Required Field"),
-      phone_number: yup.string().required("Please enter your Phone number"),
+    phone_number: yup
+      .string()
+      .phone("Please enter valid phone number")
+      .required("Please enter your mobile number"),
   });
 
   const {
@@ -146,21 +157,37 @@ function Register() {
       email: "",
       password: "",
       confirmPassword: "",
-      phone_number:"+91"
+      phone_number: "+91",
     },
     validationSchema: signUpSchema,
     onSubmit: async (values, { resetForm }) => {
-      setLoader(true);
       const { confirmPassword, ...others } = values;
-      if(!(others.phone_number.split("").includes("+"))){
-        others.phone_number="+".concat(others.phone_number)
-        }
+      if (!others.phone_number.split("").includes("+")) {
+        others.phone_number = "+".concat(others.phone_number);
+      }
+      setLoader(true);
       await commonRequest
-        .post(`${API_URL}userauth/register`, others)
-        .then((response) => {
-          setLoader(false);
-          setInfo(response.data.userMessage);
-          resetForm();
+        .post(`${API_URL}otp/registerAuth`, others)
+        .then(async (response) => {
+          setInfo("");
+          //registration validated,then send otp to email
+          const otpPayload = {
+            input: others.phone_number,
+            channel: "sms",
+          };
+          await axios
+            .post(`${API_URL}otp/twilio/send`, otpPayload)
+            .then((response) => {
+              setRegisterValues(others);
+              //code to verify otp send attempts to come here
+              setLoader(false);
+              setInput(others.phone_number);
+              handleOpen();
+            })
+            .catch((error) => {
+              setLoader(false);
+              setInfo(error?.response?.data?.message);
+            });
         })
         .catch((error) => {
           setLoader(false);
@@ -296,17 +323,15 @@ function Register() {
               SIGN UP
             </Button>
 
-            {info ? (
+            {info && (
               <p
                 style={{
-                  color: info.length > 40 ? "blue" : "red",
+                  color: "red",
                   textAlign: "center",
                 }}
               >
                 {info}
               </p>
-            ) : (
-              ""
             )}
           </FormActions>
           <Actions>
@@ -338,6 +363,13 @@ function Register() {
           <Copy> © 2021 Shoptronics</Copy>
         </Form>
       </SignupContainer>
+      <VerifyOTPModal
+        open={open}
+        handleClose={handleClose}
+        input={input}
+        flow={"register"}
+        registerValues={registerValues}
+      />
     </MainContainer>
   );
 }

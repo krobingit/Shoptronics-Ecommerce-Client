@@ -127,24 +127,32 @@ function LoginWithMobile() {
       },
       validationSchema: OTPSchema,
       onSubmit: async (values, { resetForm }) => {
-        if(!(values.phone_number.split("").includes("+"))){
-        values.phone_number="+".concat(values.phone_number)
+        if (!values.phone_number.split("").includes("+")) {
+          values.phone_number = "+".concat(values.phone_number);
         }
         console.log(values, "OTP sent to this number");
         setLoading(true);
+        let otpPayload = {
+          channel: "sms",
+          input: values.phone_number,
+        };
         try {
-           await axios.post(`${API_URL}otp/twilio/send`, values).then((response)=>{
-            //code to verify otp send attempts to come here
-            setOTPInfo(response.data)
-            handleOpen();
-       }).catch(error=>{
-        throw new Error(error?.response?.data?.message)})
+          await axios
+            .post(`${API_URL}otp/twilio/send`, otpPayload)
+            .then((response) => {
+              //code to verify otp send attempts to come here
+              setOTPInfo(response.data);
+              handleOpen();
+            })
+            .catch((error) => {
+              throw new Error(error?.response?.data?.message);
+            });
           resetForm();
         } catch (err) {
           setInfo({
-            severity:"error",
-            message:err.message
-          })
+            severity: "error",
+            message: err.message,
+          });
         }
         setLoading(false);
       },
@@ -232,7 +240,11 @@ function LoginWithMobile() {
               }}
               countryCodeEditable={false}
             />
-        <ErrorMessage>{errors.phone_number && touched.phone_number && "Invalid phone number"}</ErrorMessage>
+            <ErrorMessage>
+              {errors.phone_number &&
+                touched.phone_number &&
+                "Invalid phone number"}
+            </ErrorMessage>
             <FormActions>
               <Button
                 type="submit"
@@ -253,19 +265,19 @@ function LoginWithMobile() {
                   <Loader type="Oval" color="crimson" height={50} width={30} />
                   <p style={{ color: "purple" }}>Please wait..</p>
                 </>
-              )
-            :info.message && (
-              <p
-                style={{
-                  color: info.severity === "error" ? "red" : "blue",
-                  marginTop: "1rem",
-                  textAlign: "center",
-                }}
-              >
-                {info.message}
-              </p>
-            )
-            }
+              ) : (
+                info.message && (
+                  <p
+                    style={{
+                      color: info.severity === "error" ? "red" : "blue",
+                      marginTop: "1rem",
+                      textAlign: "center",
+                    }}
+                  >
+                    {info.message}
+                  </p>
+                )
+              )}
             </FormActions>
             <hr />
             <p
@@ -284,7 +296,12 @@ function LoginWithMobile() {
           </Form>
         </ForgetContainer>
       </CenterContainer>
-    <VerifyOTPModal open={open} handleClose={handleClose} phone_number={OTPInfo?.verification?.to}/>
+      <VerifyOTPModal
+        open={open}
+        handleClose={handleClose}
+        input={OTPInfo?.verification?.to}
+        flow={"login"}
+      />
     </Container>
   );
 }
