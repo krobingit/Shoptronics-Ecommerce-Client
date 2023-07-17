@@ -174,6 +174,7 @@ function Register() {
           const otpPayload = {
             input: others.phone_number,
             channel: "sms",
+            flow:"registration"
           };
           await axios
             .post(`${API_URL}otp/twilio/send`, otpPayload)
