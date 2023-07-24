@@ -64,6 +64,7 @@ const VerifyOTPModal = ({
   input,
   flow,
   registerValues = null,
+  profileFlow,
 }) => {
   const [otp, setOtp] = useState("");
   const [loader, setLoader] = useState(false);
@@ -80,6 +81,7 @@ const VerifyOTPModal = ({
   };
   const verifyOTP = async () => {
     if (flow === "login") {
+      console.log("Login Flow");
       try {
         setLoader(true);
         if (otp.length === 6 && input)
@@ -162,6 +164,53 @@ const VerifyOTPModal = ({
           message: error.message,
         });
       }
+    } else if (flow === "updateProfile" && profileFlow) {
+      try{
+      setLoader(true);
+      const {
+        values,
+        userId,
+        currentUserToken,
+        setUserUpdate,
+        ToastSuccess
+      }=profileFlow
+      if (otp.length === 6 && input)
+        await axios
+          .post(`${API_URL}otp/twilio/verify`, {
+            input,
+            otp,
+          })
+          .then(async (response) => {
+            await commonRequest
+              .put(`/user/${userId}`, values, {
+                headers: { token: currentUserToken },
+              })
+              .then((res) => {
+                setUserMessage({
+                  severity: "message",
+                  message: "OTP verification successful",
+                });
+                setUserUpdate(res.data);
+                ToastSuccess();
+                setTimeout(() => {
+                  history.push("/");
+                }, 2500);
+              })
+              .catch((error) => {
+                setLoader(false);
+                throw new Error(error?.response?.data?.message);
+              });
+          }).catch((error) => {
+            setLoader(false);
+            throw new Error(error?.response?.data?.message);
+          })
+        }
+        catch (error) {
+          setUserMessage({
+            severity: "error",
+            message: error.message,
+          });
+        }
     }
   };
   return (

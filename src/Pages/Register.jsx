@@ -166,15 +166,17 @@ function Register() {
         others.phone_number = "+".concat(others.phone_number);
       }
       setLoader(true);
+      //auth type as register to validate registration creds
+      others.authType="register"
       await commonRequest
-        .post(`${API_URL}otp/registerAuth`, others)
+        .post(`${API_URL}user/validateAuth`, others)
         .then(async (response) => {
           setInfo("");
-          //registration validated,then send otp to email
+          //registration validated,then send otp to phone
           const otpPayload = {
             input: others.phone_number,
             channel: "sms",
-            flow:"registration"
+            flow:"register"
           };
           await axios
             .post(`${API_URL}otp/twilio/send`, otpPayload)
