@@ -181,7 +181,8 @@ function Register() {
           await axios
             .post(`${API_URL}otp/twilio/send`, otpPayload)
             .then((response) => {
-              setRegisterValues(others);
+              const {authType,...registrationPayload}=others
+              setRegisterValues(registrationPayload);
               //code to verify otp send attempts to come here
               setLoader(false);
               setInput(others.phone_number);
