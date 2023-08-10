@@ -182,12 +182,13 @@ const UpdateUser = ({ loading, currentUser, user }) => {
                 }
                 //send otp to phone
                 const otpPayload = {
-                  input: User.phone_number,
-                  channel: "sms",
+                  input: User.email,
                   flow: "updateProfile",
                 };
                 await commonRequest
-                .post(`${API_URL}otp/twilio/send`, otpPayload)
+                .post(`${API_URL}otp/email/send`, otpPayload, {
+                  headers: {token: currentUser.token }
+                })
                 .then((response) => {
                   setProfileFlow({
                     values:User,
@@ -196,7 +197,7 @@ const UpdateUser = ({ loading, currentUser, user }) => {
                     setUserUpdate,
                     ToastSuccess
                   });
-                  setInput(User.phone_number);
+                  setInput(User.email);
                   handleOpen();
                 })
                 .catch((error) => {
@@ -247,12 +248,13 @@ const UpdateUser = ({ loading, currentUser, user }) => {
             }
              //send otp to phone
              const otpPayload = {
-              input: values.phone_number,
-              channel: "sms",
+              input: values.email,
               flow: "updateProfile",
             };
             await commonRequest
-            .post(`${API_URL}otp/twilio/send`, otpPayload)
+            .post(`${API_URL}otp/email/send`, otpPayload, {
+              headers: {token: currentUser.token }
+            })
             .then((response) => {
               setProfileFlow({
                 values,
@@ -261,7 +263,7 @@ const UpdateUser = ({ loading, currentUser, user }) => {
                 setUserUpdate,
                 ToastSuccess
               });
-              setInput(values.phone_number);
+              setInput(values.email);
               handleOpen();
             })
             .catch((error) => {

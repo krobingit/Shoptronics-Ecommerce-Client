@@ -8,7 +8,7 @@ import { API_URL } from "../globalconstant";
 import Loader from "react-loader-spinner";
 import { useHistory } from "react-router-dom";
 import { otpLogin } from "../Actions/otp_login_actions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { medium, small } from "../responsive";
 import { commonRequest } from "../axiosreq";
 
@@ -75,16 +75,22 @@ const VerifyOTPModal = ({
   });
   const dispatch = useDispatch();
   const history = useHistory();
+  const { currentUser } = useSelector((state) => state.user);
   const handleBackdropClick = (event) => {
     // Prevent modal closure when clicking outside
     event.stopPropagation();
   };
+
+  //verify OTP for different flows
+  //1.Login
+  //2.Register
+  //3.Update User Profile
   const verifyOTP = async () => {
-    if (flow === "login") {
-      console.log("Login Flow");
-      try {
-        setLoader(true);
-        if (otp.length === 6 && input)
+    if (otp.length === 6 && input) {
+      if (flow === "login") {
+        console.log("Login Flow");
+        try {
+          setLoader(true);
           await axios
             .post(`${API_URL}otp/twilio/verify`, {
               input,
@@ -117,17 +123,16 @@ const VerifyOTPModal = ({
               setLoader(false);
               throw new Error(error?.response?.data?.message);
             });
-      } catch (error) {
-        setUserMessage({
-          severity: "error",
-          message: error.message,
-        });
-      }
-    } else if (flow === "register" && registerValues) {
-      console.log("Register Flow");
-      try {
-        setLoader(true);
-        if (otp.length === 6 && input)
+        } catch (error) {
+          setUserMessage({
+            severity: "error",
+            message: error.message,
+          });
+        }
+      } else if (flow === "register" && registerValues) {
+        console.log("Register Flow");
+        try {
+          setLoader(true);
           await axios
             .post(`${API_URL}otp/twilio/verify`, {
               input,
@@ -158,59 +163,63 @@ const VerifyOTPModal = ({
               setLoader(false);
               throw new Error(error?.response?.data?.message);
             });
-      } catch (error) {
-        setUserMessage({
-          severity: "error",
-          message: error.message,
-        });
-      }
-    } else if (flow === "updateProfile" && profileFlow) {
-      try{
-      setLoader(true);
-      const {
-        values,
-        userId,
-        currentUserToken,
-        setUserUpdate,
-        ToastSuccess
-      }=profileFlow
-      if (otp.length === 6 && input)
-        await axios
-          .post(`${API_URL}otp/twilio/verify`, {
-            input,
-            otp,
-          })
-          .then(async (response) => {
-            await commonRequest
-              .put(`/user/${userId}`, values, {
-                headers: { token: currentUserToken },
-              })
-              .then((res) => {
-                setUserMessage({
-                  severity: "message",
-                  message: "OTP verification successful",
-                });
-                setUserUpdate(res.data);
-                ToastSuccess();
-                setTimeout(() => {
-                  history.push("/");
-                }, 2500);
-              })
-              .catch((error) => {
-                setLoader(false);
-                throw new Error(error?.response?.data?.message);
-              });
-          }).catch((error) => {
-            setLoader(false);
-            throw new Error(error?.response?.data?.message);
-          })
-        }
-        catch (error) {
+        } catch (error) {
           setUserMessage({
             severity: "error",
             message: error.message,
           });
         }
+      } else if (flow === "updateProfile" && profileFlow) {
+        try {
+          setLoader(true);
+          const {
+            values,
+            userId,
+            currentUserToken,
+            setUserUpdate,
+            ToastSuccess,
+          } = profileFlow;
+          await axios
+            .post(`${API_URL}otp/email/verify`, {
+              input,
+              otp:+otp,
+              flow:"updateProfile"
+            },
+            {
+              headers: {token: currentUser.token }
+            })
+            .then(async (response) => {
+              await commonRequest
+                .put(`/user/${userId}`, values, {
+                  headers: { token: currentUserToken },
+                })
+                .then((res) => {
+                  setUserMessage({
+                    severity: "message",
+                    message: "OTP verification successful",
+                  });
+                  setUserUpdate(res.data);
+                  ToastSuccess();
+                  setTimeout(() => {
+                    history.push("/");
+                  }, 2500);
+                })
+                .catch((error) => {
+                  setLoader(false);
+                  throw new Error(error?.response?.data?.message);
+                });
+            })
+            .catch((error) => {
+              setLoader(false);
+              throw new Error(error?.response?.data?.message);
+            });
+        } catch (error) {
+          setUserMessage({
+            severity: "error",
+            message: error.message,
+          });
+        }
+      }
     }
   };
   return (
@@ -241,7 +250,7 @@ const VerifyOTPModal = ({
             color: "#4f2f5e",
           }}
         >
-          Enter the 6 Digit OTP sent to this number
+          Enter the 6 Digit OTP sent to this {profileFlow ? "email" : "number"}
         </h4>
         <OTPInput
           value={otp}
