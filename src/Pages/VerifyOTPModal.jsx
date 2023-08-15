@@ -256,8 +256,9 @@ const VerifyOTPModal = ({
           value={otp}
           onChange={setOtp}
           numInputs={6}
+          inputType="tel"
           renderSeparator={<InputBoxSeperator>-</InputBoxSeperator>}
-          renderInput={(props) => <InputBox {...props} />}
+          renderInput={(props) => <InputBox {...props} onKeyDown={(e)=>e.key==="Enter" && verifyOTP()}/>}
         />
         <MessageContent severity={userMessage.severity}>
           {userMessage.message && userMessage.message}
