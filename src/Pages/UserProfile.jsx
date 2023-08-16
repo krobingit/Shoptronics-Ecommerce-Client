@@ -98,6 +98,7 @@ const UpdateUser = ({ loading, currentUser, user }) => {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState(null);
   const [profileFlow, setProfileFlow] = useState(null);
+  const [profileUpdateLoading, setProfileUpdateLoading] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const ToastSuccess = () => {
@@ -185,6 +186,7 @@ const UpdateUser = ({ loading, currentUser, user }) => {
                   input: User.email,
                   flow: "updateProfile",
                 };
+                setProfileUpdateLoading(true)
                 await commonRequest
                 .post(`${API_URL}otp/email/send`, otpPayload, {
                   headers: {token: currentUser.token }
@@ -198,9 +200,11 @@ const UpdateUser = ({ loading, currentUser, user }) => {
                     ToastSuccess
                   });
                   setInput(User.email);
+                  setProfileUpdateLoading(false)
                   handleOpen();
                 })
                 .catch((error) => {
+                  setProfileUpdateLoading(false)
                   setError(error?.response?.data?.message);
                 });
            
@@ -251,6 +255,7 @@ const UpdateUser = ({ loading, currentUser, user }) => {
               input: values.email,
               flow: "updateProfile",
             };
+            setProfileUpdateLoading(true)
             await commonRequest
             .post(`${API_URL}otp/email/send`, otpPayload, {
               headers: {token: currentUser.token }
@@ -264,9 +269,11 @@ const UpdateUser = ({ loading, currentUser, user }) => {
                 ToastSuccess
               });
               setInput(values.email);
+              setProfileUpdateLoading(false)
               handleOpen();
             })
             .catch((error) => {
+              setProfileUpdateLoading(false)
               setError(error?.response?.data?.message);
             });
             /* await commonRequest
@@ -404,7 +411,7 @@ const UpdateUser = ({ loading, currentUser, user }) => {
                 ></i>
               </ProfilePicEdit>
             )}
-            <Button type="submit" color="green">
+            <Button type="submit" color="green" loading={profileUpdateLoading} disabled={profileUpdateLoading}>
               Update User
             </Button>
             <ErrorMessage>{error && error}</ErrorMessage>
