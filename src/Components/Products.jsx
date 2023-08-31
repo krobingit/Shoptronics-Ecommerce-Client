@@ -17,6 +17,7 @@ import { Category } from "./Category";
 import { Brand } from "./Brand";
 import { Price } from "./PriceRange";
 import {useLocation} from "react-router-dom"
+import productEmpty from "../Assets/productEmpty.png"
 
 
 const Container = styled.div`
@@ -325,11 +326,12 @@ PriceRange.map(({start,end},idx)=>
       </Snackbar>
                 </>}
 
-                {products && products.map(({ name, price, category, brand, image, _id,instock }) =>
+                {products && products.length>0 && products.map(({ name, price, category, brand, image, _id,instock }) =>
              //product component
              <Product key={_id} name={name} instock={instock} price={price} category={category} brand={brand}
                image={image} _id={_id} setNotify={setNotify} handleClick={handleClick} TransitionLeft={TransitionLeft}/>
            )}
+           {products && products.length===0 && <img src={productEmpty} width={"500px"} height={"350px"} alt={"no-product"}/>}
 
          </ProductContainer>
 </>
