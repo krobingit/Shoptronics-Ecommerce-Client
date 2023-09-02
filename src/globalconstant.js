@@ -1,1 +1,1 @@
-export const API_URL = 'https://shoptronics-ecom.onrender.com/';
+export const API_URL = 'https://shoptronics-prod.up.railway.app/';
