@@ -46,12 +46,11 @@ color:brown;
 export function Product({ name, price, image, _id,instock, setNotify,
  handleClick, TransitionLeft }) {
   const history = useHistory();
-
- const [click, setClick] = useState(false);
+  const { wishlistproducts } = useSelector(state => state.wishlist);
+  const isFavorite=wishlistproducts.find((product)=>product._id===_id)
+ const [click, setClick] = useState(isFavorite);
   const dispatch = useDispatch();
   const { currentUser } = useSelector(state => state.user);
-
-   const { wishlistproducts } = useSelector(state => state.wishlist);
  return (
 
 <ProductCard key={_id} >
