@@ -19,6 +19,7 @@ let initialState = {
    }
   case "loginOK":
    {
+    localStorage.setItem("uid",action.payload._id)
     return {
 
      ...state,
@@ -39,7 +40,7 @@ let initialState = {
     }
    }
      case "logOut":
-{
+   {
     return {
      ...state,
      pendingLogin: false,
@@ -47,6 +48,13 @@ let initialState = {
      currentUser:null
 
     }
+  }
+    case "updateToken":
+      {
+       return {
+        ...state,
+        currentUser:{...state.currentUser,token:action.payload.refreshToken}
+       }
    }
   default:
   return state

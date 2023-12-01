@@ -144,8 +144,8 @@ export const Orders = () => {
     </LoaderContainer>
     :
        <Container>
-     {
-     order && order.length === 0
+     { !order ? <EmptyContainer> <h3 style={{ fontSize: "1.5rem" }}>Error occured while fetching orders </h3> </EmptyContainer> :
+      order && order.length === 0
       ?
       <>
        <Button
