@@ -252,6 +252,15 @@ const VerifyOTPModal = ({
         >
           Enter the 6 Digit OTP sent to this {profileFlow ? "email" : "number"}
         </h4>
+        <p
+          style={{
+            textAlign: "center",
+            letterSpacing: "1px",
+            color: "#4f2f5e",
+          }}
+        >
+          {profileFlow && "The code expires in 15 minutes"}
+        </p>
         <OTPInput
           value={otp}
           onChange={setOtp}
