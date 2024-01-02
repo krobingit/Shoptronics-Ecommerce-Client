@@ -54,7 +54,7 @@ export const AdminUserList = () => {
 
   const getUsers = async () => {
     await commonRequest
-      .get("/user", {
+      .get("/user?recent=true", {
         headers: { token: currentUser.token },
       })
       .then((res) => {
@@ -66,7 +66,7 @@ export const AdminUserList = () => {
   useEffect(() => {
     const getUsers = async () => {
       await commonRequest
-        .get("/user", {
+        .get("/user?recent=true", {
           headers: { token: currentUser.token },
         })
         .then((res) => {

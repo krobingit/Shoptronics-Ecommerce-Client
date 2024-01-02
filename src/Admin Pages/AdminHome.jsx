@@ -68,7 +68,7 @@ export const AdminHome = () => {
   useEffect(() => {
     const getDetails = async () => {
       await commonRequest
-        .get(`/user?recent=true`, {
+        .get(`/user?recent=true&limit=5`, {
           headers: { token: currentUser.token },
         })
         .then((response) => {
