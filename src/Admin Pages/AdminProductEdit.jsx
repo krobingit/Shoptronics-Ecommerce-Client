@@ -107,7 +107,7 @@ console.log("Error updating user",err)
   const formStyles = {
    background: 'whitesmoke',
    boxShadow: "0 8px 32px 0 rgba( 31, 38, 135, 0.37)",
-   width: "90%",
+   width: "40%",
    padding: "1.5rem",
    margin: "1.5rem 0",
    borderRadius: "1rem",
