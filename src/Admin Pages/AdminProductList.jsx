@@ -199,7 +199,7 @@ const deleteProduct = async(id) => {
       <Button color="yellow" onClick={()=>history.push("/adminProductAdd")}>Create New Product</Button>
       </NewProduct>
       <Container>
-            <ProductList />
+            {products && products.length>0 && <ProductList />}
             </Container>
             </>
       }
