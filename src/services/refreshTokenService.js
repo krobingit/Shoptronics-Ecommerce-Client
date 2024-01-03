@@ -5,19 +5,22 @@ import { commonRequest } from "../axiosreq";
 
 export const GetRefreshAccessTokenAndUpdateStore = async (userid) => {
   try {
-    const response = await axios.post(`${API_URL}userauth/refreshToken`, {
+    await axios.post(`${API_URL}userauth/refreshToken`, {
       userid,
-    }).then(()=>{
+    }).then((data)=>{
+      if(data?.data?.refreshToken)
       store.dispatch({
         type: "updateToken",
         payload: {
-          refreshToken: response.data.refreshToken,
+          refreshToken: data?.data.refreshToken,
         },
       });
+      else 
+      throw Error("Error while fetching refresh token")
     })
-    return response.data;
+    return "success"
   } catch (error) {
-    console.log("Error while fetching refresh token,hence logging out");
+    console.log("Error while fetching refresh token,hence logging out",error);
     commonRequest.get("/auth/logout",{
         withCredentials: true,
       }).then(()=>{
