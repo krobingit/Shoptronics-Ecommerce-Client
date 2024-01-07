@@ -8,7 +8,7 @@ import { Button } from 'semantic-ui-react';
 import { useSelector } from 'react-redux';
 import { ToastContainer, toast } from "react-toastify";
 import { productSchema } from './AdminProductEdit';
-
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const FormContainer = styled.div`
 display:flex;
@@ -72,13 +72,11 @@ console.log("Error updating user",err)
    }
 
   })
-
+  const isWideScreen = useMediaQuery('(min-width:930px)');
   const formStyles = {
    background: 'whitesmoke',
    boxShadow: "0 8px 32px 0 rgba( 31, 38, 135, 0.37)",
-   '@media screen and (max-width: 700px)': {
-    width: '90%',
-  },
+   width:isWideScreen ? "50%" : "90%",
    padding: "1.5rem",
    margin: "1.5rem 0",
    borderRadius: "1rem",

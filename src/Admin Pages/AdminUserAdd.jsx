@@ -9,6 +9,7 @@ import { ToastContainer, toast } from "react-toastify";
 import * as yup from "yup";
 import { useState } from "react";
 import { Checkbox } from "semantic-ui-react";
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const FormContainer = styled.div`
   display: flex;
@@ -89,13 +90,11 @@ export const AdminUserAdd = () => {
         }
       },
     });
-
+    const isWideScreen = useMediaQuery('(min-width:930px)');
   const formStyles = {
     background: "whitesmoke",
     boxShadow: "0 8px 32px 0 rgba( 31, 38, 135, 0.37)",
-    '@media screen and (max-width: 700px)': {
-      width: '90%',
-    },
+    width:isWideScreen ? "50%" : "90%",
     padding: "1.5rem",
     margin: "1.5rem 0",
     borderRadius: "1rem",

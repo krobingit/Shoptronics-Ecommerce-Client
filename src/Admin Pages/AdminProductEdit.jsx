@@ -11,6 +11,7 @@ import SyncLoader from "react-spinners/SyncLoader";
 import { useSelector } from 'react-redux';
 import { ToastContainer, toast } from "react-toastify";
 import { Checkbox } from 'semantic-ui-react';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const LoaderContainer = styled.div`
 display:flex;
@@ -103,20 +104,18 @@ console.log("Error updating user",err)
    }
 
   })
-
+  const isWideScreen = useMediaQuery('(min-width:930px)');
   const formStyles = {
    background: 'whitesmoke',
    boxShadow: "0 8px 32px 0 rgba( 31, 38, 135, 0.37)",
-   '@media screen and (max-width: 700px)': {
-    width: '90%',
-  },
+   width:isWideScreen ? "50%" : "90%",
    padding: "1.5rem",
    margin: "1.5rem 0",
    borderRadius: "1rem",
    fontSize: "1.1rem",
    display: "flex",
    flexDirection: "column",
-   justifyContent: "center"
+   justifyContent: "center",
   }
 
   return (
